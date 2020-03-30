@@ -105,7 +105,7 @@ class PollingScreen(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(280, 0, 1131, 871))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("../ScreenUI\\../../../Downloads/PollingScreen.png"))
+        self.label.setPixmap(QtGui.QPixmap("../Images/PollingScreen.png"))
         self.label.setScaledContents(True)
         self.label.setWordWrap(False)
         self.label.setIndent(21)
