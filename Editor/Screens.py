@@ -177,9 +177,18 @@ class PollingScreen(object):
         self.listWidget.itemDoubleClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def populateTextForEdit(self):
+       def populateTextForEdit(self):
         text = self.listWidget.currentItem().text()
         self.Question.setPlainText(text)
+        # get the record from json for edit
+        with open('../Json/PollingSystemRecords.txt', 'r') as json_file:
+            data = json.load(json_file)
+            for p in data['PollingSystemRecord']:
+                if text == p['Question']:
+                    self.Option1.setPlainText(p['Option1'])
+                    self.Option2.setPlainText(p['Option2'])
+                    self.Option3.setPlainText(p['Option3'])
+                    self.Option4.setPlainText(p['Option4'])
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
