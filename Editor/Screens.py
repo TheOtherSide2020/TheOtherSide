@@ -42,7 +42,7 @@ class PollingScreen(object):
 
     def save(self):
         # check if string is empty
-        if self.Question.toPlainText() != " " or self.Option1.toPlainText() != " " or self.Option2.toPlainText() != "" or self.Option3.toPlainText() != " " or self.Option4.toPlainText() != " ":
+        if self.Question.toPlainText() != " " and self.Option1.toPlainText() != " " and self.Option2.toPlainText() != "" and self.Option3.toPlainText() != " " and self.Option4.toPlainText() != " ":
 
             if self.listWidget.count() == 0:
                 PollingSystemRecord = {
@@ -180,7 +180,6 @@ class PollingScreen(object):
     def populateTextForEdit(self):
         text = self.listWidget.currentItem().text()
         self.Question.setPlainText(text)
-        
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
