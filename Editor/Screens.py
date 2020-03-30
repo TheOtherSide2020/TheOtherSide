@@ -42,7 +42,7 @@ class PollingScreen(object):
 
     def save(self):
         # check if string is empty
-        if self.Question.toPlainText() != " " and self.Option1.toPlainText() != " " and self.Option2.toPlainText() != "" and self.Option3.toPlainText() != " " and self.Option4.toPlainText() != " ":
+        if self.Question.toPlainText() != "" and self.Option1.toPlainText() != "" and self.Option2.toPlainText() != "" and self.Option3.toPlainText() != "" and self.Option4.toPlainText() != "":
 
             if self.listWidget.count() == 0:
                 PollingSystemRecord = {
@@ -96,6 +96,10 @@ class PollingScreen(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1403, 855)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("../Images/The Other Side_logo.png"), QtGui.QIcon.Normal,
+                       QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         MainWindow.setAutoFillBackground(True)
         MainWindow.setDocumentMode(False)
         MainWindow.setDockNestingEnabled(False)
@@ -153,7 +157,7 @@ class PollingScreen(object):
         self.Option4.setObjectName("Option4")
 
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(1234, 32, 101, 31))
+        self.pushButton.setGeometry(QtCore.QRect(1200, 30, 121, 41))
         self.pushButton.setObjectName("saveButton")
 
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
@@ -171,13 +175,33 @@ class PollingScreen(object):
         font.setPointSize(16)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(70, 770, 121, 41))
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_3.setGeometry(QtCore.QRect(1060, 30, 121, 41))
+        self.pushButton_3.setObjectName("pushButton_3")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+        self.pushButton.clicked.connect(self.save)
+        self.pushButton_3.clicked.connect(self.Question.clear)
+        self.pushButton_3.clicked.connect(self.Option1.clear)
+        self.pushButton_3.clicked.connect(self.Option2.clear)
+        self.pushButton_3.clicked.connect(self.Option3.clear)
+        self.pushButton_3.clicked.connect(self.Option4.clear)
+        self.pushButton_2.clicked.connect(self.deleteItem)
         self.listWidget.itemDoubleClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-       def populateTextForEdit(self):
+    def deleteItem(self):
+        items = self.listWidget.selectedItems()
+        for item in items:
+            self.listWidget.takeItem(self.listWidget.row(item))
+        # remove the entry from the json file
+
+
+    def populateTextForEdit(self):
         text = self.listWidget.currentItem().text()
         self.Question.setPlainText(text)
         # get the record from json for edit
@@ -199,7 +223,8 @@ class PollingScreen(object):
         self.Option3.setPlaceholderText(_translate("MainWindow", "Option3"))
         self.Option4.setPlaceholderText(_translate("MainWindow", "Option4"))
         self.pushButton.setText(_translate("MainWindow", "Save"))
-        self.pushButton.clicked.connect(self.save)
+        self.pushButton_3.setText(_translate("MainWindow", "Clear"))
+        self.pushButton_2.setText(_translate("MainWindow", "Delete"))
         self.label_2.setText(_translate("MainWindow", "Content List"))
 
 
@@ -215,6 +240,10 @@ class Screen2(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1148, 849)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("../Images/The Other Side_logo.png"), QtGui.QIcon.Normal,
+                       QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -270,6 +299,10 @@ class Screen1(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1151, 851)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("../Images/The Other Side_logo.png"), QtGui.QIcon.Normal,
+                       QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         font = QtGui.QFont()
         font.setBold(False)
         font.setWeight(50)
@@ -278,9 +311,6 @@ class Screen1(object):
         MainWindow.setMouseTracking(True)
         MainWindow.setFocusPolicy(QtCore.Qt.TabFocus)
         MainWindow.setAcceptDrops(True)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../ScreenUI\\../Images/glassWall.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        MainWindow.setWindowIcon(icon)
         MainWindow.setWindowOpacity(10.0)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
