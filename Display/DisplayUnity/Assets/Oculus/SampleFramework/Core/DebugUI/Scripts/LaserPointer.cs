@@ -25,6 +25,7 @@ public class LaserPointer : OVRCursor
     }
 
     public GameObject cursorVisual;
+    public Transform cameraRig;
     public float maxLength = 10.0f;
 
     private LaserBeamBehavior _laserBeamBehavior;
@@ -52,6 +53,7 @@ public class LaserPointer : OVRCursor
     private Vector3 _endPoint;
     private bool _hitTarget;
     private LineRenderer lineRenderer;
+    private bool canMove;
 
     private void Awake()
     {
@@ -66,19 +68,50 @@ public class LaserPointer : OVRCursor
     public override void SetCursorStartDest(Vector3 start, Vector3 dest, Vector3 normal)
     {
         _startPoint = start;
-        _endPoint = dest;
-        _hitTarget = true;
+        //_endPoint = dest;
+        //_hitTarget = true;
     }
 
     public override void SetCursorRay(Transform t)
     {
         _startPoint = t.position;
         _forward = t.forward;
-        _hitTarget = false;
+        //_hitTarget = false;
+    }
+
+    private void Update()
+    {
+        if (OVRInput.GetDown(OVRInput.Button.Two))
+        {
+            canMove = !canMove;
+            lineRenderer.enabled = canMove;
+        }
+        if (!canMove) return;
+        // Bit shift the index of the layer (8) to get a bit mask
+        int layerMask = 1 << 4;
+
+        // This would cast rays only against colliders in layer 8.
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        //layerMask = ~layerMask;
+
+        RaycastHit hit;
+        bool isHit = Physics.Raycast(_startPoint, _forward, out hit, maxLength, layerMask);
+        Debug.DrawRay(_startPoint, _forward * 10, Color.yellow);
+        _hitTarget = isHit;
+
+        if (isHit) {
+            // && hit.transform.gameObject.name == "ground"
+            //Debug.DrawRay(_startPoint, _forward * hit.distance, Color.yellow);
+            Debug.Log("Did Hit: " + hit.transform.gameObject.name);
+            _endPoint = hit.point;
+        }
+
+        
     }
 
     private void LateUpdate()
     {
+        if (!canMove) return;
         lineRenderer.SetPosition(0, _startPoint);
         if (_hitTarget)
         {
@@ -88,6 +121,11 @@ public class LaserPointer : OVRCursor
             {
                 cursorVisual.transform.position = _endPoint;
                 cursorVisual.SetActive(true);
+                if (canMove && OVRInput.GetDown(OVRInput.Button.One))
+                {
+                    cameraRig.position = new Vector3(_endPoint.x, cameraRig.position.y, _endPoint.z);
+                    // StartCoroutine(Rest());
+                }
             }
         }
         else
@@ -134,5 +172,11 @@ public class LaserPointer : OVRCursor
     void OnDisable()
     {
         if(cursorVisual) cursorVisual.SetActive(false);
+    }
+
+    IEnumerator Rest() {
+        canMove = false;
+        yield return new WaitForSeconds(1);
+        canMove = true;
     }
 }
