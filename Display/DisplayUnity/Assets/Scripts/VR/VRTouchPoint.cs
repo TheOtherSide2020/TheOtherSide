@@ -19,6 +19,17 @@ public class VRTouchPoint : MonoBehaviour
         }
     }
 
+    public void OnPointerDown() {
+        if (!isTouching) {
+            isTouching = true;
+        }
+    }
+
+    public void OnPointerUp() {
+        tp.ResetProgress();
+        isTouching = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Hand")) {
