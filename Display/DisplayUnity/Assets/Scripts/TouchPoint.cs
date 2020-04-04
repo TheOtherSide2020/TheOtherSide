@@ -8,11 +8,12 @@ public class TouchPoint : MonoBehaviour
     [SerializeField] Image fillingImage;
     [SerializeField] float progress = 0f;
     public float loadingTime = 1.5f;
+    public int id;
 
     // Start is called before the first frame update
     void Start()
     {
-        fillingImage.fillAmount = 0;
+        ResetProgress();
     }
 
     // Update is called once per frame
@@ -27,15 +28,17 @@ public class TouchPoint : MonoBehaviour
     }
 
     public void IncreaseProgress(float amount) {
+        if (progress == 0f) {
+            TouchPointController.Instance.OnStartTouch(id);
+        }
         progress += amount;
         fillingImage.fillAmount = progress;
         if (progress >= 1f) {
             OnEndVoting();
-            ResetProgress();
         }
     }
 
     void OnEndVoting() {
-
+        TouchPointController.Instance.OnEndTouch(id);
     }
 }

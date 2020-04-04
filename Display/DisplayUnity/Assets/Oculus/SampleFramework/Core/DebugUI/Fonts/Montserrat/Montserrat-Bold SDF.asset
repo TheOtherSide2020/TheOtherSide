@@ -52,9 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Montserrat-Bold SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -1220389694
   material: {fileID: 1917680649073274573}
-  materialHashCode: 0
+  materialHashCode: 102408969
   m_Version: 1.1.0
   m_SourceFontFileGUID: 7e89e80fce8fc06478c726f2f3de7863
   m_SourceFontFile_EditorRef: {fileID: 0}
@@ -4027,6 +4027,7 @@ MonoBehaviour:
   m_AtlasTextures:
   - {fileID: -7546411298218668105}
   m_AtlasTextureIndex: 0
+  m_IsMultiAtlasTexturesEnabled: 0
   m_UsedGlyphRects:
   - m_X: 0
     m_Y: 0
@@ -5563,9 +5564,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.9
+    - _ScaleRatioB: 0.73125
+    - _ScaleRatioC: 0.73125
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
