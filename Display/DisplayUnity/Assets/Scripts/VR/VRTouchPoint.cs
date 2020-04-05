@@ -15,7 +15,7 @@ public class VRTouchPoint : MonoBehaviour
     void Update()
     {
         if (isTouching) {
-            tp.IncreaseProgress(Time.deltaTime / tp.loadingTime); 
+            tp.IncreaseProgress(Time.deltaTime / TouchPointController.Instance.loadingTime); 
         }
     }
 
@@ -26,7 +26,7 @@ public class VRTouchPoint : MonoBehaviour
     }
 
     public void OnPointerUp() {
-        tp.ResetProgress();
+        tp.StopProgress();
         isTouching = false;
     }
 
@@ -49,7 +49,7 @@ public class VRTouchPoint : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Hand"))
         {
-            tp.ResetProgress();
+            tp.StopProgress();
             isTouching = false;
         }
     }
