@@ -22,6 +22,8 @@ public class PlaytestController : MonoBehaviour
     [SerializeField] int failedAttempt;
     [SerializeField] TMPro.TextMeshPro[] resultText;
     [SerializeField] GameObject[] display;
+    [SerializeField] bool is2DTesting = true;
+
     void Start()
     {
         display[0].SetActive(true);
@@ -32,6 +34,7 @@ public class PlaytestController : MonoBehaviour
         // hide instruction
         display[0].SetActive(false);
         startTime = (DateTime.Now);
+        is2DTesting = false;
     }
 
     public void LogEndTime() {
@@ -43,12 +46,18 @@ public class PlaytestController : MonoBehaviour
     }
 
     public void OnShowResult() {
-        TimeSpan ts = endTime - startTime;
         // update text
         resultText[0].SetText(failedAttempt.ToString());
-        resultText[1].SetText(ts.TotalSeconds.ToString());
-        // show result
-        display[1].SetActive(true);
+        if (is2DTesting)
+        {
+            resultText[1].SetText("N/A");
+        }
+        else {
+            // show result
+            TimeSpan ts = endTime - startTime;
+            resultText[1].SetText(String.Format("{0:0.#}", ts.TotalSeconds));
+            display[1].SetActive(true);
+        }
         // write result in file
     }
 }

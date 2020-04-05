@@ -89,6 +89,7 @@ public class MessageScroller : MonoBehaviour
         curRec.localScale = targetRec.localScale;
         curRec.position = targetRec.position;
         curRec.gameObject.SetActive(true);
+        AudioPlayer.Instance.PlaySent();
         StartCoroutine(ScrollUpBubble());
     }
     IEnumerator ScrollUpBubble() {

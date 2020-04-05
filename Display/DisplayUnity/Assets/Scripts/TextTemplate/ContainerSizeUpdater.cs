@@ -12,7 +12,7 @@ public class ContainerSizeUpdater : MonoBehaviour
     [SerializeField] float padding = 3.5f;
     [SerializeField] bool isMainBubble = false;
     [SerializeField] bool alignMiddle = false;
-    void Start()
+    void Awake()
     {
         originalSize = new List<Vector2>();
         foreach (RectTransform rt in adjustableContainer) {

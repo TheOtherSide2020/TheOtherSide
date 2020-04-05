@@ -29,10 +29,10 @@ public class TouchPointController : MonoBehaviour
     }
 
     public void LoadOptionText() {
-        foreach (TouchPoint tp in touchPoints) {
-            string optionText = JsonLoader.Instance.GetOption(tp.id);
-            tp.SetText(optionText);
-            tp.AdjustContainer();
+        for(int i = 0; i < touchPoints.Length; ++i) {
+            string optionText = JsonLoader.Instance.GetOption(touchPoints[i].id);
+            touchPoints[i].SetText(optionText);
+            touchPoints[i].AdjustContainer();
         }
     }
 
