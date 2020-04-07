@@ -2,12 +2,18 @@
 import json
 import os
 import sys
+from tkinter import Menu
 
+import matplotlib
+import pyqtgraph
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 # class for pollingScreen UI
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 
 def resource_path(relative_path):
@@ -283,16 +289,15 @@ class PollingScreen(QtWidgets.QMainWindow):
         items = self.listWidget.selectedItems()
         for item in items:
             self.listWidget.takeItem(self.listWidget.row(item))
-        # remove the entry from the json file
+            # remove the entry from the json file
 
-
-        # delete confirmation
-        msgBox = QMessageBox()
-        msgBox.setIcon(QMessageBox.Information)
-        msgBox.setText("Field Deleted")
-        msgBox.setWindowTitle("Success")
-        msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        x = msgBox.exec_()
+            # delete confirmation
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setText("Field Deleted")
+            msgBox.setWindowTitle("Success")
+            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            x = msgBox.exec_()
 
     def populateTextForEdit(self):
         text = self.listWidget.currentItem().text()
@@ -445,48 +450,168 @@ class Screen1(QtWidgets.QMainWindow):
         self.pushButton_2.setText(_translate("MainWindow", "Data Collection"))
 
 
+# graph class , plots the graph according to the DataCollectionScreen.txt
+def plot(self, index):
+    with open(resource_path('DataCollectionScreen.txt'), 'r') as json_file:
+        data = json.load(json_file)
+
+        voteCountA = data["DataCollectionRecords"][DataCollectionScreen.index]['voteCounts'][0]
+        voteCountB = data["DataCollectionRecords"][DataCollectionScreen.index]['voteCounts'][1]
+        voteCountC = data["DataCollectionRecords"][DataCollectionScreen.index]['voteCounts'][2]
+        voteCountD = data["DataCollectionRecords"][DataCollectionScreen.index]['voteCounts'][3]
+
+
+
+    self.axes.set_ylabel('No of votes')
+    self.axes.set_xlabel('Options')
+    self.axes.bar(voteCountA['option'], voteCountA['voteCount'])
+    self.axes.bar(voteCountB['option'], voteCountB['voteCount'])
+    self.axes.bar(voteCountC['option'], voteCountC['voteCount'])
+    self.axes.bar(voteCountD['option'], voteCountD['voteCount'])
+
+    self.draw()
+
+
+def plotUpdate(self):
+    self.axes.clear()
+    plot(self, 234)
+
+
+class Canvas(FigureCanvas):
+    def __init__(self, parent=None, width=5, height=5, dpi=100):
+        self.fig, self.axes = plt.subplots()
+        FigureCanvas.__init__(self, self.fig)
+        self.setParent(parent)
+        plot(self, 111)
+
+
 # class for the Data collection Screen UI
+# need a json file format that will come from unity.
 class DataCollectionScreen(QtWidgets.QMainWindow):
+    index = 0
+
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
+        self.canvas = Canvas(self, width=8, height=5)
+        self.canvas.move(350, 200)
         self.setupUi(self)
+
+    def is_file_empty(self, file_path):
+        """ Check if file is empty by confirming if its size is 0 bytes"""
+        # Check if file exist and it is empty
+        return os.path.exists(file_path) and os.stat(file_path).st_size == 0
+
+    # shows the first record
+    def readFromJsonFile(self):
+
+        is_empty = self.is_file_empty(resource_path('DataCollectionScreen.txt'))
+        if not is_empty:
+            with open(resource_path('DataCollectionScreen.txt'), 'r') as json_file:
+                data = json.load(json_file)
+                for record in data['DataCollectionRecords']:
+                    self.listWidget.addItem(record['EntryName'])
+                    self.counter.setText(record['totalVote'])
+                    self.Time.setText(record['lastUpdate'])
+
+    # Double clicking functionality for the data collection screen.
+    def updateGraphOnClick(self):
+
+        DataCollectionScreen.index = self.listWidget.currentRow()
+        plotUpdate(self.canvas)
+        with open(resource_path('DataCollectionScreen.txt'), 'r') as json_file:
+            data = json.load(json_file)
+        for record in data['DataCollectionRecords']:
+            if record['EntryName'] == self.listWidget.currentItem().text():
+                self.counter.setText(record['totalVote'])
+                self.Time.setText(record['lastUpdate'])
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1223, 851)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../Images/The Other Side_logo.png"), QtGui.QIcon.Normal,
-                       QtGui.QIcon.Off)
-        MainWindow.setWindowIcon(icon)
+        MainWindow.resize(1218, 851)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.listWidget_2 = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget_2.setGeometry(QtCore.QRect(0, 0, 281, 871))
-        self.listWidget_2.setObjectName("listWidget_2")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(530, 130, 401, 31))
+        self.listWidget = QtWidgets.QListWidget(self.centralwidget)
+        self.listWidget.setGeometry(QtCore.QRect(0, 120, 301, 751))
+        self.listWidget.setObjectName("listWidget_2")
         font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label.setFont(font)
-        self.label.setObjectName("label")
+        font.setPointSize(13)
+        self.listWidget.setFont(font)
+        self.listWidget.setAutoFillBackground(True)
+        self.listWidget.setDragEnabled(True)
+        self.listWidget.setAlternatingRowColors(True)
+        self.listWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        self.listWidget.setViewMode(QtWidgets.QListView.IconMode)
+        self.listWidget.setUniformItemSizes(True)
+        self.listWidget.setItemAlignment(QtCore.Qt.AlignVCenter)
+
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(70, 60, 121, 21))
+        self.label_2.setGeometry(QtCore.QRect(0, 70, 301, 761))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.label_2.setFont(font)
+        self.label_2.setAutoFillBackground(True)
+        self.label_2.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
+        self.label_2.setWordWrap(True)
         self.label_2.setObjectName("label_2")
-        MainWindow.setCentralWidget(self.centralwidget)
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(0, 0, 1221, 61))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.label.setFont(font)
+        self.label.setAutoFillBackground(True)
+        self.label.setFrameShape(QtWidgets.QFrame.WinPanel)
+        self.label.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.label.setLineWidth(0)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
 
+        self.commandLinkButton = QtWidgets.QCommandLinkButton(self.centralwidget)
+        self.commandLinkButton.setGeometry(QtCore.QRect(20, 10, 51, 41))
+        self.commandLinkButton.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("../ScreenUI\\../Images/directional-chevron-back-512.ico"), QtGui.QIcon.Normal,
+                       QtGui.QIcon.Off)
+        self.commandLinkButton.setIcon(icon)
+        self.commandLinkButton.setIconSize(QtCore.QSize(35, 35))
+        self.commandLinkButton.setObjectName("commandLinkButton")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(900, 780, 61, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setGeometry(QtCore.QRect(880, 740, 131, 31))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.label_4.setFont(font)
+        self.label_4.setObjectName("label_4")
+        self.Time = QtWidgets.QLabel(self.centralwidget)
+        self.Time.setGeometry(QtCore.QRect(970, 780, 161, 31))
+        self.Time.setText("")
+        self.Time.setObjectName("Time")
+        self.counter = QtWidgets.QLabel(self.centralwidget)
+        self.counter.setGeometry(QtCore.QRect(1020, 740, 151, 31))
+        self.counter.setText("")
+        self.counter.setObjectName("counter")
+        self.update()
+        self.label.raise_()
+        self.commandLinkButton.raise_()
+        self.label_2.raise_()
+        self.listWidget.raise_()
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.readFromJsonFile()
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "The Other Side"))
-        self.label.setText(_translate("MainWindow", "How Do You Learn A New Language?"))
         self.label_2.setText(_translate("MainWindow", "History Data"))
+        self.label.setText(_translate("MainWindow", "Data Collection"))
+        self.label_3.setText(_translate("MainWindow", "Time:"))
+        self.label_4.setText(_translate("MainWindow", "Total Count:"))
+        self.listWidget.itemDoubleClicked['QListWidgetItem*'].connect(self.updateGraphOnClick)
 
 
 def changeWindow(w1, w2):
@@ -509,6 +634,7 @@ def main():
     screen2.pushButton_2.clicked.connect(lambda: changeWindow(screen2, pollingScreen))
     screen2.commandLinkButton.clicked.connect(lambda: changeWindow(screen2, screen1))
     pollingScreen.commandLinkButton.clicked.connect(lambda: changeWindow(pollingScreen, screen2))
+    dataCollectionScreen.commandLinkButton.clicked.connect(lambda: changeWindow(dataCollectionScreen, screen1))
 
     sys.exit(app.exec_())
 
