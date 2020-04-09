@@ -1,5 +1,24 @@
 {
-	"lastUpdate": "",
-	"totalVote": 12
+   "firstPosted":"",
+   "lastUpdate":"",
+   "question":"",
+   "totalVote":0,
+   "voteCounts":[
+      {
+         "option":"",
+         "voteCount":0
+      },
+      {
+         "option":"",
+         "voteCount":0
+      },
+      {
+         "option":"",
+         "voteCount":0
+      },
+      {
+         "option":"",
+         "voteCount":0
+      }
+   ]
 }
-
