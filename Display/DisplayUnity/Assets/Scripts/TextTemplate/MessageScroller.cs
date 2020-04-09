@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MessageScroller : MonoBehaviour
@@ -32,10 +33,7 @@ public class MessageScroller : MonoBehaviour
 
     void Start()
     {
-        question.SetActive(true);
-        answer.SetActive(false);
-        result.SetActive(false);
-
+        ResetIdleStatus();
         // update question text
         UpdateText("Question");
     }
@@ -45,6 +43,12 @@ public class MessageScroller : MonoBehaviour
         if (testScroll) {
             ScrollUp(testScrollStep);
         }
+    }
+
+    public void ResetIdleStatus() {
+        question.SetActive(true);
+        answer.SetActive(false);
+        result.SetActive(false);
     }
 
     public void UpdateText(string type, int idx = -1) {
@@ -67,7 +71,7 @@ public class MessageScroller : MonoBehaviour
                 result.GetComponent<MainBubbleSingleMessage>().SetText(newText);
                 result.GetComponent<ContainerSizeUpdater>().UpdateSize();
                 break;
-        }  
+        }
     }
 
     public void ScrollUp(string option) {
@@ -104,7 +108,7 @@ public class MessageScroller : MonoBehaviour
         RectTransform prevRec = DisplayAnchor[0].GetComponent<RectTransform>();
 
         RectTransform upcomingMovingRec = DisplayMsg[2].GetComponent<RectTransform>();
-        float upcomingScaleChange = (curRec.localScale.x - upcomingMovingRec.localScale.x)  / scrollTime;
+        float upcomingScaleChange = (curRec.localScale.x - upcomingMovingRec.localScale.x) / scrollTime;
         float upcomingposYChange = (curRec.position.y - upcomingMovingRec.position.y) / scrollTime;
 
         RectTransform curMovingRec = DisplayMsg[1].GetComponent<RectTransform>();
@@ -128,5 +132,36 @@ public class MessageScroller : MonoBehaviour
         DisplayMsg[0] = DisplayMsg[1];
         DisplayMsg[1] = DisplayMsg[2];
         DisplayMsg[2] = null;
+    }
+
+    public void StartTyping() {
+        StartCoroutine(TypingEffect(question));
+    }
+
+    // question typing effect
+    IEnumerator TypingEffect(GameObject mainBubbleComponent)
+    {
+        TMP_Text textComponent = mainBubbleComponent.GetComponentInChildren<TMP_Text>();
+        textComponent.ForceMeshUpdate();
+        TMP_TextInfo textInfo = textComponent.textInfo;
+
+        int totalVisibleCharacters = textInfo.characterCount; // Get # of Visible Character in text object
+        int visibleCount = 0;
+        while (
+            TextTemplateController.Instance.templateState == TextTemplateController.TemplateState.Idle ||
+            (TextTemplateController.Instance.templateState != TextTemplateController.TemplateState.Idle &&
+                visibleCount <= totalVisibleCharacters)
+            )
+        {
+            if (visibleCount > totalVisibleCharacters)
+            {
+                yield return new WaitForSeconds(3.0f);
+                if (TextTemplateController.Instance.templateState == TextTemplateController.TemplateState.Idle)
+                    visibleCount = 0;
+            }
+            textComponent.maxVisibleCharacters = visibleCount; // How many characters should TextMeshPro display?
+            visibleCount += 1;
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 }

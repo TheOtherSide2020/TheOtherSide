@@ -16,5 +16,6 @@ public class MoveController : MonoBehaviour
         Vector2 vec = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).normalized * 0.01f;
         //Debug.Log(vec);
         transform.position += new Vector3(vec.x, 0, vec.y);
+        //transform.position += transform.forward * vec.y;
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class TouchPoint : MonoBehaviour
 {
-    [SerializeField] Image fillingImage;
-    [SerializeField] Image checkMarkImage;
-    [SerializeField] float progress = 0f;
-    [SerializeField] TMPro.TextMeshPro textDisplay;
+    [SerializeField] protected Image fillingImage;
+    [SerializeField] protected Image checkMarkImage;
+    [SerializeField] protected float progress = 0f;
+    [SerializeField] protected TMPro.TextMeshPro textDisplay;
     [SerializeField] ContainerSizeUpdater sizeUpdater;
 
     public int id;
@@ -61,7 +61,8 @@ public class TouchPoint : MonoBehaviour
         textDisplay.SetText(txt);
     }
 
-    public void AdjustContainer() {
+    public void AdjustContainer()
+    {
         sizeUpdater.UpdateSize();
     }
 
@@ -71,13 +72,16 @@ public class TouchPoint : MonoBehaviour
         checkMarkImage.fillAmount = 0f;
     }
 
-    public void ShowCheckMark() {
+    public void ShowCheckMark()
+    {
         textDisplay.gameObject.SetActive(false);
         StartCoroutine(FillCheckMark(TouchPointController.Instance.checkMarkFillingTime));
     }
 
-    IEnumerator FillCheckMark(float finishTimeInSec) {
-        while (checkMarkImage.fillAmount < 1f) {
+    IEnumerator FillCheckMark(float finishTimeInSec)
+    {
+        while (checkMarkImage.fillAmount < 1f)
+        {
             checkMarkImage.fillAmount += Time.deltaTime / finishTimeInSec;
             yield return new WaitForEndOfFrame();
         }

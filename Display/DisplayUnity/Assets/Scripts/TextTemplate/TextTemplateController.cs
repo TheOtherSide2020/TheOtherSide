@@ -46,6 +46,8 @@ public class TextTemplateController : MonoBehaviour
                 TouchPointController.Instance.EnableAll();
                 TouchPointController.Instance.EnableEffects();
                 TouchPointController.Instance.ResetAllProgress();
+                MessageScroller.Instance.ResetIdleStatus();
+                MessageScroller.Instance.StartTyping();
                 break;
             case TemplateState.Loading:
                 // disable all particle effects and touch point
