@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class TouchPoint : MonoBehaviour
 {
     [SerializeField] protected Image fillingImage;
-    [SerializeField] protected Image checkMarkImage;
     [SerializeField] protected float progress = 0f;
     [SerializeField] protected TMPro.TextMeshPro textDisplay;
-    [SerializeField] ContainerSizeUpdater sizeUpdater;
+    [SerializeField] protected ContainerSizeUpdater sizeUpdater;
 
     public int id;
     public bool interactionEnabled = true;
@@ -20,32 +19,23 @@ public class TouchPoint : MonoBehaviour
         ResetProgress();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ResetProgress()
     {
         fillingImage.fillAmount = 0;
         progress = 0f;
     }
 
-    public void StopProgress() {
+    virtual public void StopProgress() {
         if (!interactionEnabled) return;
         if (progress >= 1f)
         {
             return;
         }
-        TouchPointController.Instance.OnAbortTouch(id);
+        //TouchPointController.Instance.OnAbortTouch(id);
     }
 
-    public void IncreaseProgress(float amount) {
-        if (!interactionEnabled) return;
-        if (progress == 0f) {
-            TouchPointController.Instance.OnStartTouch(id);
-        }
+    virtual public void IncreaseProgress(float amount) {
+        //if (!interactionEnabled) return;
         progress += amount;
         fillingImage.fillAmount = progress;
         if (progress >= 1f) {
@@ -53,7 +43,7 @@ public class TouchPoint : MonoBehaviour
         }
     }
 
-    void OnEndVoting() {
+    virtual protected void OnEndVoting() {
         TouchPointController.Instance.OnEndTouch(id);
     }
 
@@ -64,26 +54,5 @@ public class TouchPoint : MonoBehaviour
     public void AdjustContainer()
     {
         sizeUpdater.UpdateSize();
-    }
-
-    public void ResetCheckMark()
-    {
-        textDisplay.gameObject.SetActive(true);
-        checkMarkImage.fillAmount = 0f;
-    }
-
-    public void ShowCheckMark()
-    {
-        textDisplay.gameObject.SetActive(false);
-        StartCoroutine(FillCheckMark(TouchPointController.Instance.checkMarkFillingTime));
-    }
-
-    IEnumerator FillCheckMark(float finishTimeInSec)
-    {
-        while (checkMarkImage.fillAmount < 1f)
-        {
-            checkMarkImage.fillAmount += Time.deltaTime / finishTimeInSec;
-            yield return new WaitForEndOfFrame();
-        }
     }
 }

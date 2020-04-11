@@ -17,14 +17,11 @@ public class TouchPointController : MonoBehaviour
     #endregion
 
     [SerializeField] TouchPoint[] touchPoints;
-    [SerializeField] ParticleSystem[] rippleEffects;
     public float loadingTime = 1.5f;
-    public float checkMarkFillingTime = 1.5f;
 
     private void Start()
     {
         touchPoints = GetComponentsInChildren<TouchPoint>();
-        rippleEffects = GetComponentsInChildren<ParticleSystem>();
         LoadOptionText();
     }
 
@@ -70,24 +67,6 @@ public class TouchPointController : MonoBehaviour
         }
     }
 
-    public void DisableEffects()
-    {
-        foreach (ParticleSystem ps in rippleEffects)
-        {
-            ps.Clear();
-            ps.Pause();
-        }
-    }
-
-    public void EnableEffects()
-    {
-        foreach (ParticleSystem ps in rippleEffects)
-        {
-            ps.Play();
-        }
-    }
-
-
     public void OnStartTouch(int id) {
         // touch starts on touch point
         // change state
@@ -110,15 +89,6 @@ public class TouchPointController : MonoBehaviour
         PlaytestController.Instance.LogEndTime();
         // touch finished on touch point, scroll main bubble with answer
         // change state
-        TextTemplateController.Instance.SetTemplateState(TextTemplateController.TemplateState.Scrolling);
-    }
-
-    public void PlayCheckMark(int id) {
-        touchPoints[id].ShowCheckMark();
-    }
-
-    public void ResetCheckMark(int id)
-    {
-        touchPoints[id].ResetCheckMark();
+        TextTemplateController.Instance.SetTemplateState(TextTemplateController.TemplateState.Reacting);
     }
 }
