@@ -14,7 +14,7 @@ public class TouchPoint : MonoBehaviour
     public bool interactionEnabled = true;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         ResetProgress();
     }
@@ -35,7 +35,7 @@ public class TouchPoint : MonoBehaviour
     }
 
     virtual public void IncreaseProgress(float amount) {
-        //if (!interactionEnabled) return;
+        if (!interactionEnabled) return;
         progress += amount;
         fillingImage.fillAmount = progress;
         if (progress >= 1f) {

@@ -6,6 +6,15 @@ using UnityEngine.UI;
 public class ShowcaseTouchPoint : TouchPoint
 {
     //[SerializeField] ContainerSizeUpdater sizeUpdater;
+    [SerializeField] Animator dropAnimation;
+    [SerializeField] int voteToFillBubble = 8;
+    [SerializeField] TMPro.TMP_Text countText;
+
+    protected override void Start()
+    {
+        base.Start();
+        dropAnimation.gameObject.SetActive(false);
+    }
 
     override public void StopProgress()
     {
@@ -29,5 +38,36 @@ public class ShowcaseTouchPoint : TouchPoint
     override protected void OnEndVoting()
     {
         ShowcaseTouchPointController.Instance.OnEndTouch(id);
+    }
+
+    public void PlayDropAnimation() {
+        dropAnimation.gameObject.SetActive(true);
+        dropAnimation.SetTrigger("playDrop");
+        // wait until finish and set state to result display
+        StartCoroutine(WaitToNextState());
+    }
+
+    IEnumerator WaitToNextState() {
+        yield return new WaitForSeconds(3);
+        dropAnimation.gameObject.SetActive(false);
+        ShowcaseTouchPointController.Instance.OnEndDroppingAnimation();
+    }
+
+    public void IncreaseWater() {
+
+    }
+
+    public void IncreaseNumber()
+    {
+
+    }
+
+    public void ResetWater()
+    {
+        
+    }
+
+    public void SetResultText(string txt) {
+        countText.SetText(txt);
     }
 }

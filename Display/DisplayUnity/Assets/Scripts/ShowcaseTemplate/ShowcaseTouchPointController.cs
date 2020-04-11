@@ -18,10 +18,36 @@ public class ShowcaseTouchPointController : MonoBehaviour
 
     [SerializeField] ShowcaseTouchPoint[] touchPoints;
     public float loadingTime = 1.5f;
+    public float waterIncreaseTime = 1f;
+
 
     private void Start()
     {
         touchPoints = GetComponentsInChildren<ShowcaseTouchPoint>();
+        //LoadOptionText();
+        UpdateResultText();
+    }
+
+    public void LoadOptionText()
+    {
+        for (int i = 0; i < touchPoints.Length; ++i)
+        {
+            string optionText = JsonLoader.Instance.GetOption(touchPoints[i].id);
+            touchPoints[i].SetText(optionText);
+            touchPoints[i].AdjustContainer();
+        }
+    }
+
+    public void UpdateResultText() {
+        for (int i = 0; i < touchPoints.Length; ++i)
+        {
+            string optionResultText = ResultLoader.Instance.GetOptionCount(touchPoints[i].id);
+            touchPoints[i].SetResultText(optionResultText);
+        }
+    }
+
+    public void IncreaseWater(int idx) {
+        touchPoints[idx].IncreaseWater();
     }
 
     public void ResetAllProgress()
@@ -61,6 +87,14 @@ public class ShowcaseTouchPointController : MonoBehaviour
                 touchPoints[i].interactionEnabled = false;
             }
         }
+    }
+
+    public void PlayDropAnimation(int idx) {
+        touchPoints[idx].PlayDropAnimation();
+    }
+
+    public void OnEndDroppingAnimation() {
+        ShowcaseTemplateController.Instance.SetTemplateState(TemplateMainController.TemplateState.Display);
     }
 
     public void OnStartTouch(int id)

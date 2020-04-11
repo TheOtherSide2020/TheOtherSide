@@ -29,10 +29,18 @@ public class ShowcaseTemplateController : TemplateMainController
                 ShowcaseTouchPointController.Instance.DisableExcept(selectedId);
                 break;
             case TemplateState.Reacting:
-
+                // disable interaction
+                ShowcaseTouchPointController.Instance.DisableAll();
+                // play drop animation
+                ShowcaseTouchPointController.Instance.PlayDropAnimation(selectedId);
                 break;
             case TemplateState.Display:
-
+                // number change
+                ResultLoader.Instance.IncreaseVote(selectedId);
+                // update text
+                ShowcaseTouchPointController.Instance.UpdateResultText();
+                // water increase
+                ShowcaseTouchPointController.Instance.IncreaseWater(selectedId);
                 break;
         };
     }
