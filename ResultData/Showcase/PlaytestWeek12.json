@@ -1,0 +1,24 @@
+{
+   "firstPosted":"2020-04-10T07:22Z",
+   "lastUpdated":"2020-04-12T07:22Z",
+   "question":"Will you join us on the event?",
+   "totalVote":338,
+   "voteCounts":[
+      {
+         "option":"I wish I could come.",
+         "voteCount":17
+      },
+      {
+         "option":"Yes, I will be there!",
+         "voteCount":7
+      },
+      {
+         "option":"I'm brining my friends.",
+         "voteCount":8
+      },
+      {
+         "option":"I'm not sure.",
+         "voteCount":7
+      }
+   ]
+}
