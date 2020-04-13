@@ -1,6 +1,8 @@
 {
+   "name":"PlaytestWeek13",
+   "type":"simplePolling",
    "firstPosted":"",
-   "lastUpdate":"",
+   "lastUpdated":"",
    "question":"",
    "totalVote":0,
    "voteCounts":[

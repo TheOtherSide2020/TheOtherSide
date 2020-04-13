@@ -1,0 +1,13 @@
+{
+   "name":"PlaytestWeek13",
+   "type":"simplePolling",
+   "createdOn":"2020-04-10T07:22Z",
+   "lastUpdated":"2020-04-12T07:22Z",
+   "question":"What?",
+   "options":[
+      "1111",
+      "2222",
+      "3333",
+      "4444"
+   ]
+}
