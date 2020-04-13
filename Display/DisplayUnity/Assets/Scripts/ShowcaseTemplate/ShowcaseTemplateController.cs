@@ -44,4 +44,12 @@ public class ShowcaseTemplateController : TemplateMainController
                 break;
         };
     }
+
+    public void OnEndOfUpdateWater() {
+        selectedId = -1;
+        SetTemplateState(TemplateState.Idle);
+
+        // playtest: show end result
+        PlaytestController.Instance.OnShowResult();
+    }
 }

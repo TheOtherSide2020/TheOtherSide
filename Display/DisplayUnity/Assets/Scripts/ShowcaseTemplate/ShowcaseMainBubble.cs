@@ -23,11 +23,16 @@ public class ShowcaseMainBubble : MonoBehaviour
         initialPosterAlpha = poster.color.a;
         player = GetComponentInChildren<VideoPlayer>();
         player.loopPointReached += OnEndOfVideo;
-        if (pictureOnly || player.url == "") {
+        if (pictureOnly /*|| player.url == ""*/) {
             SetPosterAlpha(1);
             StartCoroutine(PosterOnlyProcess());
             player.gameObject.SetActive(false);
         }
+    }
+
+    public void PlayVideo() {
+        player.gameObject.SetActive(true);
+        player.Play();
     }
 
     void OnEndOfVideo(VideoPlayer vp) {

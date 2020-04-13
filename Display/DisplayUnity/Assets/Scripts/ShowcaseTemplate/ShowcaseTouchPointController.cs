@@ -26,6 +26,16 @@ public class ShowcaseTouchPointController : MonoBehaviour
         touchPoints = GetComponentsInChildren<ShowcaseTouchPoint>();
         //LoadOptionText();
         UpdateResultText();
+        SetWater();
+    }
+    private void SetWater()
+    {
+        for (int i = 0; i < touchPoints.Length; ++i)
+        {
+            touchPoints[i].InitializeWater();
+            int count = ResultLoader.Instance.GetRawOptionCount(touchPoints[i].id);
+            touchPoints[i].SetWater(count);
+        }
     }
 
     public void LoadOptionText()
@@ -47,12 +57,12 @@ public class ShowcaseTouchPointController : MonoBehaviour
     }
 
     public void IncreaseWater(int idx) {
-        touchPoints[idx].IncreaseWater();
+        touchPoints[idx].IncreaseWater(ResultLoader.Instance.GetRawOptionCount(touchPoints[idx].id));
     }
 
     public void ResetAllProgress()
     {
-        foreach (TouchPoint tp in touchPoints)
+        foreach (ShowcaseTouchPoint tp in touchPoints)
         {
             tp.ResetProgress();
         }
@@ -60,7 +70,7 @@ public class ShowcaseTouchPointController : MonoBehaviour
 
     public void EnableAll()
     {
-        foreach (TouchPoint tp in touchPoints)
+        foreach (ShowcaseTouchPoint tp in touchPoints)
         {
             tp.interactionEnabled = true;
         }
@@ -68,7 +78,7 @@ public class ShowcaseTouchPointController : MonoBehaviour
 
     public void DisableAll()
     {
-        foreach (TouchPoint tp in touchPoints)
+        foreach (ShowcaseTouchPoint tp in touchPoints)
         {
             tp.interactionEnabled = false;
         }

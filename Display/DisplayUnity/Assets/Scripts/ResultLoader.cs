@@ -57,6 +57,12 @@ public class ResultLoader : MonoBehaviour
         return pollingResult.voteCounts[idx].voteCount.ToString();
     }
 
+    public int GetRawOptionCount(int idx)
+    {
+        if (idx >= pollingResult.voteCounts.Length) return 0;
+        return pollingResult.voteCounts[idx].voteCount;
+    }
+
     public void IncreaseVote(int idx) {
         SetOptionCount(idx, pollingResult.voteCounts[idx].voteCount + 1);
     }

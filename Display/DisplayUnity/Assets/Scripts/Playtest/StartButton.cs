@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class StartButton : MonoBehaviour
 {
-
+    [SerializeField] int idx;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Hand"))
         {
-            PlaytestController.Instance.OnStartPlaytest();
+            PlaytestController.Instance.OnTriggerNextButtonVR(idx);
         }
     }
 }
