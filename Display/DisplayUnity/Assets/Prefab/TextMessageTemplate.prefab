@@ -4012,11 +4012,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950877156448}
     m_Modifications:
-    - target: {fileID: 8008560106087815978, guid: 16bad1b4361a3d14cb4ab4c685880312,
-        type: 3}
-      propertyPath: m_Name
-      value: OptionB
-      objectReference: {fileID: 0}
     - target: {fileID: 8008560106087815979, guid: 16bad1b4361a3d14cb4ab4c685880312,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4082,6 +4077,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 2.025473
       objectReference: {fileID: 0}
+    - target: {fileID: 8008560106087815978, guid: 16bad1b4361a3d14cb4ab4c685880312,
+        type: 3}
+      propertyPath: m_Name
+      value: OptionB
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16bad1b4361a3d14cb4ab4c685880312, type: 3}
 --- !u!1 &7831093951770918710 stripped
@@ -4103,11 +4103,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950877156448}
     m_Modifications:
-    - target: {fileID: 3103752421814880822, guid: b5ae3f015ca0f5c459c96c679c07c017,
-        type: 3}
-      propertyPath: m_Name
-      value: OptionA
-      objectReference: {fileID: 0}
     - target: {fileID: 3103752421814880823, guid: b5ae3f015ca0f5c459c96c679c07c017,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4163,6 +4158,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3103752421814880822, guid: b5ae3f015ca0f5c459c96c679c07c017,
+        type: 3}
+      propertyPath: m_Name
+      value: OptionA
+      objectReference: {fileID: 0}
     - target: {fileID: 2925935592384409327, guid: b5ae3f015ca0f5c459c96c679c07c017,
         type: 3}
       propertyPath: fillingImage
@@ -4210,11 +4210,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950873689456}
     m_Modifications:
-    - target: {fileID: 6465542121243398453, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
-        type: 3}
-      propertyPath: m_Name
-      value: ClickButtonA
-      objectReference: {fileID: 0}
     - target: {fileID: 6465542121243398452, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4320,6 +4315,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6465542121243398453, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
+        type: 3}
+      propertyPath: m_Name
+      value: ClickButtonA
+      objectReference: {fileID: 0}
     - target: {fileID: 6465542121243398600, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4345,11 +4345,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950877156448}
     m_Modifications:
-    - target: {fileID: 6255706472712434379, guid: 5f19bbaebd9234d4bab7840fbe57d800,
-        type: 3}
-      propertyPath: m_Name
-      value: RippleEffectA
-      objectReference: {fileID: 0}
     - target: {fileID: 6255706472712434380, guid: 5f19bbaebd9234d4bab7840fbe57d800,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4455,6 +4450,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6255706472712434379, guid: 5f19bbaebd9234d4bab7840fbe57d800,
+        type: 3}
+      propertyPath: m_Name
+      value: RippleEffectA
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f19bbaebd9234d4bab7840fbe57d800, type: 3}
 --- !u!224 &7831093952259913018 stripped
@@ -4470,11 +4470,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950877156448}
     m_Modifications:
-    - target: {fileID: 8008560106087815978, guid: 16bad1b4361a3d14cb4ab4c685880312,
-        type: 3}
-      propertyPath: m_Name
-      value: OptionC
-      objectReference: {fileID: 0}
     - target: {fileID: 8008560106087815979, guid: 16bad1b4361a3d14cb4ab4c685880312,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4540,6 +4535,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.982321
       objectReference: {fileID: 0}
+    - target: {fileID: 8008560106087815978, guid: 16bad1b4361a3d14cb4ab4c685880312,
+        type: 3}
+      propertyPath: m_Name
+      value: OptionC
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16bad1b4361a3d14cb4ab4c685880312, type: 3}
 --- !u!1 &254942151479173766 stripped
@@ -4561,11 +4561,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950873689456}
     m_Modifications:
-    - target: {fileID: 6465542121243398453, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
-        type: 3}
-      propertyPath: m_Name
-      value: ClickButtonC
-      objectReference: {fileID: 0}
     - target: {fileID: 6465542121243398452, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4671,6 +4666,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6465542121243398453, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
+        type: 3}
+      propertyPath: m_Name
+      value: ClickButtonC
+      objectReference: {fileID: 0}
     - target: {fileID: 6465542121243398600, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4696,11 +4696,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950877156448}
     m_Modifications:
-    - target: {fileID: 6255706472712434379, guid: 5f19bbaebd9234d4bab7840fbe57d800,
-        type: 3}
-      propertyPath: m_Name
-      value: RippleEffectD
-      objectReference: {fileID: 0}
     - target: {fileID: 6255706472712434380, guid: 5f19bbaebd9234d4bab7840fbe57d800,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4806,6 +4801,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6255706472712434379, guid: 5f19bbaebd9234d4bab7840fbe57d800,
+        type: 3}
+      propertyPath: m_Name
+      value: RippleEffectD
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f19bbaebd9234d4bab7840fbe57d800, type: 3}
 --- !u!224 &4214552939440074342 stripped
@@ -4821,11 +4821,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950877156448}
     m_Modifications:
-    - target: {fileID: 8008560106087815978, guid: 16bad1b4361a3d14cb4ab4c685880312,
-        type: 3}
-      propertyPath: m_Name
-      value: OptionD
-      objectReference: {fileID: 0}
     - target: {fileID: 8008560106087815979, guid: 16bad1b4361a3d14cb4ab4c685880312,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4891,6 +4886,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 2.04329
       objectReference: {fileID: 0}
+    - target: {fileID: 8008560106087815978, guid: 16bad1b4361a3d14cb4ab4c685880312,
+        type: 3}
+      propertyPath: m_Name
+      value: OptionD
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16bad1b4361a3d14cb4ab4c685880312, type: 3}
 --- !u!1 &254942150920427679 stripped
@@ -4912,11 +4912,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950877156448}
     m_Modifications:
-    - target: {fileID: 6255706472712434379, guid: 5f19bbaebd9234d4bab7840fbe57d800,
-        type: 3}
-      propertyPath: m_Name
-      value: RippleEffectC
-      objectReference: {fileID: 0}
     - target: {fileID: 6255706472712434380, guid: 5f19bbaebd9234d4bab7840fbe57d800,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5022,6 +5017,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6255706472712434379, guid: 5f19bbaebd9234d4bab7840fbe57d800,
+        type: 3}
+      propertyPath: m_Name
+      value: RippleEffectC
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f19bbaebd9234d4bab7840fbe57d800, type: 3}
 --- !u!224 &4214552939967829083 stripped
@@ -5037,11 +5037,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950877156448}
     m_Modifications:
-    - target: {fileID: 6255706472712434379, guid: 5f19bbaebd9234d4bab7840fbe57d800,
-        type: 3}
-      propertyPath: m_Name
-      value: RippleEffectB
-      objectReference: {fileID: 0}
     - target: {fileID: 6255706472712434380, guid: 5f19bbaebd9234d4bab7840fbe57d800,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5147,6 +5142,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6255706472712434379, guid: 5f19bbaebd9234d4bab7840fbe57d800,
+        type: 3}
+      propertyPath: m_Name
+      value: RippleEffectB
+      objectReference: {fileID: 0}
     - target: {fileID: 6255706472712434381, guid: 5f19bbaebd9234d4bab7840fbe57d800,
         type: 3}
       propertyPath: m_SortingOrder
@@ -5167,11 +5167,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950873689456}
     m_Modifications:
-    - target: {fileID: 6465542121243398453, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
-        type: 3}
-      propertyPath: m_Name
-      value: ClickButtonD
-      objectReference: {fileID: 0}
     - target: {fileID: 6465542121243398452, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5277,6 +5272,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6465542121243398453, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
+        type: 3}
+      propertyPath: m_Name
+      value: ClickButtonD
+      objectReference: {fileID: 0}
     - target: {fileID: 6465542121243398600, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5302,11 +5302,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7831093950873689456}
     m_Modifications:
-    - target: {fileID: 6465542121243398453, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
-        type: 3}
-      propertyPath: m_Name
-      value: ClickButtonB
-      objectReference: {fileID: 0}
     - target: {fileID: 6465542121243398452, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5411,6 +5406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6465542121243398453, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
+        type: 3}
+      propertyPath: m_Name
+      value: ClickButtonB
       objectReference: {fileID: 0}
     - target: {fileID: 6465542121243398600, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
         type: 3}
