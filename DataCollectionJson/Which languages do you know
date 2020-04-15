@@ -1,0 +1,31 @@
+{
+"DataCollectionRecords":
+    [
+    {
+   "EntryName":"Which languages do you know",
+   "firstPosted":"",
+   "lastUpdate":"4/3/2020",
+   "question":"",
+   "totalVote":"1000",
+   "voteCounts":[
+      {
+         "option":"English",
+         "voteCount":50
+      },
+      {
+         "option":"German",
+         "voteCount":500
+      },
+      {
+         "option":"Spanish",
+         "voteCount":200
+      },
+      {
+         "option":"French",
+         "voteCount":100
+      }
+   ]
+}
+]
+
+}
