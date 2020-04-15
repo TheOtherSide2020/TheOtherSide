@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TextTemplateController : MonoBehaviour
+public class TextTemplateController : TemplateMainController
 {
     #region Singleton
     public static TextTemplateController Instance = null;
@@ -16,49 +16,27 @@ public class TextTemplateController : MonoBehaviour
     }
     #endregion
 
-    public enum TemplateState
-    {
-        Idle,
-        Loading,
-        Scrolling,
-        Display
-    }
-
-    public TemplateState templateState { get; private set; }
-
-    // current active option that is being selected
-    [SerializeField] int selectedId = -1;
-
-    public void SetActiveOption(int id) {
-        selectedId = id;
-    }
-
-    public void SetTemplateState(TemplateState state)
-    {
-        this.templateState = state;
-        OnStateChange();
-    }
-
-    void OnStateChange() {
+    protected override void OnStateChange() {
+        Debug.Log("State change " + templateState);
         switch (templateState) {
             case TemplateState.Idle:
                 // enable all particle effects and touch point to accept input
-                TouchPointController.Instance.EnableAll();
-                TouchPointController.Instance.EnableEffects();
-                TouchPointController.Instance.ResetAllProgress();
+                TextTemplateTouchPointController.Instance.EnableAll();
+                TextTemplateTouchPointController.Instance.EnableEffects();
+                TextTemplateTouchPointController.Instance.ResetAllProgress();
                 MessageScroller.Instance.ResetIdleStatus();
                 MessageScroller.Instance.StartTyping();
                 break;
             case TemplateState.Loading:
                 // disable all particle effects and touch point
-                TouchPointController.Instance.DisableExcept(selectedId);
-                TouchPointController.Instance.DisableEffects();
+                TextTemplateTouchPointController.Instance.DisableExcept(selectedId);
+                TextTemplateTouchPointController.Instance.DisableEffects();
                 break;
-            case TemplateState.Scrolling:
+            case TemplateState.Reacting:
                 // disable interaction
-                TouchPointController.Instance.DisableAll();
+                TextTemplateTouchPointController.Instance.DisableAll();
                 // option bubble play check mark
-                TouchPointController.Instance.PlayCheckMark(selectedId);
+                TextTemplateTouchPointController.Instance.PlayCheckMark(selectedId);
                 // main bubble scroll up selected answer
                 StartCoroutine(AnswerScrollUp());
                 break;
@@ -70,17 +48,6 @@ public class TextTemplateController : MonoBehaviour
                 //MessageScroller.Instance.ScrollUp("Question");
                 break;
         };
-    }
-
-    private void Start()
-    {
-        SetTemplateState(TemplateState.Idle);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     IEnumerator AnswerScrollUp() {
@@ -96,12 +63,13 @@ public class TextTemplateController : MonoBehaviour
         MessageScroller.Instance.ScrollUp("Result");
         yield return new WaitForSeconds(3);
         MessageScroller.Instance.ScrollUp("Question");
-        yield return new WaitForSeconds(1);
-        TouchPointController.Instance.ResetCheckMark(selectedId);
+        yield return new WaitForSeconds(2);
+        TextTemplateTouchPointController.Instance.ResetCheckMark(selectedId);
         selectedId = -1;
         SetTemplateState(TemplateState.Idle);
         // for playtest logging
         yield return new WaitForSeconds(3);
         PlaytestController.Instance.OnShowResult();
+        
     }
 }

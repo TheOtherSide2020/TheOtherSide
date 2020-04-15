@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class VRTouchPoint : MonoBehaviour
 {
-    TouchPoint tp;
-    bool isTouching = false;
-    void Start()
+    //TouchPoint tp;
+    protected bool isTouching = false;
+
+    protected virtual void Start()
     {
-        tp = gameObject.GetComponent<TouchPoint>();
+        //tp = gameObject.GetComponent<TouchPoint>();
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        if (isTouching) {
-            tp.IncreaseProgress(Time.deltaTime / TouchPointController.Instance.loadingTime); 
-        }
+        //if (isTouching) {
+        //    tp.IncreaseProgress(Time.deltaTime / TouchPointController.Instance.loadingTime); 
+        //}
     }
 
     public void OnPointerDown() {
@@ -25,31 +26,23 @@ public class VRTouchPoint : MonoBehaviour
         }
     }
 
-    public void OnPointerUp() {
-        tp.StopProgress();
+    public virtual void OnPointerUp() {
+        //tp.StopProgress();
         isTouching = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Hand")) {
             isTouching = true;
         }
     }
 
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Hand"))
-    //    {
-
-    //    }
-    //}
-
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Hand"))
         {
-            tp.StopProgress();
+            //tp.StopProgress();
             isTouching = false;
         }
     }

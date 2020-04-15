@@ -43,7 +43,7 @@ public class JsonLoader : MonoBehaviour
     }
 
     public string GetOption(int idx) {
-        if (idx >= loadContent.options.Length) return "Invaild";
+        if (idx >= loadContent.options.Length) return "Invalid";
         return loadContent.options[idx];
     }
 
