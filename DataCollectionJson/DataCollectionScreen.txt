@@ -25,31 +25,6 @@
          "voteCount":1
       }
    ]
-},
- {
-    "EntryName":"Number of Languages1",
-   "firstPosted":"",
-   "lastUpdate":"4/3/2020",
-   "question":"",
-   "totalVote":"15",
-   "voteCounts":[
-      {
-         "option":"1",
-         "voteCount":500
-      },
-      {
-         "option":"2",
-         "voteCount":250
-      },
-      {
-         "option":"3",
-         "voteCount":300
-      },
-      {
-         "option":"4",
-         "voteCount":450
-      }
-   ]
 }
 ]
 
