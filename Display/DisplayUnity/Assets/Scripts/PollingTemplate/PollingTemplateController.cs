@@ -23,6 +23,7 @@ public class PollingTemplateController : TemplateMainController
                 // enable all touchpoints
                 PollingTouchPointController.Instance.EnableAll();
                 PollingTouchPointController.Instance.ResetAllProgress();
+                PollingMainBubble.Instance.StartLightBlubEffect();
                 break;
             case TemplateState.Loading:
                 // disable other touchpoints
