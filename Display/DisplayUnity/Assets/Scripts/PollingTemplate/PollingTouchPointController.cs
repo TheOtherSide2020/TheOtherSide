@@ -24,14 +24,14 @@ public class PollingTouchPointController : MonoBehaviour
     {
         touchPoints = GetComponentsInChildren<PollingTouchPoint>();
         //LoadOptionText();
-        UpdateResultText();
+        //UpdateResultText();
     }
 
     public void LoadOptionText()
     {
         for (int i = 0; i < touchPoints.Length; ++i)
         {
-            string optionText = JsonLoader.Instance.GetOption(touchPoints[i].id);
+            string optionText = PollingTemplateJsonLoader.Instance.GetOption(touchPoints[i].id);
             touchPoints[i].SetText(optionText);
             touchPoints[i].AdjustContainer();
         }
