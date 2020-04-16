@@ -13,14 +13,14 @@ def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = os.path.dirname(sys.argv[0])
+        base_path = sos.path.dirname(sys.argv[0])
     except Exception:
         base_path = os.path.dirname(sys.argv[0])
 
     return os.path.join(base_path, relative_path)
 
 
-class PollingScreen(QtWidgets.QMainWindow):
+class ConversationScreen(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setupUi(self)
@@ -31,8 +31,8 @@ class PollingScreen(QtWidgets.QMainWindow):
         return os.path.exists(file_path) and os.stat(file_path).st_size == 0
 
     def readFromJsonFile(self):
-        for filename in os.listdir(resource_path('TemplateJsonInstance/SimplePollingInstance/')):
-            with open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), filename), 'r') as json_file:
+        for filename in os.listdir(resource_path('TemplateJsonInstance/TextInstance/')):
+            with open(os.path.join(resource_path('TemplateJsonInstance/TextInstance/'), filename), 'r') as json_file:
                 data = json.load(json_file)
                 self.listWidget.addItem(data['name'])
 
@@ -56,7 +56,7 @@ class PollingScreen(QtWidgets.QMainWindow):
 
                 }
 
-                file = open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), self.EntryName.toPlainText() + ".json"),
+                file = open(os.path.join(resource_path('TemplateJsonInstance/TextInstance/'), self.EntryName.toPlainText() + ".json"),
                             'w')
                 with file as json_file:
                     json.dump(PollingSystemRecord, json_file)
@@ -82,7 +82,7 @@ class PollingScreen(QtWidgets.QMainWindow):
 
                 }
 
-                file = open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), self.EntryName.toPlainText() + ".json"),
+                file = open(os.path.join(resource_path('TemplateJsonInstance/TextInstance/'), self.EntryName.toPlainText() + ".json"),
                             'w')
                 with file as json_file:
                     json.dump(PollingSystemRecord, json_file)
@@ -120,7 +120,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(280, 60, 1291, 920))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(resource_path('Images/PollingScreen.png')))
+        self.label.setPixmap(QtGui.QPixmap(resource_path('Images/Conversation.png')))
         self.label.setScaledContents(True)
         self.label.setWordWrap(False)
         self.label.setIndent(21)
@@ -277,9 +277,9 @@ class PollingScreen(QtWidgets.QMainWindow):
         items = self.listWidget.selectedItems()
         for item in items:
             # delete the file
-            for fileName in os.listdir(resource_path('TemplateJsonInstance/SimplePollingInstance/')):
+            for fileName in os.listdir(resource_path('TemplateJsonInstance/TextInstance/')):
                 if fileName == self.listWidget.currentItem().text() + ".json":
-                    os.remove( os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), fileName))
+                    os.remove( os.path.join(resource_path('TemplateJsonInstance/TextInstance/'), fileName))
 
             self.listWidget.takeItem(self.listWidget.row(item))
 
@@ -295,10 +295,10 @@ class PollingScreen(QtWidgets.QMainWindow):
         text = self.listWidget.currentItem().text()
         self.EntryName.setPlainText(text)
         # find the file corresponding to the entry name
-        for fileName in os.listdir(resource_path('TemplateJsonInstance/SimplePollingInstance/')):
+        for fileName in os.listdir(resource_path('TemplateJsonInstance/TextInstance/')):
             # get the record from json for edit
             if fileName == text + ".json":
-                with open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), fileName), 'r') as json_file:
+                with open(os.path.join(resource_path('TemplateJsonInstance/TextInstance/'), fileName), 'r') as json_file:
                     data = json.load(json_file)
                     self.Question.setPlainText(data['question'])
                     self.Option1.setPlainText(data['options'][0])
@@ -319,5 +319,4 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.pushButton_3.setText(_translate("MainWindow", "Clear"))
         self.pushButton_2.setText(_translate("MainWindow", "Delete"))
         self.label_2.setText(_translate("MainWindow", "Content List"))
-
 
