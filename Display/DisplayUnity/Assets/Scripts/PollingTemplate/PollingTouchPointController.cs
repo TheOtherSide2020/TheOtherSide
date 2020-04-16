@@ -24,7 +24,7 @@ public class PollingTouchPointController : MonoBehaviour
     {
         touchPoints = GetComponentsInChildren<PollingTouchPoint>();
         //LoadOptionText();
-        //UpdateResultText();
+        UpdateResultText();
     }
 
     public void LoadOptionText()

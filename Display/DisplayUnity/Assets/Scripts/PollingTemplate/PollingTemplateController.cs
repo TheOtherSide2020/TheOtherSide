@@ -31,13 +31,25 @@ public class PollingTemplateController : TemplateMainController
             case TemplateState.Reacting:
                 // disable interaction
                 PollingTouchPointController.Instance.DisableAll();
+                // generate and throw token
+                TokenController.Instance.GenerateToken(selectedId);
+                // wait for next state
+                StartCoroutine(WaitForNextState(TemplateState.Display));
                 break;
             case TemplateState.Display:
                 // number change
                 ResultLoader.Instance.IncreaseVote(selectedId);
                 // update text
                 PollingTouchPointController.Instance.UpdateResultText();
+                // wait for next state
+                selectedId = -1;
+                StartCoroutine(WaitForNextState(TemplateState.Idle));
                 break;
         };
+    }
+
+    IEnumerator WaitForNextState(TemplateState state) {
+        yield return new WaitForSeconds(2);
+        SetTemplateState(state);
     }
 }
