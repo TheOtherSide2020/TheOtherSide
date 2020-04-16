@@ -1,1 +1,0 @@
-{"name": "PlaytestWeek14", "type": "simplePolling", "question": "What?", "createdOn": 1586975393.180438, "lastUpdated": 1586975393.180438, "options": ["1111", "2222", "3333", "4444"]}
