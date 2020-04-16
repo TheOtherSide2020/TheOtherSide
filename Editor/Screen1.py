@@ -8,9 +8,9 @@ def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
+        base_path = os.path.dirname(sys.argv[0])
     except Exception:
-        base_path = os.path.abspath(".")
+        base_path = os.path.dirname(sys.argv[0])
     return os.path.join(base_path, relative_path)
 
 
@@ -75,3 +75,21 @@ class Screen1(QtWidgets.QMainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "The Other Side"))
         self.pushButton.setText(_translate("MainWindow", "Content Editor"))
         self.pushButton_2.setText(_translate("MainWindow", "Data Collection"))
+
+def main():
+    path = os.path.dirname(sys.argv[0])
+    print(os.path.dirname(sys.argv[0]))
+    app = QtWidgets.QApplication(sys.argv)
+    app.setStyle('Fusion')
+    app.setStyleSheet("QTextBrowser { background-color: white; border-radius: "
+                      "10px;}")
+    screen1 = Screen1()
+    screen1.show()
+
+
+
+    sys.exit(app.exec_())
+
+
+if __name__ == '__main__':
+    main()

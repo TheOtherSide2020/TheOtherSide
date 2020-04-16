@@ -12,9 +12,9 @@ def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
+        base_path = os.path.dirname(sys.argv[0])
     except Exception:
-        base_path = os.path.abspath(".")
+        base_path = os.path.dirname(sys.argv[0])
     return os.path.join(base_path, relative_path)
 
 
@@ -151,8 +151,8 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
         self.commandLinkButton.setGeometry(QtCore.QRect(20, 10, 51, 41))
         self.commandLinkButton.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("/Images/directional-chevron-back-512.ico"), QtGui.QIcon.Normal,
-                       QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(resource_path('../Images/directional-chevron-back-512.ico')), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
         self.commandLinkButton.setIcon(icon)
         self.commandLinkButton.setIconSize(QtCore.QSize(35, 35))
         self.commandLinkButton.setObjectName("commandLinkButton")
@@ -169,7 +169,7 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         self.Time = QtWidgets.QLabel(self.centralwidget)
-        self.Time.setGeometry(QtCore.QRect(970, 775, 161, 31))
+        self.Time.setGeometry(QtCore.QRect(970, 775, 500, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Time.setFont(font)

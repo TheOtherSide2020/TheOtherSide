@@ -10,18 +10,18 @@ from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtWidgets import (QFileDialog, QHBoxLayout, QLabel,
                              QSlider, QStyle, QVBoxLayout)
-from PyQt5.QtWidgets import QMainWindow, QPushButton
 # class for pollingScreen UI
 from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QPushButton
 
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
+        base_path =os.path.dirname(sys.argv[0])
     except Exception:
-        base_path = os.path.abspath(".")
+        base_path = os.path.dirname(sys.argv[0])
     return os.path.join(base_path, relative_path)
 
 
@@ -32,6 +32,7 @@ def changeWindow(w1, w2):
 
 class ShowCaseScreen(QtWidgets.QMainWindow):
     fileName = " "
+    doubleClicked = 0
     ImageFileName = ""
     VideoFileName = ""
 
@@ -355,7 +356,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                     self.Option4.setPlainText(data['options'][3])
                     ShowCaseScreen.VideoFileName = data['videoPath']
                     ShowCaseScreen.ImageFileName = data['picturePath']
-
+                    ShowCaseScreen.doubleClicked = 1
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -414,6 +415,8 @@ class UploadScreen(QtWidgets.QMainWindow):
 
         UploadScreen.VideoFileName, _ = QFileDialog.getOpenFileName(self, "Open Movie",
                                                                     QDir.homePath())
+        #error handling file type
+
         url = QUrl.fromLocalFile(UploadScreen.VideoFileName)
 
         self.Video = url.fileName()
@@ -430,6 +433,8 @@ class UploadScreen(QtWidgets.QMainWindow):
         UploadScreen.ImagefileName, _ = QFileDialog.getOpenFileName(self, "Open Image",
                                                                     QDir.homePath())
 
+        # error handling file type
+
         url = QUrl.fromLocalFile(UploadScreen.ImagefileName)
 
         self.Image = url.fileName()
@@ -441,8 +446,9 @@ class UploadScreen(QtWidgets.QMainWindow):
             self.pushButton_4.show()
 
     def loadImage(self):
-        self.Image = ShowCaseScreen.ImageFileName
-        print(ShowCaseScreen.ImageFileName)
+
+        url = QUrl.fromLocalFile(ShowCaseScreen.ImageFileName)
+
 
         if ShowCaseScreen.ImageFileName != '':
             self.pixmap = QPixmap(ShowCaseScreen.ImageFileName)
@@ -452,8 +458,6 @@ class UploadScreen(QtWidgets.QMainWindow):
 
     def loadVideo(self):
         url = QUrl.fromLocalFile(ShowCaseScreen.VideoFileName)
-
-        self.Video = url.fileName()
 
         # set the file name as this in the previous screen
 
@@ -483,7 +487,7 @@ class UploadScreen(QtWidgets.QMainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1080, 900)
         self.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
-        self.setWindowFlag(QtCore.Qt.WindowTitleHint , False)
+        self.setWindowFlag(QtCore.Qt.WindowTitleHint, False)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path('Images/The Other Side_logo.png')), QtGui.QIcon.Normal,
                        QtGui.QIcon.Off)
@@ -529,7 +533,7 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.commandLinkButton.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path('Images/directional-chevron-back-512.ico')), QtGui.QIcon.Normal,
-                        QtGui.QIcon.Off)
+                       QtGui.QIcon.Off)
         self.commandLinkButton.setIcon(icon)
         self.commandLinkButton.setIconSize(QtCore.QSize(35, 35))
         self.commandLinkButton.setObjectName("commandLinkButton")
