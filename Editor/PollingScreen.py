@@ -31,8 +31,8 @@ class PollingScreen(QtWidgets.QMainWindow):
         return os.path.exists(file_path) and os.stat(file_path).st_size == 0
 
     def readFromJsonFile(self):
-        for filename in os.listdir(resource_path('PollingScreenJson/')):
-            with open(os.path.join(resource_path('PollingScreenJson/'), filename), 'r') as json_file:
+        for filename in os.listdir(resource_path('TemplateJsonInstance/SimplePollingInstance/')):
+            with open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), filename), 'r') as json_file:
                 data = json.load(json_file)
                 self.listWidget.addItem(data['name'])
 
@@ -56,7 +56,7 @@ class PollingScreen(QtWidgets.QMainWindow):
 
                 }
 
-                file = open(os.path.join(resource_path('PollingScreenJson/'), self.EntryName.toPlainText() + ".txt"),
+                file = open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), self.EntryName.toPlainText() + ".json"),
                             'w')
                 with file as json_file:
                     json.dump(PollingSystemRecord, json_file)
@@ -82,7 +82,7 @@ class PollingScreen(QtWidgets.QMainWindow):
 
                 }
 
-                file = open(os.path.join(resource_path('PollingScreenJson/'), self.EntryName.toPlainText() + ".txt"),
+                file = open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), self.EntryName.toPlainText() + ".json"),
                             'w')
                 with file as json_file:
                     json.dump(PollingSystemRecord, json_file)
@@ -277,9 +277,9 @@ class PollingScreen(QtWidgets.QMainWindow):
         items = self.listWidget.selectedItems()
         for item in items:
             # delete the file
-            for fileName in os.listdir(resource_path('PollingScreenJson/')):
-                if fileName == self.listWidget.currentItem().text() + ".txt":
-                    os.remove( os.path.join(resource_path('PollingScreenJson/'), fileName))
+            for fileName in os.listdir(resource_path('TemplateJsonInstance/SimplePollingInstance/')):
+                if fileName == self.listWidget.currentItem().text() + ".json":
+                    os.remove( os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), fileName))
 
             self.listWidget.takeItem(self.listWidget.row(item))
 
@@ -295,10 +295,10 @@ class PollingScreen(QtWidgets.QMainWindow):
         text = self.listWidget.currentItem().text()
         self.EntryName.setPlainText(text)
         # find the file corresponding to the entry name
-        for fileName in os.listdir(resource_path('PollingScreenJson/')):
+        for fileName in os.listdir(resource_path('TemplateJsonInstance/SimplePollingInstance/')):
             # get the record from json for edit
-            if fileName == text + ".txt":
-                with open(os.path.join(resource_path('PollingScreenJson/'), fileName), 'r') as json_file:
+            if fileName == text + ".json":
+                with open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), fileName), 'r') as json_file:
                     data = json.load(json_file)
                     self.Question.setPlainText(data['question'])
                     self.Option1.setPlainText(data['options'][0])

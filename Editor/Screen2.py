@@ -2,6 +2,8 @@ import os
 import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -10,6 +12,7 @@ def resource_path(relative_path):
     except Exception:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
+
 
 class Screen2(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -27,17 +30,26 @@ class Screen2(QtWidgets.QMainWindow):
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(60, 270, 311, 311))
+        self.pushButton.setStyleSheet("QPushButton { background-color: white; margin: 5ex; border-width: 2px; "
+                                      "border-radius: "
+                                      "30px;} QListWidget{ background-color: white; }")
         font = QtGui.QFont()
         font.setPointSize(16)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(420, 270, 311, 311))
+        self.pushButton_2.setStyleSheet("QPushButton { background-color: white; margin: 5ex; border-width: 2px; "
+                                        "border-radius: "
+                                        "30px;} QListWidget{ background-color: white; }")
         font = QtGui.QFont()
         font.setPointSize(16)
         self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_3.setStyleSheet("QPushButton { background-color: white; margin: 5ex; border-width: 2px; "
+                                        "border-radius: "
+                                        "30px;} QListWidget{ background-color: white; }")
         self.pushButton_3.setGeometry(QtCore.QRect(780, 270, 311, 311))
         font = QtGui.QFont()
         font.setPointSize(16)

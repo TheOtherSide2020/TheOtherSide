@@ -32,6 +32,8 @@ def changeWindow(w1, w2):
 
 class ShowCaseScreen(QtWidgets.QMainWindow):
     fileName = " "
+    ImageFileName = ""
+    VideoFileName = ""
 
     def is_file_empty(self, file_path):
         """ Check if file is empty by confirming if its size is 0 bytes"""
@@ -39,8 +41,9 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         return os.path.exists(file_path) and os.stat(file_path).st_size == 0
 
     def readFromJsonFile(self):
-        for filename in os.listdir(resource_path('ShowCaseJson/')):
-            with open(os.path.join(resource_path('ShowCaseJson/'), filename), 'r') as json_file:
+        for filename in os.listdir(resource_path('TemplateJsonInstance/ShowcaseInstance/')):
+            with open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'), filename),
+                      'r') as json_file:
                 data = json.load(json_file)
                 self.listWidget.addItem(data['name'])
 
@@ -80,7 +83,8 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                     msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                     x = msgBox.exec_()
 
-                file = open(os.path.join(resource_path('ShowCaseJson/'), self.EntryName.toPlainText() + ".txt"),
+                file = open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
+                                         self.EntryName.toPlainText() + ".json"),
                             'w')
                 with file as json_file:
                     json.dump(ShowCaseSystemRecord, json_file)
@@ -98,8 +102,8 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                         "question": self.textBrowser.toPlainText(),
                         "createdOn": datetime.datetime.now().timestamp(),
                         "lastUpdated": datetime.datetime.now().timestamp(),
-                        "videoPath": UploadScreen.VideofileName,
-                        "picturePath": UploadScreen.ImagefileName,
+                        "videoPath": UploadScreen.VideoFileName,
+                        "picturePath": UploadScreen.ImageFileName,
                         "displayText": self.label_3.text(),
                         "options": [
                             self.Option1.toPlainText(),
@@ -110,7 +114,8 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
 
                     }
                     # append this entry to json file
-                    file = open(os.path.join(resource_path('ShowCaseJson/'), self.EntryName.toPlainText() + ".txt"),
+                    file = open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
+                                             self.EntryName.toPlainText() + ".json"),
                                 'w')
                     with file as json_file:
                         json.dump(ShowCaseSystemRecord, json_file)
@@ -158,7 +163,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.label.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label.setObjectName("label")
         self.Option1 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option1.setGeometry(QtCore.QRect(700, 550, 171, 51))
+        self.Option1.setGeometry(QtCore.QRect(700, 550, 180, 58))
         self.Option1.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option1.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option1.setTabChangesFocus(True)
@@ -180,7 +185,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
         self.Option2.setObjectName("textBrowser_3")
         self.Option3 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option3.setGeometry(QtCore.QRect(1340, 690, 181, 41))
+        self.Option3.setGeometry(QtCore.QRect(1340, 690, 181, 45))
         self.Option3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option3.setTabChangesFocus(True)
@@ -235,7 +240,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
         self.commandLinkButton = QtWidgets.QCommandLinkButton(self.centralwidget)
-        self.commandLinkButton.setGeometry(QtCore.QRect(40, 10, 41, 41))
+        self.commandLinkButton.setGeometry(QtCore.QRect(42, 10, 41, 41))
         self.commandLinkButton.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(resource_path('Images/directional-chevron-back-512.ico')), QtGui.QIcon.Normal,
@@ -317,9 +322,9 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         items = self.listWidget.selectedItems()
         for item in items:
             # delete the file
-            for fileName in os.listdir(resource_path('ShowCaseJson/')):
-                if fileName == self.listWidget.currentItem().text() + ".txt":
-                    os.remove(os.path.join(resource_path('ShowCaseJson/'), fileName))
+            for fileName in os.listdir(resource_path('TemplateJsonInstance/ShowcaseInstance/')):
+                if fileName == self.listWidget.currentItem().text() + ".json":
+                    os.remove(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'), fileName))
 
             self.listWidget.takeItem(self.listWidget.row(item))
 
@@ -335,10 +340,11 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         text = self.listWidget.currentItem().text()
         self.textBrowser.setPlainText(text)
         # find the file corresponding to the entry name
-        for fileName in os.listdir(resource_path('ShowCaseJson/')):
+        for fileName in os.listdir(resource_path('TemplateJsonInstance/ShowcaseInstance/')):
             # get the record from json for edit
-            if fileName == text + ".txt":
-                with open(os.path.join(resource_path('ShowCaseJson/'), fileName), 'r') as json_file:
+            if fileName == text + ".json":
+                with open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'), fileName),
+                          'r') as json_file:
                     data = json.load(json_file)
                     self.label_3.setText(data['displayText'])
                     self.EntryName.setPlainText(data['name'])
@@ -347,6 +353,9 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                     self.Option2.setPlainText(data['options'][1])
                     self.Option3.setPlainText(data['options'][2])
                     self.Option4.setPlainText(data['options'][3])
+                    ShowCaseScreen.VideoFileName = data['videoPath']
+                    ShowCaseScreen.ImageFileName = data['picturePath']
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -365,9 +374,9 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.pushButton_4.setText(_translate("MainWindow", "Upload"))
 
 
-class UploadScreen(QMainWindow):
-    VideofileName = ""
-    ImagefileName = ""
+class UploadScreen(QtWidgets.QMainWindow):
+    VideoFileName = ""
+    ImageFileName = ""
 
     def play(self):
         self.pushButton_2.hide()
@@ -402,23 +411,25 @@ class UploadScreen(QMainWindow):
         self.mediaPlayer.setPosition(position)
 
     def openFile(self):
-        UploadScreen.VideofileName, _ = QFileDialog.getOpenFileName(self, "Open Movie",
+
+        UploadScreen.VideoFileName, _ = QFileDialog.getOpenFileName(self, "Open Movie",
                                                                     QDir.homePath())
-        url = QUrl.fromLocalFile(UploadScreen.VideofileName)
+        url = QUrl.fromLocalFile(UploadScreen.VideoFileName)
 
         self.Video = url.fileName()
 
         # set the file name as this in the previous screen
 
-        if UploadScreen.VideofileName != '':
+        if UploadScreen.VideoFileName != '':
             self.mediaPlayer.setMedia(
-                QMediaContent(QUrl.fromLocalFile(UploadScreen.VideofileName)))
+                QMediaContent(QUrl.fromLocalFile(UploadScreen.VideoFileName)))
             self.playButton.setEnabled(True)
 
     def openImageFile(self):
+
         UploadScreen.ImagefileName, _ = QFileDialog.getOpenFileName(self, "Open Image",
                                                                     QDir.homePath())
-        # set the file name as this in the previous screen
+
         url = QUrl.fromLocalFile(UploadScreen.ImagefileName)
 
         self.Image = url.fileName()
@@ -428,6 +439,28 @@ class UploadScreen(QMainWindow):
             self.imageWidget.setPixmap(self.pixmap)
             self.imageWidget.show()
             self.pushButton_4.show()
+
+    def loadImage(self):
+        self.Image = ShowCaseScreen.ImageFileName
+        print(ShowCaseScreen.ImageFileName)
+
+        if ShowCaseScreen.ImageFileName != '':
+            self.pixmap = QPixmap(ShowCaseScreen.ImageFileName)
+            self.imageWidget.setPixmap(self.pixmap)
+            self.imageWidget.show()
+            self.pushButton_4.show()
+
+    def loadVideo(self):
+        url = QUrl.fromLocalFile(ShowCaseScreen.VideoFileName)
+
+        self.Video = url.fileName()
+
+        # set the file name as this in the previous screen
+
+        if ShowCaseScreen.VideoFileName != '':
+            self.mediaPlayer.setMedia(
+                QMediaContent(QUrl.fromLocalFile(ShowCaseScreen.VideoFileName)))
+            self.playButton.setEnabled(True)
 
     def clearImage(self):
         self.imageWidget.close()
@@ -441,15 +474,21 @@ class UploadScreen(QMainWindow):
         self.pushButton_5.hide()
 
     def __init__(self, parent=None):
-        QMainWindow.__init__(self)
+        QtWidgets.QMainWindow.__init__(self, parent)
         self.setupUi(self)
 
     def setupUi(self, MainWindow):
         self.Video = ""
         self.Image = ""
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1064, 729)
-        MainWindow.setWindowFlags(QtCore.Qt.WindowTitleHint | QtCore.Qt.CustomizeWindowHint)
+        MainWindow.resize(1080, 900)
+        self.setWindowFlag(QtCore.Qt.WindowCloseButtonHint, False)
+        self.setWindowFlag(QtCore.Qt.WindowTitleHint , False)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(resource_path('Images/The Other Side_logo.png')), QtGui.QIcon.Normal,
+                       QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
@@ -484,6 +523,16 @@ class UploadScreen(QMainWindow):
         self.positionSlider = QSlider(Qt.Horizontal)
         self.positionSlider.setRange(0, 0)
         self.positionSlider.sliderMoved.connect(self.setPosition)
+
+        self.commandLinkButton = QtWidgets.QCommandLinkButton(self.centralwidget)
+        self.commandLinkButton.setGeometry(QtCore.QRect(20, 10, 51, 41))
+        self.commandLinkButton.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(resource_path('Images/directional-chevron-back-512.ico')), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
+        self.commandLinkButton.setIcon(icon)
+        self.commandLinkButton.setIconSize(QtCore.QSize(35, 35))
+        self.commandLinkButton.setObjectName("commandLinkButton")
 
         controlLayout = QHBoxLayout()
         controlLayout.setContentsMargins(0, 0, 0, 0)
@@ -526,13 +575,12 @@ class UploadScreen(QMainWindow):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         MainWindow.setCentralWidget(self.centralwidget)
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "The Other Side"))
         self.pushButton.setText(_translate("MainWindow", "Upload"))
         self.pushButton_2.setText(_translate("MainWindow", "Upload"))
         self.pushButton.clicked.connect(self.openImageFile)

@@ -39,6 +39,9 @@ class Screen1(QtWidgets.QMainWindow):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setStyleSheet("QPushButton { background-color: white; margin: 5ex; border-width: 2px; "
+                                      "border-radius: "
+                                      "30px;} QListWidget{ background-color: white; }")
         self.pushButton.setGeometry(QtCore.QRect(130, 230, 421, 371))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -48,6 +51,9 @@ class Screen1(QtWidgets.QMainWindow):
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setStyleSheet("QPushButton { background-color: white; margin: 5ex; border-width: 2px; "
+                                        "border-radius: "
+                                        "30px;} QListWidget{ background-color: white; }")
         self.pushButton_2.setGeometry(QtCore.QRect(610, 230, 401, 371))
         font = QtGui.QFont()
         font.setPointSize(16)

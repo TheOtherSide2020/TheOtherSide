@@ -1,6 +1,5 @@
 import json
 import os
-
 # class for pollingScreen UI
 import sys
 
@@ -19,26 +18,41 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 
-def plot(self):
-    for filename in os.listdir(resource_path('DataCollectionJson/')):
-            with open(os.path.join(resource_path('DataCollectionJson/'), filename), 'r') as json_file:
+def plot(self, fileName):
+    if DataCollectionScreen.count > 0:
+        with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), fileName),
+                  'r') as json_file:
+            data = json.load(json_file)
+            voteCountA = data['voteCounts'][0]
+            voteCountB = data['voteCounts'][1]
+            voteCountC = data['voteCounts'][2]
+            voteCountD = data['voteCounts'][3]
+
+        self.axes.bar(voteCountA['option'], voteCountA['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+        self.axes.bar(voteCountB['option'], voteCountB['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+        self.axes.bar(voteCountC['option'], voteCountC['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+        self.axes.bar(voteCountD['option'], voteCountD['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+        self.draw()
+    else:
+        for filename in os.listdir(resource_path('ResultData/' + DataCollectionScreen.template)):
+            with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), filename),
+                      'r') as json_file:
                 data = json.load(json_file)
+                voteCountA = data['voteCounts'][0]
+                voteCountB = data['voteCounts'][1]
+                voteCountC = data['voteCounts'][2]
+                voteCountD = data['voteCounts'][3]
 
-            voteCountA = data["DataCollectionRecords"][0]['voteCounts'][0]
-            voteCountB = data["DataCollectionRecords"][0]['voteCounts'][1]
-            voteCountC = data["DataCollectionRecords"][0]['voteCounts'][2]
-            voteCountD = data["DataCollectionRecords"][0]['voteCounts'][3]
-    self.axes.bar(voteCountA['option'], voteCountA['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-    self.axes.bar(voteCountB['option'], voteCountB['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-    self.axes.bar(voteCountC['option'], voteCountC['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-    self.axes.bar(voteCountD['option'], voteCountD['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-
-    self.draw()
+            self.axes.bar(voteCountA['option'], voteCountA['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+            self.axes.bar(voteCountB['option'], voteCountB['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+            self.axes.bar(voteCountC['option'], voteCountC['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+            self.axes.bar(voteCountD['option'], voteCountD['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+            self.draw()
 
 
-def plotUpdate(self):
+def plotUpdate(self, fileName):
     self.axes.clear()
-    plot(self)
+    plot(self, fileName)
 
 
 class Canvas(FigureCanvas):
@@ -47,16 +61,18 @@ class Canvas(FigureCanvas):
         self.fig, self.axes = plt.subplots(figsize=(8, 7), dpi=90)
         FigureCanvas.__init__(self, self.fig)
         self.setParent(parent)
-        plot(self)
+        plot(self, "")
 
 
 class DataCollectionScreen(QtWidgets.QMainWindow):
-    index = 0
+    count = 0
+    currentEntry = ""
 
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.canvas = Canvas(self)
-        self.canvas.move(350, 100)
+        self.canvas.move(280, 100)
+        self.canvas.resize(900 , 600)
         self.setupUi(self)
 
     def is_file_empty(self, file_path):
@@ -66,29 +82,30 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
 
     # shows the first record
     def readFromJsonFile(self):
+        if DataCollectionScreen.count == 0:
+            self.listWidget.clear()
+            plotUpdate(self.canvas, "")
 
-        # is_empty = self.is_file_empty(resource_path('../DataCollectionJson/DataCollectionScreen.txt'))
-        # if not is_empty:
-        for filename in os.listdir(resource_path('DataCollectionJson/')):
-            with open(os.path.join(resource_path('DataCollectionJson/'), filename), 'r') as json_file:
+        for filename in os.listdir(resource_path('ResultData/' + DataCollectionScreen.template)):
+            with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), filename),
+                      'r') as json_file:
                 data = json.load(json_file)
-                for record in data['DataCollectionRecords']:
-                    self.listWidget.addItem(record['EntryName'])
-                    self.counter.setText(record['totalVote'])
-                    self.Time.setText(record['lastUpdate'])
+                self.listWidget.addItem(data['name'])
+                self.counter.setText(str(data['totalVote']))
+                self.Time.setText(data['lastUpdated'])
 
     # Double clicking functionality for the data collection screen.
     def updateGraphOnClick(self):
-
-        DataCollectionScreen.index = self.listWidget.currentRow()
-        plotUpdate(self.canvas)
-        for filename in os.listdir(resource_path('DataCollectionJson/')):
-            with open(os.path.join(resource_path('DataCollectionJson/'), filename), 'r') as json_file:
+        plotUpdate(self.canvas, self.listWidget.currentItem().text() + ".json")
+        for filename in os.listdir(resource_path('ResultData/' + DataCollectionScreen.template)):
+            with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), filename),
+                      'r') as json_file:
                 data = json.load(json_file)
-            for record in data['DataCollectionRecords']:
-                if record['EntryName'] == self.listWidget.currentItem().text():
-                    self.counter.setText(record['totalVote'])
-                    self.Time.setText(record['lastUpdate'])
+                DataCollectionScreen.currentEntry = self.listWidget.currentItem().text()
+                DataCollectionScreen.count += 1
+                if data['name'] == self.listWidget.currentItem().text():
+                    self.counter.setText(str(data['totalVote']))
+                    self.Time.setText(data['lastUpdated'])
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
