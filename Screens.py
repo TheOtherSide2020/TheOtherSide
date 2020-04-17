@@ -32,8 +32,8 @@ def changeShowcaseWindow(w1, w2):
 
 
 #def changeDataCollectionScreen(w1, w2, template):
-   # w2.canvas.axes.clear()
-   # DataCollectionScreen.template = template
+    #w2.canvas.axes.clear()
+    #DataCollectionScreen.template = template
     #DataCollectionScreen.count = 0
     #w2.readFromJsonFile()
     #w1.hide()
@@ -106,8 +106,8 @@ def main():
     screen2 = Screen2()
     screen2DataCollection = Screen2()
     pollingScreen = PollingScreen()
-   # DataCollectionScreen.template = "Polling"
-   # dataCollectionScreen = DataCollectionScreen()
+    #DataCollectionScreen.template = "Polling"
+    #dataCollectionScreen = DataCollectionScreen()
     showCaseScreen = ShowCaseScreen()
     uploadScreen = UploadScreen()
     conversationScreen = ConversationScreen()
@@ -116,9 +116,9 @@ def main():
     screen1.pushButton_2.clicked.connect(lambda: changeWindow(screen1, screen2DataCollection))
 
     #screen2DataCollection.pushButton_2.clicked.connect(
-        #lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Polling"))
-    #screen2DataCollection.pushButton.clicked.connect(
-        #lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Showcase"))
+    #    lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Polling"))
+   # screen2DataCollection.pushButton.clicked.connect(
+       # lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Showcase"))
     #screen2DataCollection.pushButton_3.clicked.connect(
         #lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Text"))
     screen2.pushButton_2.clicked.connect(lambda: changeWindow(screen2, pollingScreen))
@@ -134,7 +134,7 @@ def main():
     uploadScreen.pushButton_3.clicked.connect(
         lambda: labelText(showCaseScreen, uploadScreen, uploadScreen.Video + "  " + uploadScreen.Image + "  uploaded"))
 
-    #dataCollectionScreen.commandLinkButton.clicked.connect(lambda: changeWindow(dataCollectionScreen, screen1))
+   # dataCollectionScreen.commandLinkButton.clicked.connect(lambda: changeWindow(dataCollectionScreen, screen1))
 
     conversationScreen.commandLinkButton.clicked.connect(lambda: changeWindow(conversationScreen, screen2))
 
