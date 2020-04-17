@@ -25,6 +25,10 @@ public class SelectionMenu : MonoBehaviour
     string instancePath = @"..\TemplateJsonInstance\SimplePollingInstance\";
     string instanceEditorPath = @"..\..\TemplateJsonInstance\SimplePollingInstance\";
 
+    // preview panel
+    [SerializeField] Transform contentListParent;
+    [SerializeField] GameObject contentListButton;
+
     private void Start()
     {
         panels[0].SetActive(true);
