@@ -3,11 +3,11 @@
    "type":"simplePolling",
    "createdOn":"2020-04-10T07:22Z",
    "lastUpdated":"2020-04-12T07:22Z",
-   "question":"What?",
+   "question":"What language do you think in?",
    "options":[
-      "1111",
-      "2222",
-      "3333",
-      "4444"
+      "My first language",
+      "The language we're taking in at the moment",
+      "I'm only using language if I'm rehearsing what to say",
+      "The language I'm learning"
    ]
 }

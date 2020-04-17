@@ -15,8 +15,9 @@ public class PollingTemplateJsonLoader : MonoBehaviour
         public string[] options;
     }
 
-    PollingContent loadContent;
+    [SerializeField] PollingContent loadContent;
     [SerializeField] bool usingHardCode = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -36,7 +37,8 @@ public class PollingTemplateJsonLoader : MonoBehaviour
         }
         else
         {
-            using (StreamReader r = new StreamReader("playtest.json"))
+            
+            using (StreamReader r = new StreamReader(SelectionMenu.Instance.GetCurrentPreviewPath()))
             {
                 string json = r.ReadToEnd();
                 loadContent = JsonUtility.FromJson<PollingContent>(json);

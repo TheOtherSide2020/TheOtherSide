@@ -18,6 +18,7 @@ public class PollingMainBubble : MonoBehaviour
 
     [SerializeField] int activeIdx = -1;
     [SerializeField] SpriteRenderer[] lights;
+    [SerializeField] TMPro.TMP_Text question;
 
     void Start()
     {
@@ -26,6 +27,15 @@ public class PollingMainBubble : MonoBehaviour
             sr.gameObject.SetActive(false);
         }
         StartLightBlubEffect();
+
+        // load question from file
+        question = GetComponentInChildren<TMPro.TMP_Text>();
+        LoadQuestionText();
+    }
+
+    public void LoadQuestionText() {
+        string questionText = PollingTemplateJsonLoader.Instance.GetQuestion();
+        question.SetText(questionText);
     }
 
     public void StartLightBlubEffect() {

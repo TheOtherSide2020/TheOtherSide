@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VR.unity
     guid: abad37c38bb31664ca163c1584d8cc51
+  - enabled: 1
+    path: Assets/Scenes/ShowcaseTemplate.unity
+    guid: 66d7ae42a964b5f49b213f6cd3901873
+  - enabled: 1
+    path: Assets/Scenes/PollingTemplate.unity
+    guid: 12de97ff1cd7de547ba4d7bdb5a196ce
+  - enabled: 1
+    path: Assets/Scenes/ConversationTemplate.unity
+    guid: c75a059f2a222bd4ca35b740920d1761
   m_configObjects: {}
