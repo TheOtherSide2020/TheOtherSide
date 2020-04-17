@@ -38,7 +38,7 @@ class PollingScreen(QtWidgets.QMainWindow):
 
     def save(self):
         # check if string is empty
-        if self.Question.toPlainText() != "" and self.Option1.toPlainText() != "" and self.Option2.toPlainText() != "" and self.Option3.toPlainText() != "" and self.Option4.toPlainText() != "" and self.EntryName.toPlainText() != "":
+        if self.Question.toPlainText() != "" and self.Option1.toPlainText() != "" and self.Option2.toPlainText() != "" and self.Option3.toPlainText() != "" and self.Option1.toPlainText() != "" and self.EntryName.toPlainText() != "":
 
             if self.listWidget.count() == 0:
                 self.saveJson()
@@ -121,16 +121,16 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(280, 60, 1291, 920))
+        self.label.setGeometry(QtCore.QRect(280, 75, 1291, 920))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(resource_path('Images/PollingScreen.png')))
+        self.label.setPixmap(QtGui.QPixmap(resource_path('Images/PollingSystem_circle.png')))
         self.label.setScaledContents(True)
-        self.label.setWordWrap(False)
+        self.label.setWordWrap(True)
         self.label.setIndent(21)
         self.label.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label.setObjectName("label")
         self.Question = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Question.setGeometry(QtCore.QRect(1070, 260, 371, 95))
+        self.Question.setGeometry(QtCore.QRect(1060, 240, 450, 120))
         self.Question.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Question.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Question.setTabChangesFocus(True)
@@ -140,19 +140,8 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.Question.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
         self.Question.setObjectName("Question")
-        self.Option1 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option1.setGeometry(QtCore.QRect(700, 540, 151, 55))
-        self.Option1.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.Option1.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.Option1.setTabChangesFocus(True)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.Option1.setFont(font)
-        self.Option1.setTextInteractionFlags(
-            QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option1.setObjectName("Option1")
         self.Option2 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option2.setGeometry(QtCore.QRect(840, 780, 201, 65))
+        self.Option2.setGeometry(QtCore.QRect(700, 540, 170, 65))
         self.Option2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option2.setTabChangesFocus(True)
@@ -161,9 +150,9 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.Option2.setFont(font)
         self.Option2.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option2.setObjectName("Option2")
+        self.Option2.setObjectName("Option1")
         self.Option3 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option3.setGeometry(QtCore.QRect(1340, 680, 151, 65))
+        self.Option3.setGeometry(QtCore.QRect(840, 800, 201, 100))
         self.Option3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option3.setTabChangesFocus(True)
@@ -172,9 +161,9 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.Option3.setFont(font)
         self.Option3.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option3.setObjectName("Option3")
+        self.Option3.setObjectName("Option2")
         self.Option4 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option4.setGeometry(QtCore.QRect(310, 600, 201, 71))
+        self.Option4.setGeometry(QtCore.QRect(1380, 690, 160, 70))
         self.Option4.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option4.setTabChangesFocus(True)
@@ -183,7 +172,18 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.Option4.setFont(font)
         self.Option4.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option4.setObjectName("Option4")
+        self.Option4.setObjectName("Option3")
+        self.Option1 = QtWidgets.QTextBrowser(self.centralwidget)
+        self.Option1.setGeometry(QtCore.QRect(300, 600, 201, 120))
+        self.Option1.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.Option1.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.Option1.setTabChangesFocus(True)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.Option1.setFont(font)
+        self.Option1.setTextInteractionFlags(
+            QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
+        self.Option1.setObjectName("Option4")
 
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(1430, 10, 121, 41))
@@ -196,8 +196,8 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.listWidget.setFont(font)
         self.listWidget.setAutoFillBackground(True)
         self.listWidget.setAlternatingRowColors(True)
+        self.listWidget.setSortingEnabled(True)
         self.listWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
-        self.listWidget.setViewMode(QtWidgets.QListView.IconMode)
         self.listWidget.setItemAlignment(QtCore.Qt.AlignVCenter)
         self.listWidget.setObjectName("listWidget")
         # this function reads the previous records in the json file
@@ -255,11 +255,6 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.EntryName.setObjectName("textEdit")
         self.commandLinkButton.raise_()
         self.label.raise_()
-        self.Question.raise_()
-        self.Option1.raise_()
-        self.Option2.raise_()
-        self.Option3.raise_()
-        self.Option4.raise_()
         self.pushButton.raise_()
         self.listWidget.raise_()
         self.label_2.raise_()
@@ -267,6 +262,11 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.CreateNewContent.raise_()
         self.line.raise_()
         self.EntryName.raise_()
+        self.Question.raise_()
+        self.Option1.raise_()
+        self.Option2.raise_()
+        self.Option3.raise_()
+        self.Option4.raise_()
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -276,7 +276,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.CreateNewContent.clicked.connect(self.Option1.clear)
         self.CreateNewContent.clicked.connect(self.Option2.clear)
         self.CreateNewContent.clicked.connect(self.Option3.clear)
-        self.CreateNewContent.clicked.connect(self.Option4.clear)
+        self.CreateNewContent.clicked.connect(self.Option1.clear)
         self.CreateNewContent.clicked.connect(self.EntryName.clear)
         self.Delete.clicked.connect(self.deleteItem)
         self.listWidget.itemDoubleClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
@@ -314,7 +314,7 @@ class PollingScreen(QtWidgets.QMainWindow):
                     self.Option1.setPlainText(data['options'][0])
                     self.Option2.setPlainText(data['options'][1])
                     self.Option3.setPlainText(data['options'][2])
-                    self.Option4.setPlainText(data['options'][3])
+                    self.Option1.setPlainText(data['options'][3])
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
