@@ -22,7 +22,12 @@ class Screen1(QtWidgets.QMainWindow):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1151, 851)
+        MainWindow.setFixedSize(1151, 851)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(resource_path('Images/The Other Side_logo.png')), QtGui.QIcon.Normal,
                        QtGui.QIcon.Off)
@@ -76,6 +81,7 @@ class Screen1(QtWidgets.QMainWindow):
         self.pushButton.setText(_translate("MainWindow", "Content Editor"))
         self.pushButton_2.setText(_translate("MainWindow", "Data Collection"))
 
+
 def main():
     path = os.path.dirname(sys.argv[0])
     print(os.path.dirname(sys.argv[0]))
@@ -85,8 +91,6 @@ def main():
                       "10px;}")
     screen1 = Screen1()
     screen1.show()
-
-
 
     sys.exit(app.exec_())
 

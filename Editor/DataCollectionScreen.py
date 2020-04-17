@@ -2,7 +2,7 @@ import json
 import os
 # class for pollingScreen UI
 import sys
-
+import matplotlib
 import matplotlib.pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -109,7 +109,12 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1218, 851)
+        MainWindow.setFixedSize(1218, 851)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
@@ -151,10 +156,10 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
         self.commandLinkButton.setGeometry(QtCore.QRect(20, 10, 51, 41))
         self.commandLinkButton.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(resource_path('../Images/directional-chevron-back-512.ico')), QtGui.QIcon.Normal,
+        icon.addPixmap(QtGui.QPixmap(resource_path('Images/directional-chevron-back-512.ico')), QtGui.QIcon.Normal,
                         QtGui.QIcon.Off)
         self.commandLinkButton.setIcon(icon)
-        self.commandLinkButton.setIconSize(QtCore.QSize(35, 35))
+        self.commandLinkButton.setIconSize(QtCore.QSize(25, 25))
         self.commandLinkButton.setObjectName("commandLinkButton")
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(900, 780, 61, 21))
