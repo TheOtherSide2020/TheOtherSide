@@ -276,7 +276,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.CreateNewContent.clicked.connect(self.Option1.clear)
         self.CreateNewContent.clicked.connect(self.Option2.clear)
         self.CreateNewContent.clicked.connect(self.Option3.clear)
-        self.CreateNewContent.clicked.connect(self.Option1.clear)
+        self.CreateNewContent.clicked.connect(self.Option4.clear)
         self.CreateNewContent.clicked.connect(self.EntryName.clear)
         self.Delete.clicked.connect(self.deleteItem)
         self.listWidget.itemDoubleClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
@@ -314,7 +314,7 @@ class PollingScreen(QtWidgets.QMainWindow):
                     self.Option1.setPlainText(data['options'][0])
                     self.Option2.setPlainText(data['options'][1])
                     self.Option3.setPlainText(data['options'][2])
-                    self.Option1.setPlainText(data['options'][3])
+                    self.Option4.setPlainText(data['options'][3])
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
