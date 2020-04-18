@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import QStyle, QFileDialog, QMessageBox, QLabel, QVBoxLayou
 
 # class for pollingScreen UI
 
+
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -24,6 +25,8 @@ def resource_path(relative_path):
 class UploadScreen(QtWidgets.QMainWindow):
     VideoFileName = ""
     ImageFileName = ""
+    Video = ""
+    Image = ""
 
     def play(self):
         self.pushButton_2.hide()
@@ -73,7 +76,7 @@ class UploadScreen(QtWidgets.QMainWindow):
             self.pushButton_2.show()
         else:
             url = QUrl.fromLocalFile(video)
-            self.Video = url.fileName()
+            UploadScreen.Video = url.fileName()
             # set the file name as this in the previous screen
             if video.lower().endswith(('.mp3', '.avi', '.mp4', '.mov')):
                 if video != '':
@@ -105,7 +108,7 @@ class UploadScreen(QtWidgets.QMainWindow):
 
     def loadImage(self, image):
         url = QUrl.fromLocalFile(image)
-        self.Image = url.fileName()
+        UploadScreen.Image = url.fileName()
         if image.lower().endswith(('.png', '.jpg', '.jpeg')):
 
             if image != '':
@@ -114,7 +117,7 @@ class UploadScreen(QtWidgets.QMainWindow):
                 self.imageWidget.show()
                 self.pushButton_4.show()
                 UploadScreen.ImageFileName = image
-                UploadScreen.ImageFileName = image
+                UploadScreen.Image = image
 
         else:
             msgBox = QMessageBox()
@@ -127,8 +130,8 @@ class UploadScreen(QtWidgets.QMainWindow):
     def clearImage(self):
         self.imageWidget.hide()
         self.pushButton_4.hide()
-        UploadScreen.ImageFileName = ""
-        self.imageWidget.update()
+        UploadScreen.Image = " "
+        UploadScreen.ImageFileName = " "
 
     def clearVideo(self):
         self.videoWidget.hide()
@@ -136,17 +139,15 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.positionSlider.hide()
         self.playButton.hide()
         self.pushButton_5.hide()
-        UploadScreen.VideoFileName = ""
         UploadScreen.Video = ""
-        self.videoWidget.update()
+        UploadScreen.VideoFileName = ""
 
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setupUi(self)
 
     def setupUi(self, MainWindow):
-        self.Video = ""
-        self.Image = ""
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(1085, 764)
         self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint)
@@ -285,7 +286,6 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.pushButton_3.raise_()
         self.pushButton_5.raise_()
         self.commandLinkButton.raise_()
-
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
