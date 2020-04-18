@@ -60,6 +60,7 @@ def showWindow(w1, w2):
     elif ShowCaseScreen.VideoFileName == '' and w2.doubleClicked == 0:
         w1.clearVideo()
 
+
     w1.move(260, 140)
 
     w2.setWindowModality(QtCore.Qt.ApplicationModal)
@@ -67,6 +68,7 @@ def showWindow(w1, w2):
 
 
 def labelText(self, MainWindow, value):
+    print(UploadScreen.ImageFileName)
     if UploadScreen.ImageFileName == "":
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
@@ -132,7 +134,7 @@ def main():
     showCaseScreen.Upload.clicked.connect(lambda: showWindow(uploadScreen, showCaseScreen))
 
     uploadScreen.pushButton_3.clicked.connect(
-        lambda: labelText(showCaseScreen, uploadScreen, uploadScreen.Video + "  " + uploadScreen.Image + "  uploaded"))
+        lambda: labelText(showCaseScreen, uploadScreen, UploadScreen.Video + "  " + UploadScreen.Image + "  uploaded"))
 
    # dataCollectionScreen.commandLinkButton.clicked.connect(lambda: changeWindow(dataCollectionScreen, screen1))
 
