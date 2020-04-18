@@ -122,11 +122,11 @@ def main():
     # lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Showcase"))
     # screen2DataCollection.pushButton_3.clicked.connect(
     # lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Text"))
-    screen2.pushButton_2.clicked.connect(lambda: changeWindow(screen2, pollingScreen))
+    screen2.pushButton_4.clicked.connect(lambda: changeWindow(screen2, pollingScreen))
     screen2.pushButton.clicked.connect(lambda: changeWindow(screen2, showCaseScreen))
     screen2.commandLinkButton.clicked.connect(lambda: changeWindow(screen2, screen1))
     screen2DataCollection.commandLinkButton.clicked.connect(lambda: changeWindow(screen2, screen1))
-    screen2.pushButton_3.clicked.connect(lambda: changeWindow(screen2, conversationScreen))
+    screen2.pushButton_5.clicked.connect(lambda: changeWindow(screen2, conversationScreen))
 
     pollingScreen.commandLinkButton.clicked.connect(lambda: changeWindow(pollingScreen, screen2))
 
