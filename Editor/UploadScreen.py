@@ -312,7 +312,7 @@ class UploadScreen(QtWidgets.QMainWindow):
                                         "You can upload either video or image, or both of them image will be the "
                                         "cover for idle status."))
         self.pushButton_4.setText(_translate("MainWindow", "Clear Image"))
-        self.pushButton_3.setText(_translate("MainWindow", "Save"))
+        self.pushButton_3.setText(_translate("MainWindow", "Upload"))
         self.pushButton_5.setText(_translate("MainWindow", "Clear Video"))
         self.pushButton_4.hide()
         self.pushButton_5.hide()
