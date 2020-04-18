@@ -165,6 +165,9 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
 
     def undoDoubleClick(self):
         ShowCaseScreen.doubleClicked = 0
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(resource_path("Images/Upload.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.Upload.setIcon(icon4)
         # new content added
         self.listWidget.clearSelection
         self.Delete.setEnabled(False)
@@ -190,7 +193,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setEnabled(True)
-        self.label.setGeometry(QtCore.QRect(440, 110, 1101, 871))
+        self.label.setGeometry(QtCore.QRect(443, 130, 1091, 841))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -198,7 +201,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.label.setSizePolicy(sizePolicy)
         self.label.setAutoFillBackground(False)
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(resource_path("Images/Showcase.png")))
+        self.label.setPixmap(QtGui.QPixmap(resource_path("Images/Showcase_cricle.png")))
         self.label.setScaledContents(True)
         self.label.setAlignment(QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.label.setWordWrap(False)
@@ -363,7 +366,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(resource_path("Images/Upload.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Upload.setIcon(icon4)
-        self.Upload.setIconSize(QtCore.QSize(110, 120))
+        self.Upload.setIconSize(QtCore.QSize(120, 170))
         self.Upload.setAutoDefault(False)
         self.Upload.setFlat(True)
         self.Upload.setObjectName("pushButton_4")
@@ -386,6 +389,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         sizePolicy.setHeightForWidth(self.Question.sizePolicy().hasHeightForWidth())
         self.Question.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
+        font.setFamily('Futura')
         font.setPointSize(12)
         self.Question.setFont(font)
         self.Question.setTextInteractionFlags(
@@ -485,6 +489,9 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
             x = msgBox.exec_()
 
     def populateTextForEdit(self):
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(resource_path("Images/View.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.Upload.setIcon(icon4)
         text = self.listWidget.currentItem().text()
         self.Question.setPlainText(text)
         self.Delete.setEnabled(True)

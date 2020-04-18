@@ -37,6 +37,7 @@ class PollingScreen(QtWidgets.QMainWindow):
                 self.listWidget.addItem(data['name'])
 
     def save(self):
+        self.pushButton_2.setEnabled(False)
         # check if string is empty
         if self.Question.toPlainText() != "" and self.Option1.toPlainText() != "" and self.Option2.toPlainText() != "" and self.Option3.toPlainText() != "" and self.Option1.toPlainText() != "" and self.EntryName.toPlainText() != "":
 
@@ -129,6 +130,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.Question.setFrameShape(QtWidgets.QFrame.StyledPanel)
         font = QtGui.QFont()
         font.setPointSize(13)
+        font.setBold(False)
         font.setFamily("Futura")
         self.Question.setFont(font)
         self.Question.setFont(font)
@@ -305,6 +307,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.pushButton_2.raise_()
         self.pushButton_6.raise_()
         self.EntryName.raise_()
+        self.commandLinkButton.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -313,12 +316,16 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.pushButton_3.clicked.connect(self.Option1.clear)
         self.pushButton_3.clicked.connect(self.Option2.clear)
         self.pushButton_3.clicked.connect(self.Option3.clear)
+        self.pushButton_3.clicked.connect(self.disableDeleteButton)
         self.pushButton_3.clicked.connect(self.Option4.clear)
         self.pushButton_3.clicked.connect(self.EntryName.clear)
         self.pushButton_2.clicked.connect(self.deleteItem)
         self.listWidget.itemClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
         # self.commandLinkButton.clicked.connect()  #back functionality
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def disableDeleteButton(self):
+        self.pushButton_2.setEnabled(False)
 
 
     def deleteItem(self):
@@ -364,6 +371,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.Option3.setPlaceholderText(_translate("MainWindow", "Option3"))
         self.Option4.setPlaceholderText(_translate("MainWindow", "Option4"))
         self.EntryName.setPlaceholderText(_translate("MainWindow", "Entry Name"))
+        self.pushButton_2.setEnabled(False)
         self.label_2.setText(_translate("MainWindow", "Content List"))
 
 
