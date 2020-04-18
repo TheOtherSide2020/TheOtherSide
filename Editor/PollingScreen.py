@@ -245,6 +245,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.EntryName.setLineWidth(2)
         self.EntryName.setObjectName("Entry Name")
 
+
         font = QtGui.QFont()
         font.setPointSize(12)
         self.EntryName.setFont(font)
@@ -253,6 +254,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.EntryName.setReadOnly(False)
         self.EntryName.setOverwriteMode(True)
         self.EntryName.setObjectName("textEdit")
+
         self.commandLinkButton.raise_()
         self.label.raise_()
         self.pushButton.raise_()

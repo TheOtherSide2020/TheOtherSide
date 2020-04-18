@@ -330,3 +330,5 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.CreateNewContent.setText(_translate("MainWindow", "Create New Content"))
         self.Delete.setText(_translate("MainWindow", "Delete"))
         self.label_2.setText(_translate("MainWindow", "Content List"))
+
+
