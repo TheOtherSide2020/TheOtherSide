@@ -6,17 +6,23 @@ using UnityEngine.UI;
 public class ContentListButton : MonoBehaviour
 {
     public int idx;
-    public TMPro.TMP_Text text;
+    public string title;
+    public TMPro.TextMeshProUGUI text;
     Button button;
 
-    void Start()
+    void Awake()
     {
-        text = GetComponentInChildren<TMPro.TMP_Text>();
+        text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
         button = GetComponent<Button>();
         button.onClick.AddListener(() => OnClick(idx));
     }
 
     public void OnClick(int idx) {
         SelectionMenu.Instance.PreviewContent(idx);
+    }
+
+    public void OnEnable()
+    {
+        text.SetText(title);
     }
 }

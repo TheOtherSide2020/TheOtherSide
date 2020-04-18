@@ -56,13 +56,13 @@ public class MessageScroller : MonoBehaviour
         switch (type)
         {
             case "Question":
-                newText = JsonLoader.Instance.GetQuestion();
+                newText = TextTemplateJsonLoader.Instance.GetQuestion();
                 question.GetComponent<MainBubbleSingleMessage>().SetText(newText);
                 question.GetComponent<ContainerSizeUpdater>().UpdateSize();
                 break;
             case "Answer":
                 // update answer text
-                newText = JsonLoader.Instance.GetOption(idx);
+                newText = TextTemplateJsonLoader.Instance.GetOption(idx);
                 answer.GetComponent<MainBubbleSingleMessage>().SetText(newText);
                 answer.GetComponent<ContainerSizeUpdater>().UpdateSize();
                 break;

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2925935592384409326}
   - component: {fileID: 2925935592384409327}
   m_Layer: 8
-  m_Name: OptionA
+  m_Name: TextOptionTouchPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,9 +119,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fillingImage: {fileID: 0}
-  checkMarkImage: {fileID: 0}
   progress: 0
   textDisplay: {fileID: 0}
   sizeUpdater: {fileID: 0}
   id: 0
   interactionEnabled: 1
+  checkMarkImage: {fileID: 0}

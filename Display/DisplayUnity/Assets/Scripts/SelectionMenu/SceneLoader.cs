@@ -18,7 +18,7 @@ public class SceneLoader : MonoBehaviour
     #endregion
 
     [SerializeField] string[] sceneNames;
-    [SerializeField] string currentLoadedScene;
+    [SerializeField] string currentLoadedScene = "";
 
     void Start()
     {
@@ -33,17 +33,26 @@ public class SceneLoader : MonoBehaviour
     }
 
     public void LoadScene(int idx) {
+        if (!currentLoadedScene.Equals(""))
+        {
+            // unload previous content
+            StartCoroutine(UnloadCurrentScene(idx));
+        }
+        else
+        {
+            // load new scene
+            SceneManager.LoadScene(sceneNames[idx], LoadSceneMode.Additive);
+            currentLoadedScene = sceneNames[idx];
+        }  
+    }
+
+    IEnumerator UnloadCurrentScene(int idx)
+    {
+        AsyncOperation ao = SceneManager.UnloadSceneAsync(currentLoadedScene);
+        yield return ao;
+        // load new scene
         SceneManager.LoadScene(sceneNames[idx], LoadSceneMode.Additive);
         currentLoadedScene = sceneNames[idx];
-    }
-
-    void UnloadScene(int idx)
-    {
-
-    }
-
-    public void UnloadCurrentScene() {
-
     }
 
     public int GetNumberOfTemplate() {

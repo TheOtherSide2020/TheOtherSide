@@ -17,7 +17,6 @@ public class TextTemplateJsonLoader : MonoBehaviour
 
     Content loadContent;
     [SerializeField] bool usingHardCode = false;
-    [SerializeField] string path;
     private void Awake()
     {
         if (Instance == null)
@@ -37,7 +36,7 @@ public class TextTemplateJsonLoader : MonoBehaviour
         }
         else
         {
-            using (StreamReader r = new StreamReader(path))
+            using (StreamReader r = new StreamReader(SelectionMenu.Instance.GetCurrentPreviewPath()))
             {
                 string json = r.ReadToEnd();
                 loadContent = JsonUtility.FromJson<Content>(json);

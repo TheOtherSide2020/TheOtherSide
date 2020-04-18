@@ -40,12 +40,12 @@ public class ShowcaseTemplateJsonLoader : MonoBehaviour
         }
         else
         {
-            using (StreamReader r = new StreamReader("playtest.json"))
+            using (StreamReader r = new StreamReader(SelectionMenu.Instance.GetCurrentPreviewPath()))
             {
                 string json = r.ReadToEnd();
                 loadContent = JsonUtility.FromJson<ShowcaseContent>(json);
             }
-            LoadSprite(loadContent.picturePath);
+            // LoadSprite(loadContent.picturePath);
         }
         Debug.Log(loadContent);
     }
