@@ -134,7 +134,7 @@ def main():
     showCaseScreen.Upload.clicked.connect(lambda: showWindow(uploadScreen, showCaseScreen))
 
     uploadScreen.pushButton_3.clicked.connect(
-        lambda: labelText(showCaseScreen, uploadScreen, UploadScreen.Video + "  " + UploadScreen.Image + "  uploaded"))
+        lambda: labelText(showCaseScreen, uploadScreen, str(UploadScreen.Video) + "  " + str(UploadScreen.Image) + "  uploaded"))
 
    # dataCollectionScreen.commandLinkButton.clicked.connect(lambda: changeWindow(dataCollectionScreen, screen1))
 
