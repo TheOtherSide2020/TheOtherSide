@@ -272,7 +272,7 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.pushButton_6.setFlat(True)
         self.pushButton_6.setObjectName("pushButton_6")
         self.EntryName = QtWidgets.QTextEdit(self.centralwidget)
-        self.EntryName.setGeometry(QtCore.QRect(540, 10, 491, 31))
+        self.EntryName.setGeometry(QtCore.QRect(540, 5, 491, 40))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setBold(False)
