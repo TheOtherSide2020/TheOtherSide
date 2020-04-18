@@ -8,7 +8,7 @@ from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import QMessageBox
 
 from Editor.ConversationScreen import ConversationScreen
-#from Editor.DataCollectionScreen import DataCollectionScreen
+# from Editor.DataCollectionScreen import DataCollectionScreen
 from Editor.PollingScreen import PollingScreen
 from Editor.Screen1 import Screen1
 from Editor.Screen2 import Screen2
@@ -31,13 +31,13 @@ def changeShowcaseWindow(w1, w2):
     w2.show()
 
 
-#def changeDataCollectionScreen(w1, w2, template):
-    #w2.canvas.axes.clear()
-    #DataCollectionScreen.template = template
-    #DataCollectionScreen.count = 0
-    #w2.readFromJsonFile()
-    #w1.hide()
-    #w2.show()
+# def changeDataCollectionScreen(w1, w2, template):
+# w2.canvas.axes.clear()
+# DataCollectionScreen.template = template
+# DataCollectionScreen.count = 0
+# w2.readFromJsonFile()
+# w1.hide()
+# w2.show()
 
 
 def showWindow(w1, w2):
@@ -59,7 +59,6 @@ def showWindow(w1, w2):
         w1.clearVideo()
     elif ShowCaseScreen.VideoFileName == '' and w2.doubleClicked == 0:
         w1.clearVideo()
-
 
     w1.move(260, 140)
 
@@ -108,8 +107,8 @@ def main():
     screen2 = Screen2()
     screen2DataCollection = Screen2()
     pollingScreen = PollingScreen()
-    #DataCollectionScreen.template = "Polling"
-    #dataCollectionScreen = DataCollectionScreen()
+    # DataCollectionScreen.template = "Polling"
+    # dataCollectionScreen = DataCollectionScreen()
     showCaseScreen = ShowCaseScreen()
     uploadScreen = UploadScreen()
     conversationScreen = ConversationScreen()
@@ -117,12 +116,12 @@ def main():
     screen1.pushButton.clicked.connect(lambda: changeWindow(screen1, screen2))
     screen1.pushButton_2.clicked.connect(lambda: changeWindow(screen1, screen2DataCollection))
 
-    #screen2DataCollection.pushButton_2.clicked.connect(
+    # screen2DataCollection.pushButton_2.clicked.connect(
     #    lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Polling"))
-   # screen2DataCollection.pushButton.clicked.connect(
-       # lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Showcase"))
-    #screen2DataCollection.pushButton_3.clicked.connect(
-        #lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Text"))
+    # screen2DataCollection.pushButton.clicked.connect(
+    # lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Showcase"))
+    # screen2DataCollection.pushButton_3.clicked.connect(
+    # lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Text"))
     screen2.pushButton_2.clicked.connect(lambda: changeWindow(screen2, pollingScreen))
     screen2.pushButton.clicked.connect(lambda: changeWindow(screen2, showCaseScreen))
     screen2.commandLinkButton.clicked.connect(lambda: changeWindow(screen2, screen1))
@@ -134,9 +133,10 @@ def main():
     showCaseScreen.Upload.clicked.connect(lambda: showWindow(uploadScreen, showCaseScreen))
 
     uploadScreen.pushButton_3.clicked.connect(
-        lambda: labelText(showCaseScreen, uploadScreen, str(UploadScreen.Video) + "  " + str(UploadScreen.Image) + "  uploaded"))
+        lambda: labelText(showCaseScreen, uploadScreen,
+                          str(UploadScreen.Video) + "  " + str(UploadScreen.Image) + "  uploaded"))
 
-   # dataCollectionScreen.commandLinkButton.clicked.connect(lambda: changeWindow(dataCollectionScreen, screen1))
+    # dataCollectionScreen.commandLinkButton.clicked.connect(lambda: changeWindow(dataCollectionScreen, screen1))
 
     conversationScreen.commandLinkButton.clicked.connect(lambda: changeWindow(conversationScreen, screen2))
 
