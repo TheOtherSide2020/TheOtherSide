@@ -76,7 +76,6 @@ class UploadScreen(QtWidgets.QMainWindow):
             self.pushButton_2.show()
         else:
             url = QUrl.fromLocalFile(video)
-            UploadScreen.Video = url.fileName()
             # set the file name as this in the previous screen
             if video.lower().endswith(('.mp3', '.avi', '.mp4', '.mov')):
                 if video != '':
@@ -107,31 +106,40 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.loadImage(UploadScreen.ImageFileName)
 
     def loadImage(self, image):
-        url = QUrl.fromLocalFile(image)
-        UploadScreen.Image = url.fileName()
-        if image.lower().endswith(('.png', '.jpg', '.jpeg')):
+        if image == '':
+            self.imageWidget.hide()
+            self.pushButton_4.hide()
+            UploadScreen.ImageFileName = ' '
+            UploadScreen.Image = ' '
 
-            if image != '':
-                self.pixmap = QPixmap(image)
-                self.imageWidget.setPixmap(self.pixmap)
-                self.imageWidget.show()
-                self.pushButton_4.show()
-                UploadScreen.ImageFileName = image
-                UploadScreen.Image = image
+            url = QUrl.fromLocalFile(image)
 
         else:
-            msgBox = QMessageBox()
-            msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText("Please upload an .png, .jpeg or .jpg Image file")
-            msgBox.setWindowTitle("Error")
-            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            x = msgBox.exec_()
+
+             if image.lower().endswith(('.png', '.jpg', '.jpeg')):
+
+                if image != '':
+                    self.pixmap = QPixmap(image)
+                    self.imageWidget.setPixmap(self.pixmap)
+                    self.imageWidget.show()
+                    self.pushButton_4.show()
+                    UploadScreen.ImageFileName = image
+                    UploadScreen.Image = image
+
+                else:
+                    msgBox = QMessageBox()
+                    msgBox.setIcon(QMessageBox.Information)
+                    msgBox.setText("Please upload an .png, .jpeg or .jpg Image file")
+                    msgBox.setWindowTitle("Error")
+                    msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                    x = msgBox.exec_()
 
     def clearImage(self):
         self.imageWidget.hide()
         self.pushButton_4.hide()
-        UploadScreen.Image = " "
-        UploadScreen.ImageFileName = " "
+        UploadScreen.Image = ""
+        UploadScreen.ImageFileName = ""
+        self.imageWidget.update()
 
     def clearVideo(self):
         self.videoWidget.hide()
@@ -141,6 +149,7 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.pushButton_5.hide()
         UploadScreen.Video = ""
         UploadScreen.VideoFileName = ""
+        self.videoWidget.update()
 
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)

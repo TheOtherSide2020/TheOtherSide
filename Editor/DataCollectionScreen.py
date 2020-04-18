@@ -2,6 +2,9 @@ import json
 import os
 # class for pollingScreen UI
 import sys
+import PIL
+import tkinter
+from tkinter import filedialog
 import matplotlib
 import matplotlib.pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets

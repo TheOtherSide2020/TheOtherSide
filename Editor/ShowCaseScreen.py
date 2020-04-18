@@ -89,7 +89,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                         self.listWidget.addItem(self.EntryName.toPlainText())
                         msgBox = QMessageBox()
                         msgBox.setIcon(QMessageBox.Information)
-                        msgBox.setText("Entry Saved")
+                        msgBox.setText(self.EntryName.toPlainText() + "saved!")
                         msgBox.setWindowTitle("Error")
                         msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                         x = msgBox.exec_()
@@ -167,6 +167,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         # new content added
         self.listWidget.clearSelection
         ShowCaseScreen.VideoFileName = ''
+        ShowCaseScreen.ImageFileName = ''
 
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
@@ -174,7 +175,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setFixedSize(1576, 957)
+        MainWindow.setFixedSize(1519, 957)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -199,32 +200,14 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(resource_path("Images/MacBook Pro - 1.png")))
+        self.label.setPixmap(QtGui.QPixmap(resource_path("Images/Showcase.png")))
         self.label.setScaledContents(True)
-        self.label.setWordWrap(False)
-        self.label.setIndent(21)
+        self.label.setWordWrap(True)
+        self.label.setIndent(10)
         self.label.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label.setObjectName("label")
-        self.Option1 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option1.setGeometry(QtCore.QRect(690, 550, 181, 51))
-        self.Option1.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.Option1.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.Option1.setTabChangesFocus(True)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.Option1.setFont(font)
-        self.Option1.setTextInteractionFlags(
-            QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option1.setObjectName("textBrowser_2")
         self.Option2 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option2.setGeometry(QtCore.QRect(790, 810, 321, 51))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
-                                           QtWidgets.QSizePolicy.MinimumExpanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.Option2.sizePolicy().hasHeightForWidth())
-        self.Option2.setSizePolicy(sizePolicy)
-        self.Option2.setSizeIncrement(QtCore.QSize(8, 8))
+        self.Option2.setGeometry(QtCore.QRect(685, 580, 181, 51))
         self.Option2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option2.setTabChangesFocus(True)
@@ -233,9 +216,16 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.Option2.setFont(font)
         self.Option2.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option2.setObjectName("textBrowser_3")
+        self.Option2.setObjectName("textBrowser_2")
         self.Option3 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option3.setGeometry(QtCore.QRect(1340, 690, 181, 41))
+        self.Option3.setGeometry(QtCore.QRect(780, 830, 321, 51))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding,
+                                           QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.Option2.sizePolicy().hasHeightForWidth())
+        self.Option3.setSizePolicy(sizePolicy)
+        self.Option3.setSizeIncrement(QtCore.QSize(8, 8))
         self.Option3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option3.setTabChangesFocus(True)
@@ -244,9 +234,9 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.Option3.setFont(font)
         self.Option3.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option3.setObjectName("textBrowser_4")
+        self.Option3.setObjectName("textBrowser_3")
         self.Option4 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option4.setGeometry(QtCore.QRect(310, 610, 181, 71))
+        self.Option4.setGeometry(QtCore.QRect(1330, 710, 181, 41))
         self.Option4.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option4.setTabChangesFocus(True)
@@ -255,7 +245,18 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.Option4.setFont(font)
         self.Option4.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option4.setObjectName("textBrowser_5")
+        self.Option4.setObjectName("textBrowser_4")
+        self.Option1 = QtWidgets.QTextBrowser(self.centralwidget)
+        self.Option1.setGeometry(QtCore.QRect(310, 605, 181, 71))
+        self.Option1.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.Option1.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.Option1.setTabChangesFocus(True)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.Option1.setFont(font)
+        self.Option1.setTextInteractionFlags(
+            QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
+        self.Option1.setObjectName("textBrowser_5")
         self.Save = QtWidgets.QPushButton(self.centralwidget)
         self.Save.setGeometry(QtCore.QRect(1320, 10, 130, 41))
         self.Save.setObjectName("pushButton")
@@ -265,9 +266,9 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         font.setPointSize(16)
         self.listWidget.setFont(font)
         self.listWidget.setAutoFillBackground(True)
+        self.listWidget.setAlternatingRowColors(True)
         self.listWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.listWidget.setViewMode(QtWidgets.QListView.IconMode)
-        self.listWidget.setSpacing(6)
         self.listWidget.setItemAlignment(QtCore.Qt.AlignVCenter)
         self.listWidget.setObjectName("listWidget")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
@@ -332,7 +333,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.label_3.setText("")
         self.label_3.setObjectName("label_3")
         self.Question = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Question.setGeometry(QtCore.QRect(1060, 270, 411, 81))
+        self.Question.setGeometry(QtCore.QRect(1050, 280, 411, 81))
         self.Question.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Question.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Question.setTabChangesFocus(True)
@@ -383,6 +384,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.Upload.raise_()
         self.label_3.raise_()
         self.Question.raise_()
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -424,7 +426,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
             # delete confirmation
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText("Field Deleted")
+            msgBox.setText(self.EntryName.toPlainText()+ " Deleted")
             msgBox.setWindowTitle("Success")
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
@@ -477,3 +479,5 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
 
 def showWindow(w1):
     w1.show()
+
+

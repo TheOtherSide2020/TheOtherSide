@@ -97,7 +97,7 @@ class PollingScreen(QtWidgets.QMainWindow):
 
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
-        msgBox.setText("Entry Saved")
+        msgBox.setText(self.EntryName.toPlainText()+" saved!")
         msgBox.setWindowTitle("Error")
         msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         x = msgBox.exec_()
@@ -296,7 +296,7 @@ class PollingScreen(QtWidgets.QMainWindow):
             # delete confirmation
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText("Field Deleted")
+            msgBox.setText( self.EntryName.toPlainText() +"Deleted")
             msgBox.setWindowTitle("Success")
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()

@@ -97,14 +97,14 @@ class ConversationScreen(QtWidgets.QMainWindow):
 
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
-        msgBox.setText("Entry Saved")
+        msgBox.setText(self.EntryName.toPlainText() + " saved!")
         msgBox.setWindowTitle("Error")
         msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         x = msgBox.exec_()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setFixedSize(1519, 961)
+        MainWindow.setFixedSize(1576, 957)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -123,14 +123,14 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(280, 60, 1291, 920))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(resource_path('Images/Conversation.png')))
+        self.label.setPixmap(QtGui.QPixmap(resource_path('Images/Conversation_circle.png')))
         self.label.setScaledContents(True)
         self.label.setWordWrap(False)
         self.label.setIndent(21)
         self.label.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.label.setObjectName("label")
         self.Question = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Question.setGeometry(QtCore.QRect(1100, 330, 365, 91))
+        self.Question.setGeometry(QtCore.QRect(1150, 240, 365, 91))
         self.Question.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Question.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Question.setTabChangesFocus(True)
@@ -140,19 +140,8 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.Question.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
         self.Question.setObjectName("Question")
-        self.Option1 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option1.setGeometry(QtCore.QRect(675, 610, 190, 51))
-        self.Option1.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.Option1.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.Option1.setTabChangesFocus(True)
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.Option1.setFont(font)
-        self.Option1.setTextInteractionFlags(
-            QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option1.setObjectName("Option1")
         self.Option2 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option2.setGeometry(QtCore.QRect(770, 850, 320, 61))
+        self.Option2.setGeometry(QtCore.QRect(680, 540, 200, 80))
         self.Option2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option2.setTabChangesFocus(True)
@@ -161,9 +150,9 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.Option2.setFont(font)
         self.Option2.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option2.setObjectName("Option2")
+        self.Option2.setObjectName("Option1")
         self.Option3 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option3.setGeometry(QtCore.QRect(1310, 730, 188, 61))
+        self.Option3.setGeometry(QtCore.QRect(770, 830, 350, 100))
         self.Option3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option3.setTabChangesFocus(True)
@@ -172,9 +161,9 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.Option3.setFont(font)
         self.Option3.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option3.setObjectName("Option3")
+        self.Option3.setObjectName("Option2")
         self.Option4 = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Option4.setGeometry(QtCore.QRect(280, 670, 201, 71))
+        self.Option4.setGeometry(QtCore.QRect(1350, 700, 200, 80))
         self.Option4.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Option4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Option4.setTabChangesFocus(True)
@@ -183,7 +172,18 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.Option4.setFont(font)
         self.Option4.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
-        self.Option4.setObjectName("Option4")
+        self.Option4.setObjectName("Option3")
+        self.Option1 = QtWidgets.QTextBrowser(self.centralwidget)
+        self.Option1.setGeometry(QtCore.QRect(290, 630, 240, 71))
+        self.Option1.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.Option1.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.Option1.setTabChangesFocus(True)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.Option1.setFont(font)
+        self.Option1.setTextInteractionFlags(
+            QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
+        self.Option1.setObjectName("Option4")
 
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(1300, 10, 121, 41))
@@ -289,14 +289,14 @@ class ConversationScreen(QtWidgets.QMainWindow):
             # delete the file
             for fileName in os.listdir(resource_path('TemplateJsonInstance/TextInstance/')):
                 if fileName == self.listWidget.currentItem().text() + ".json":
-                    os.remove( os.path.join(resource_path('TemplateJsonInstance/TextInstance/'), fileName))
+                    os.remove(os.path.join(resource_path('TemplateJsonInstance/TextInstance/'), fileName))
 
             self.listWidget.takeItem(self.listWidget.row(item))
 
             # delete confirmation
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText("Field Deleted")
+            msgBox.setText(self.EntryName.toPlainText()+" Deleted")
             msgBox.setWindowTitle("Success")
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
@@ -308,7 +308,8 @@ class ConversationScreen(QtWidgets.QMainWindow):
         for fileName in os.listdir(resource_path('TemplateJsonInstance/TextInstance/')):
             # get the record from json for edit
             if fileName == text + ".json":
-                with open(os.path.join(resource_path('TemplateJsonInstance/TextInstance/'), fileName), 'r') as json_file:
+                with open(os.path.join(resource_path('TemplateJsonInstance/TextInstance/'), fileName),
+                          'r') as json_file:
                     data = json.load(json_file)
                     self.Question.setPlainText(data['question'])
                     self.Option1.setPlainText(data['options'][0])
@@ -329,5 +330,3 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.CreateNewContent.setText(_translate("MainWindow", "Create New Content"))
         self.Delete.setText(_translate("MainWindow", "Delete"))
         self.label_2.setText(_translate("MainWindow", "Content List"))
-
-
