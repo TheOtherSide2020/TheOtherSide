@@ -94,7 +94,7 @@ class UploadScreen(QtWidgets.QMainWindow):
             else:
                 msgBox = QMessageBox()
                 msgBox.setIcon(QMessageBox.Information)
-                msgBox.setText("Please upload a .mp3 or .avi or .mp4  file")
+                msgBox.setText("Please upload a .mp3 or .avi or .mp4 or .mov file")
                 msgBox.setWindowTitle("Error")
                 msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 x = msgBox.exec_()
