@@ -88,7 +88,7 @@ class UploadScreen(QtWidgets.QMainWindow):
                     self.pushButton_2.hide()
                     self.pushButton_5.show()
                     UploadScreen.VideoFileName = video
-                    UploadScreen.Video = video
+                    UploadScreen.Video = url.fileName().upper()
 
             else:
                 msgBox = QMessageBox()
@@ -112,11 +112,12 @@ class UploadScreen(QtWidgets.QMainWindow):
             UploadScreen.ImageFileName = ' '
             UploadScreen.Image = ' '
 
-            url = QUrl.fromLocalFile(image)
+
 
         else:
+            url = QUrl.fromLocalFile(image)
 
-             if image.lower().endswith(('.png', '.jpg', '.jpeg')):
+            if image.lower().endswith(('.png', '.jpg', '.jpeg')):
 
                 if image != '':
                     self.pixmap = QPixmap(image)
@@ -124,7 +125,7 @@ class UploadScreen(QtWidgets.QMainWindow):
                     self.imageWidget.show()
                     self.pushButton_4.show()
                     UploadScreen.ImageFileName = image
-                    UploadScreen.Image = image
+                    UploadScreen.Image = url.fileName().upper()
 
                 else:
                     msgBox = QMessageBox()
