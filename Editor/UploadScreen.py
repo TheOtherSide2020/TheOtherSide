@@ -75,7 +75,7 @@ class UploadScreen(QtWidgets.QMainWindow):
             url = QUrl.fromLocalFile(video)
             self.Video = url.fileName()
             # set the file name as this in the previous screen
-            if video.lower().endswith(('.mp3', '.avi', '.mp4')):
+            if video.lower().endswith(('.mp3', '.avi', '.mp4', '.mov')):
                 if video != '':
                     self.mediaPlayer.setMedia(
                         QMediaContent(QUrl.fromLocalFile(video)))
