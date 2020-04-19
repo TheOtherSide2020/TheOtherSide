@@ -823,7 +823,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622a7b98c25042843987063b8791a9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usingHardCode: 1
+  type: 
+  usingHardCode: 0
   testCounts:
   - option: 
     voteCount: 14
@@ -833,6 +834,7 @@ MonoBehaviour:
     voteCount: 130
   - option: 
     voteCount: 7
+  path: 
 --- !u!114 &371517103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,8 +847,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823ab605cf21cb64b9c4d0f861e1662b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usingHardCode: 1
-  path: 
+  usingHardCode: 0
+  path: C:\Users\nouyang\Pictures\test.JPEG
   pictureSprite: {fileID: 0}
 --- !u!4 &371517104
 Transform:
@@ -5820,6 +5822,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6465542121243398454, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6465542121243398600, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5839,11 +5846,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnPointerUp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6465542121243398454, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc2b095e33d2e3b49bda9fbe50e2d9ce, type: 3}

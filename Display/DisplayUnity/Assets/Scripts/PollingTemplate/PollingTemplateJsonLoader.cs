@@ -11,6 +11,8 @@ public class PollingTemplateJsonLoader : MonoBehaviour
     [Serializable]
     public class PollingContent
     {
+        public string name;
+        public string type;
         public string question;
         public string[] options;
     }
@@ -45,6 +47,15 @@ public class PollingTemplateJsonLoader : MonoBehaviour
             }
         }
         Debug.Log(loadContent);
+    }
+
+    private void Start()
+    {
+        UpdateResultLoaderContent();
+    }
+
+    void UpdateResultLoaderContent() {
+        ResultLoader.Instance.UpdateResultInfo(loadContent.name, loadContent.type, loadContent.question, loadContent.options);
     }
 
     public string GetOption(int idx)

@@ -15,6 +15,7 @@ public class PreviewPanel : MonoBehaviour
         {
             Instance = this;
         }
+        contentLoaders = GetComponentsInChildren<PreviewContentLoader>();
     }
     #endregion
 
@@ -28,34 +29,61 @@ public class PreviewPanel : MonoBehaviour
     PreviewContent content;
 
     [SerializeField] TMPro.TMP_Text listTitle;
+    [SerializeField] TMPro.TMP_Text instanceTitle;
     [SerializeField] SpriteRenderer bubbleBackground;
-    [SerializeField] TMPro.TMP_Text question;
-    [SerializeField] TMPro.TMP_Text[] options;
-    [SerializeField] GameObject optionParent;
+    [SerializeField] PreviewContentLoader[] contentLoaders;
 
-    private void OnEnable()
-    {
-        options = optionParent.GetComponentsInChildren<TMPro.TMP_Text>();
-    }
-
-    public void LoadInstanceText(string path) {
+    public void LoadInstanceText(string path, int templateIdx, string title) {
+        // read instance from json file
         using (StreamReader r = new StreamReader(path))
         {
             string json = r.ReadToEnd();
             content = JsonUtility.FromJson<PreviewContent>(json);
         }
         // TODO: check error
-        question.SetText(content.question);
-        for (int i = 0; i < options.Length; ++i) {
-            options[i].SetText(content.options[i]);
-        }
+        
+        // set text in preview content
+        contentLoaders[templateIdx].SetPreviewContent(content.question, content.options);
+
+        // set short instance title
+        instanceTitle.SetText(title);
     }
 
-    public void UpdateListTitle(string txt) {
+    public void ClearUIText(int templateIdx) {
+        UpdateListTitle("");
+        instanceTitle.SetText("");
+        contentLoaders[templateIdx].SetPreviewContent("", new string[4]);
+    }
+
+    public void ClearPreviewInstanceText(int templateIdx) {
+        instanceTitle.SetText("");
+        contentLoaders[templateIdx].SetPreviewContent("", new string[4]);
+    }
+
+    void UpdateListTitle(string txt) {
         listTitle.SetText(txt);
     }
 
-    public void UpdateBubbleBackground(Sprite bg) {
+    void UpdateBubbleBackground(Sprite bg) {
         bubbleBackground.sprite = bg;
+    }
+
+    public void UpdatePreviewUI(int templateIdx, Sprite bg, string listTitle) {
+        // enable certain template preview content
+        for (int i = 0; i < contentLoaders.Length; ++i)
+        {
+            if (i == templateIdx)
+            {
+                contentLoaders[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                contentLoaders[i].gameObject.SetActive(false);
+            }
+        }
+
+        // update background
+        UpdateBubbleBackground(bg);
+        UpdateListTitle(listTitle);
     }
 }

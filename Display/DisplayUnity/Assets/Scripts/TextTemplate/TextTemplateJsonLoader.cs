@@ -11,6 +11,8 @@ public class TextTemplateJsonLoader : MonoBehaviour
     [Serializable]
     public class Content
     {
+        public string name;
+        public string type;
         public string question;
         public string[] options;
     }
@@ -43,6 +45,16 @@ public class TextTemplateJsonLoader : MonoBehaviour
             }
         }
         Debug.Log(loadContent);
+    }
+
+    private void Start()
+    {
+        UpdateResultLoaderContent();
+    }
+
+    void UpdateResultLoaderContent()
+    {
+        ResultLoader.Instance.UpdateResultInfo(loadContent.name, loadContent.type, loadContent.question, loadContent.options);
     }
 
     public string GetOption(int idx)

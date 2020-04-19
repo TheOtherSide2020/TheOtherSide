@@ -13,21 +13,40 @@ public class ResultLoader : MonoBehaviour
     {
         public string option;
         public int voteCount;
+
+        public VoteCount() {
+            option = "";
+            voteCount = 0;
+        }
     }
 
     [Serializable]
     public class Result
     {
+        public string name;
+        public string type;
         public string firstPosted;
         public string lastUpdate;
-        public int totalVote;   
         public string question;
+        public int totalVote;
         public VoteCount[] voteCounts;
+
+        public Result(string t) {
+            type = t;
+            totalVote = 0;
+            voteCounts = new VoteCount[4];
+            for (int i = 0; i < voteCounts.Length; ++i) {
+                VoteCount vc = new VoteCount();
+                voteCounts[i] = vc;
+            }
+        }
     }
 
     Result pollingResult;
+    [SerializeField] string type;
     [SerializeField] bool usingHardCode = false;
     [SerializeField] VoteCount[] testCounts;
+    [SerializeField] string path;
     private void Awake()
     {
         if (Instance == null)
@@ -36,15 +55,25 @@ public class ResultLoader : MonoBehaviour
         }
         if (usingHardCode)
         {
-            pollingResult = new Result();
+            pollingResult = new Result(type);
             pollingResult.voteCounts = testCounts;
         }
         else
         {
-            using (StreamReader r = new StreamReader("playtestResult.json"))
+            // check if result file exists
+            pollingResult = new Result(type);
+            path = SelectionMenu.Instance.GetCurrentResultPath();
+            if (File.Exists(path))
             {
-                string json = r.ReadToEnd();
-                pollingResult = JsonUtility.FromJson<Result>(json);
+                using (StreamReader r = new StreamReader(path))
+                {
+                    string json = r.ReadToEnd();
+                    pollingResult = JsonUtility.FromJson<Result>(json);
+                }
+            }
+            else {
+                // File.Create(SelectionMenu.Instance.GetCurrentResultPath());
+                // initilize result
             }
         }
         Debug.Log(pollingResult);
@@ -73,10 +102,29 @@ public class ResultLoader : MonoBehaviour
         pollingResult.voteCounts[idx].voteCount = newCount;
     }
 
+    public void UpdateResultInfo(string name, string type, string question, string[] options) {
+        pollingResult.name = name;
+        pollingResult.type = type;
+        pollingResult.question = question;
+        for (int i = 0; i < pollingResult.voteCounts.Length; ++i)
+        {
+            pollingResult.voteCounts[i].option = options[i];
+        }
+    }
+
     private void OnDestroy()
     {
         // switching the template 
+        // update options and question
+        int count = 0;
+        for (int i = 0; i < pollingResult.voteCounts.Length; ++i)
+        {
+            count += pollingResult.voteCounts[i].voteCount;
+        }
+        pollingResult.totalVote = count;
         // write result to file
+        string json = JsonUtility.ToJson(pollingResult);
+        File.WriteAllText(path, json);
     }
 }
 
