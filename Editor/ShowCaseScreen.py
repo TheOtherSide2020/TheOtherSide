@@ -274,10 +274,6 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.Save.setObjectName("pushButton")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget.setGeometry(QtCore.QRect(0, 120, 421, 871))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        font.setFamily("Futura")
-        font.setKerning(False)
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget.setGeometry(QtCore.QRect(0, 120, 421, 871))
         font = QtGui.QFont()
@@ -471,6 +467,12 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         item.setStyleSheet("border: 2px solid green;")
 
     def deleteItem(self):
+        self.Question.clear()
+        self.label_3.clear()
+        self.Option1.clear()
+        self.Option2.clear()
+        self.Option3.clear()
+        self.Option4.clear()
         items = self.listWidget.selectedItems()
         for item in items:
             # delete the file
