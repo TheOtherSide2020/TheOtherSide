@@ -127,13 +127,13 @@ class UploadScreen(QtWidgets.QMainWindow):
                     UploadScreen.ImageFileName = image
                     UploadScreen.Image = url.fileName().upper()
 
-                else:
-                    msgBox = QMessageBox()
-                    msgBox.setIcon(QMessageBox.Information)
-                    msgBox.setText("Please upload an .png, .jpeg or .jpg Image file")
-                    msgBox.setWindowTitle("Error")
-                    msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                    x = msgBox.exec_()
+            else:
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setText("Please upload an .png, .jpeg or .jpg Image file")
+                msgBox.setWindowTitle("Error")
+                msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                x = msgBox.exec_()
 
     def clearImage(self):
         self.imageWidget.hide()
