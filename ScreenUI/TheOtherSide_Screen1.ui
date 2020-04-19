@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1151</width>
-    <height>851</height>
+    <width>1147</width>
+    <height>791</height>
    </rect>
   </property>
   <property name="font">
@@ -41,9 +41,9 @@
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>230</y>
-      <width>421</width>
-      <height>371</height>
+      <y>220</y>
+      <width>391</width>
+      <height>391</height>
      </rect>
     </property>
     <property name="font">
@@ -52,35 +52,126 @@
       <weight>50</weight>
       <bold>false</bold>
       <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../Images/Home page_button.png</normaloff>../Images/Home page_button.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>400</width>
+      <height>400</height>
+     </size>
+    </property>
+    <property name="autoDefault">
+     <bool>true</bool>
+    </property>
+    <property name="default">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>220</y>
+      <width>401</width>
+      <height>391</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../Images/Home page_button.png</normaloff>../Images/Home page_button.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>400</width>
+      <height>400</height>
+     </size>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>530</y>
+      <width>161</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
      </font>
     </property>
     <property name="text">
      <string>Content Editor</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>230</y>
-      <width>401</width>
-      <height>371</height>
+      <x>770</x>
+      <y>530</y>
+      <width>161</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>16</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-      <strikeout>false</strikeout>
      </font>
     </property>
     <property name="text">
      <string>Data Collection</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1151</width>
+      <height>791</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Images/Home page_background.png</pixmap>
+    </property>
+   </widget>
+   <zorder>label_3</zorder>
+   <zorder>pushButton</zorder>
+   <zorder>pushButton_2</zorder>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
