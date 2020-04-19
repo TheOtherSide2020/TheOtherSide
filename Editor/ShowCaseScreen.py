@@ -44,6 +44,39 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                 data = json.load(json_file)
                 self.listWidget.addItem(data['name'])
 
+    # checks if this media file exists or not
+    def checkIfMediaFilesExist(self, data):
+
+        try:
+            f = open(data['picturePath'])
+            # Do something with the file
+        except IOError:
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setText(
+                "Path for the image file is invalid, Please upload an image file for using the Showcase template")
+            msgBox.setWindowTitle("Error")
+            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            x = msgBox.exec_()
+            icon4 = QtGui.QIcon()
+            icon4.addPixmap(QtGui.QPixmap(resource_path("Images/Upload.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            self.Upload.setIcon(icon4)
+            return False
+
+        if data['videoPath'] != '':
+            try:
+                f = open(data['videoPath'])
+                # Do something with the file
+            except IOError:
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setText(
+                    "The path given for video file is invalid. Please check is present in the current location.")
+                msgBox.setWindowTitle("Error")
+                msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                x = msgBox.exec_()
+        return True
+
     # append the field to the json file
     # append this entry to content list
 
@@ -100,6 +133,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                 items = self.listWidget.findItems(self.EntryName.toPlainText(), Qt.MatchFixedString)
 
                 if items.__len__() != 0:
+
                     # add functionality to allow for the same content to be modified.
                     msgBox = QMessageBox()
                     msgBox.setIcon(QMessageBox.Information)
@@ -110,10 +144,12 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                     x = msgBox.exec_()
                     if x == QMessageBox.Ok:
                         if items.__len__() != 0:
-                            self.SavetoJson()
+                            if self.checkDuplicateEntry:
+                               self.SavetoJson()
                 else:
-                    self.SavetoJson()
-                    self.listWidget.addItem(self.EntryName.toPlainText())
+                    if self.checkDuplicateEntry:
+                       self.SavetoJson()
+                       self.listWidget.addItem(self.EntryName.toPlainText())
         else:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
@@ -121,6 +157,23 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
             msgBox.setWindowTitle("Error")
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
+
+    def checkDuplicateEntry(self):
+        with open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
+                               self.EntryName.toPlainText() + ".json"),
+                  'r') as json_file:
+            data = json.load(json_file)
+            if self.Question.textChanged() or self.Option1.textChanged() or self.Option2.textChanged() or self.Option3.textChanged() or self.Option4.textChanged():
+                return True
+            else:
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setText("This content entry already exists, please change one or more fields to be "
+                               "able to save a duplicate entry under the same entry name")
+                msgBox.setWindowTitle("Error")
+                msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                x = msgBox.exec_()
+                return False
 
     def SavetoJson(self):
         ShowCaseSystemRecord = {
@@ -151,17 +204,17 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
         else:
+
+            file = open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
+                                     self.EntryName.toPlainText() + ".json"), 'w')
+            with file as json_file:
+                json.dump(ShowCaseSystemRecord, json_file)
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setText(self.EntryName.toPlainText() + " saved!")
             msgBox.setWindowTitle("Error")
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
-
-            file = open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
-                                     self.EntryName.toPlainText() + ".json"), 'w')
-            with file as json_file:
-                json.dump(ShowCaseSystemRecord, json_file)
 
     def undoDoubleClick(self):
         ShowCaseScreen.doubleClicked = 0
@@ -463,9 +516,6 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.listWidget.itemClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def changeStyle(self,item):
-        item.setStyleSheet("border: 2px solid green;")
-
     def deleteItem(self):
         self.Question.clear()
         self.label_3.clear()
@@ -511,14 +561,15 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                     self.Option2.setPlainText(data['options'][1])
                     self.Option3.setPlainText(data['options'][2])
                     self.Option4.setPlainText(data['options'][3])
-                    # add video and image path here
-                    ShowCaseScreen.VideoFileName = data['videoPath']
-                    ShowCaseScreen.ImageFileName = data['picturePath']
-                    ShowCaseScreen.doubleClicked = 1
-                    uploadScreen = UploadScreen()
-                    uploadScreen.loadImage(ShowCaseScreen.ImageFileName)
-                    if ShowCaseScreen.VideoFileName != '':
-                        uploadScreen.loadVideo(ShowCaseScreen.VideoFileName)
+                    if self.checkIfMediaFilesExist(data):
+                        # add video and image path here
+                        ShowCaseScreen.VideoFileName = data['videoPath']
+                        ShowCaseScreen.ImageFileName = data['picturePath']
+                        ShowCaseScreen.doubleClicked = 1
+                        uploadScreen = UploadScreen()
+                        uploadScreen.loadImage(ShowCaseScreen.ImageFileName)
+                        if ShowCaseScreen.VideoFileName != '':
+                            uploadScreen.loadVideo(ShowCaseScreen.VideoFileName)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
