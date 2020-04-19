@@ -6,12 +6,23 @@ public class CameraSwitcher : MonoBehaviour
 {
     Camera Camera2D;
     string defaultKeycode = "alpha";
+    [SerializeField] Camera CameraMenu;
     [SerializeField] int defaultDisplay;
     [SerializeField] Camera[] VRCameras;
+    [SerializeField] bool testUI = false;
     void Start()
     {
         Camera2D = GetComponent<Camera>();
         defaultKeycode = defaultDisplay.ToString();
+
+        if (testUI) {
+            CameraMenu.targetDisplay = 0;
+            Camera2D.targetDisplay = 1;
+            foreach (Camera c in VRCameras)
+            {
+                c.targetDisplay = 5;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -25,6 +36,25 @@ public class CameraSwitcher : MonoBehaviour
             {
                 c.targetDisplay = 5;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            // in 2D
+            if (CameraMenu.targetDisplay > 0)
+            {
+                CameraMenu.targetDisplay = 0;
+                Camera2D.targetDisplay = 1;
+            }
+            else {
+                CameraMenu.targetDisplay = 1;
+                Camera2D.targetDisplay = 0;
+            }
+            
+            //foreach (Camera c in VRCameras)
+            //{
+            //    c.targetDisplay = 5;
+            //}
         }
         //if (Input.GetKeyDown(defaultKeycode))
         //{

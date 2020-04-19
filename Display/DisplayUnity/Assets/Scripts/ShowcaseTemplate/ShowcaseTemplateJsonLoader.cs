@@ -11,6 +11,8 @@ public class ShowcaseTemplateJsonLoader : MonoBehaviour
     [Serializable]
     public class ShowcaseContent
     {
+        public string name;
+        public string type;
         public string question;
         public string videoPath;
         public string picturePath;
@@ -37,10 +39,11 @@ public class ShowcaseTemplateJsonLoader : MonoBehaviour
                 "I understand, I get that sometimes, too."
             };
             loadContent.question = "The way this person talks to me really makes me uncomfortable, tho I know it’s not intentional. What can I do about it?";
+            LoadSprite(path);
         }
         else
         {
-            using (StreamReader r = new StreamReader("playtest.json"))
+            using (StreamReader r = new StreamReader(SelectionMenu.Instance.GetCurrentPreviewPath()))
             {
                 string json = r.ReadToEnd();
                 loadContent = JsonUtility.FromJson<ShowcaseContent>(json);
@@ -48,6 +51,16 @@ public class ShowcaseTemplateJsonLoader : MonoBehaviour
             LoadSprite(loadContent.picturePath);
         }
         Debug.Log(loadContent);
+    }
+
+    private void Start()
+    {
+        UpdateResultLoaderContent();
+    }
+
+    void UpdateResultLoaderContent()
+    {
+        ResultLoader.Instance.UpdateResultInfo(loadContent.name, loadContent.type, loadContent.question, loadContent.options);
     }
 
     public string GetOption(int idx)
@@ -86,7 +99,7 @@ public class ShowcaseTemplateJsonLoader : MonoBehaviour
         pictureSprite = Sprite.Create(
             spriteTexture, 
             new Rect(0, 0, spriteTexture.width, spriteTexture.height), 
-            new Vector2(0, 0), pixelsPerUnit);
+            new Vector2(0.5f, 0.5f), pixelsPerUnit);
     }
 
     public Texture2D LoadTexture(string path)

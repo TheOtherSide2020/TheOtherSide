@@ -1,0 +1,15 @@
+{
+   "name":"HaenyeoShowcase",
+   "type":"showcase",
+   "createdOn":"2020-04-10T07:22Z",
+   "lastUpdated":"2020-04-12T07:22Z",
+   "question":"What do you think?",
+   "videoPath":"C:\\Users\\nouyang\\Desktop\\Soft\\Haenyeo opening _converted.mov",
+   "picturePath":"C:\\Users\\nouyang\\Desktop\\Soft\\showcase.png",
+   "options":[
+      "Great!",
+      "Wow!",
+      "I'm brining my friends.",
+      "I'm not sure."
+   ]
+}

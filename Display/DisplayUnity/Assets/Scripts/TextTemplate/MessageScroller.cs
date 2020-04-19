@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -25,6 +26,9 @@ public class MessageScroller : MonoBehaviour
     [SerializeField] float scrollTime;
     [SerializeField] bool testScroll = false;
     [SerializeField] string testScrollStep = "Answer";
+    [SerializeField] const string resultText = "Thank you for your suggestion :)\n" +
+        "There are <size=2em><b><#17ff60>{0}</color></b></size> people who selected the same suggestion for me.";
+    [SerializeField] Coroutine typingEffect = null;
 
     enum ScrollingState {
         Scrolling,
@@ -56,18 +60,18 @@ public class MessageScroller : MonoBehaviour
         switch (type)
         {
             case "Question":
-                newText = JsonLoader.Instance.GetQuestion();
+                newText = TextTemplateJsonLoader.Instance.GetQuestion();
                 question.GetComponent<MainBubbleSingleMessage>().SetText(newText);
                 question.GetComponent<ContainerSizeUpdater>().UpdateSize();
                 break;
             case "Answer":
                 // update answer text
-                newText = JsonLoader.Instance.GetOption(idx);
+                newText = TextTemplateJsonLoader.Instance.GetOption(idx);
                 answer.GetComponent<MainBubbleSingleMessage>().SetText(newText);
                 answer.GetComponent<ContainerSizeUpdater>().UpdateSize();
                 break;
             case "Result":
-                newText = "";
+                newText = String.Format(resultText, ResultLoader.Instance.GetOptionCount(idx));
                 result.GetComponent<MainBubbleSingleMessage>().SetText(newText);
                 result.GetComponent<ContainerSizeUpdater>().UpdateSize();
                 break;
@@ -96,6 +100,7 @@ public class MessageScroller : MonoBehaviour
         AudioPlayer.Instance.PlaySent();
         StartCoroutine(ScrollUpBubble());
     }
+
     IEnumerator ScrollUpBubble() {
         testScroll = false;
         if (DisplayMsg[0])
@@ -135,7 +140,8 @@ public class MessageScroller : MonoBehaviour
     }
 
     public void StartTyping() {
-        StartCoroutine(TypingEffect(question));
+        if (typingEffect != null) return;
+        typingEffect = StartCoroutine(TypingEffect(question));
     }
 
     // question typing effect
@@ -163,5 +169,6 @@ public class MessageScroller : MonoBehaviour
             visibleCount += 1;
             yield return new WaitForSeconds(0.05f);
         }
+        typingEffect = null;
     }
 }

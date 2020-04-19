@@ -11,13 +11,14 @@ public class TextTemplateJsonLoader : MonoBehaviour
     [Serializable]
     public class Content
     {
+        public string name;
+        public string type;
         public string question;
         public string[] options;
     }
 
     Content loadContent;
     [SerializeField] bool usingHardCode = false;
-    [SerializeField] string path;
     private void Awake()
     {
         if (Instance == null)
@@ -37,13 +38,23 @@ public class TextTemplateJsonLoader : MonoBehaviour
         }
         else
         {
-            using (StreamReader r = new StreamReader(path))
+            using (StreamReader r = new StreamReader(SelectionMenu.Instance.GetCurrentPreviewPath()))
             {
                 string json = r.ReadToEnd();
                 loadContent = JsonUtility.FromJson<Content>(json);
             }
         }
         Debug.Log(loadContent);
+    }
+
+    private void Start()
+    {
+        UpdateResultLoaderContent();
+    }
+
+    void UpdateResultLoaderContent()
+    {
+        ResultLoader.Instance.UpdateResultInfo(loadContent.name, loadContent.type, loadContent.question, loadContent.options);
     }
 
     public string GetOption(int idx)
