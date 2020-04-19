@@ -71,7 +71,7 @@ public class SelectionMenu : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1)) {
-            EnterPreview(2);
+            EnterPreview(0);
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {

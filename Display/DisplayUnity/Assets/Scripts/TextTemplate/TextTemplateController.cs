@@ -42,6 +42,7 @@ public class TextTemplateController : TemplateMainController
                 break;
             case TemplateState.Display:
                 // main bubble scroll up with result
+                ResultLoader.Instance.IncreaseVote(selectedId);
                 StartCoroutine(ResultScrollUp());
                 // wait for some time
                 // scroll question back
@@ -60,6 +61,7 @@ public class TextTemplateController : TemplateMainController
     IEnumerator ResultScrollUp()
     {
         yield return new WaitForSeconds(3);
+        MessageScroller.Instance.UpdateText("Result", selectedId);
         MessageScroller.Instance.ScrollUp("Result");
         yield return new WaitForSeconds(3);
         MessageScroller.Instance.ScrollUp("Question");

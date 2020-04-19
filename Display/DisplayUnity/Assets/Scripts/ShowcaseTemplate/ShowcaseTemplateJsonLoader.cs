@@ -48,7 +48,7 @@ public class ShowcaseTemplateJsonLoader : MonoBehaviour
                 string json = r.ReadToEnd();
                 loadContent = JsonUtility.FromJson<ShowcaseContent>(json);
             }
-            // LoadSprite(loadContent.picturePath);
+            LoadSprite(loadContent.picturePath);
         }
         Debug.Log(loadContent);
     }
@@ -99,7 +99,7 @@ public class ShowcaseTemplateJsonLoader : MonoBehaviour
         pictureSprite = Sprite.Create(
             spriteTexture, 
             new Rect(0, 0, spriteTexture.width, spriteTexture.height), 
-            new Vector2(0, 0), pixelsPerUnit);
+            new Vector2(0.5f, 0.5f), pixelsPerUnit);
     }
 
     public Texture2D LoadTexture(string path)

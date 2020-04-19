@@ -24,7 +24,7 @@ public class ShowcaseTouchPointController : MonoBehaviour
     private void Start()
     {
         touchPoints = GetComponentsInChildren<ShowcaseTouchPoint>();
-        //LoadOptionText();
+        LoadOptionText();
         UpdateResultText();
         SetWater();
     }
@@ -42,9 +42,8 @@ public class ShowcaseTouchPointController : MonoBehaviour
     {
         for (int i = 0; i < touchPoints.Length; ++i)
         {
-            string optionText = JsonLoader.Instance.GetOption(touchPoints[i].id);
+            string optionText = ShowcaseTemplateJsonLoader.Instance.GetOption(touchPoints[i].id);
             touchPoints[i].SetText(optionText);
-            touchPoints[i].AdjustContainer();
         }
     }
 

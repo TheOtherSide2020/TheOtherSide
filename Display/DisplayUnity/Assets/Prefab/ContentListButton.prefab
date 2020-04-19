@@ -260,7 +260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -23, y: 0}
+  m_AnchoredPosition: {x: -36, y: 0}
   m_SizeDelta: {x: 395.2, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2572610103734064998
@@ -293,8 +293,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: PlaytestWeek13
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 744aaf1e90679bb4694c478d3f0d79ac, type: 2}
-  m_sharedMaterial: {fileID: 347432425351774392, guid: 744aaf1e90679bb4694c478d3f0d79ac,
+  m_fontAsset: {fileID: 11400000, guid: f10f7193c7f02884b95f079b28e907c3, type: 2}
+  m_sharedMaterial: {fileID: -7930850781133102542, guid: f10f7193c7f02884b95f079b28e907c3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -322,8 +322,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

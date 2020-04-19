@@ -19,14 +19,26 @@ public class ShowcaseMainBubble : MonoBehaviour
     {
         // update questions
         question = GetComponentInChildren<TMP_Text>();
+        question.SetText(ShowcaseTemplateJsonLoader.Instance.GetQuestion());
         SetQuestionAlpha(0);
         initialPosterAlpha = poster.color.a;
+        // set picture
+        Sprite pic = ShowcaseTemplateJsonLoader.Instance.GetPicture();
+        // update poster
+        poster.sprite = pic;
+
+        // set video
         player = GetComponentInChildren<VideoPlayer>();
         player.loopPointReached += OnEndOfVideo;
-        if (pictureOnly /*|| player.url == ""*/) {
+        if (pictureOnly || player.url == "")
+        {
             SetPosterAlpha(1);
             StartCoroutine(PosterOnlyProcess());
             player.gameObject.SetActive(false);
+        }
+        else {
+            player.url = ShowcaseTemplateJsonLoader.Instance.GetVideoUrl();
+            player.Play();
         }
     }
 

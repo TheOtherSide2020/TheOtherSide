@@ -26,7 +26,7 @@ public class ResultLoader : MonoBehaviour
         public string name;
         public string type;
         public string firstPosted;
-        public string lastUpdate;
+        public string lastUpdated;
         public string question;
         public int totalVote;
         public VoteCount[] voteCounts;
@@ -74,6 +74,7 @@ public class ResultLoader : MonoBehaviour
             else {
                 // File.Create(SelectionMenu.Instance.GetCurrentResultPath());
                 // initilize result
+                pollingResult.firstPosted = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
             }
         }
         Debug.Log(pollingResult);
@@ -122,6 +123,7 @@ public class ResultLoader : MonoBehaviour
             count += pollingResult.voteCounts[i].voteCount;
         }
         pollingResult.totalVote = count;
+        pollingResult.lastUpdated = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
         // write result to file
         string json = JsonUtility.ToJson(pollingResult);
         File.WriteAllText(path, json);
