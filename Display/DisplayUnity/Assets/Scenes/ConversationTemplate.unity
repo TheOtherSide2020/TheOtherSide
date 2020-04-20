@@ -251,6 +251,26 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnPointerUp
       objectReference: {fileID: 0}
+    - target: {fileID: 254942151465880533, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831093951770918711, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 254942151479173767, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 254942150920427678, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.47
+      objectReference: {fileID: 0}
     - target: {fileID: 469084916, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb, type: 3}
       propertyPath: usingHardCode
       value: 0
@@ -258,6 +278,26 @@ PrefabInstance:
     - target: {fileID: 469084916, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb, type: 3}
       propertyPath: type
       value: text
+      objectReference: {fileID: 0}
+    - target: {fileID: 254942150920427677, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 254942151465880534, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 254942151479173764, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831093951770918708, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 254942151479173760, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb, type: 3}
