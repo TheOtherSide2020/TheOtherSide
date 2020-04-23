@@ -112,8 +112,6 @@ class UploadScreen(QtWidgets.QMainWindow):
             UploadScreen.ImageFileName = ' '
             UploadScreen.Image = ' '
 
-
-
         else:
             url = QUrl.fromLocalFile(image)
 
@@ -151,6 +149,10 @@ class UploadScreen(QtWidgets.QMainWindow):
         UploadScreen.Video = ""
         UploadScreen.VideoFileName = ""
         self.videoWidget.update()
+
+    def closeUploadScreen(self):
+        if self.mediaPlayer.state() == QMediaPlayer.PlayingState:
+            self.mediaPlayer.pause()
 
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
@@ -266,13 +268,13 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.label_5.setText("")
         self.label_5.setObjectName("label_5")
         self.commandLinkButton = QtWidgets.QCommandLinkButton(self.centralwidget)
-        self.commandLinkButton.setGeometry(QtCore.QRect(10, 20, 51, 51))
+        self.commandLinkButton.setGeometry(QtCore.QRect(1000, 10, 48, 48))
         self.commandLinkButton.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(resource_path("Images/directional-chevron-back-512.ico")), QtGui.QIcon.Normal,
+        icon2.addPixmap(QtGui.QPixmap(resource_path("Images/Cancel.png")), QtGui.QIcon.Normal,
                         QtGui.QIcon.Off)
         self.commandLinkButton.setIcon(icon2)
-        self.commandLinkButton.setIconSize(QtCore.QSize(40, 40))
+        self.commandLinkButton.setIconSize(QtCore.QSize(25, 25))
         self.commandLinkButton.setObjectName("commandLinkButton")
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(50, 130, 471, 451))
@@ -349,6 +351,8 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "The Other Side"))
@@ -363,7 +367,10 @@ class UploadScreen(QtWidgets.QMainWindow):
                                         "You can upload either video or image, or both of them image will be the "
                                         "cover for idle status."))
 
+
+
         self.pushButton_4.hide()
+        self.commandLinkButton.clicked.connect(self.closeUploadScreen)
         self.pushButton_5.hide()
         self.pushButton_5.clicked.connect(self.clearVideo)
         self.pushButton_4.clicked.connect(self.clearImage)
