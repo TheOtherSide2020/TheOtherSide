@@ -4,9 +4,11 @@ import os
 import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QUrl
 # class for pollingScreen UI
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
+from PyQt5.QtMultimediaWidgets import QVideoWidget
+from PyQt5.QtWidgets import QMessageBox, QVBoxLayout, QHBoxLayout, QSlider, QPushButton, QStyle
 
 from Editor.UploadScreen import UploadScreen
 
@@ -144,12 +146,10 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                     x = msgBox.exec_()
                     if x == QMessageBox.Ok:
                         if items.__len__() != 0:
-                            if self.checkDuplicateEntry:
-                               self.SavetoJson()
+                            self.SavetoJson()
                 else:
-                    if self.checkDuplicateEntry:
-                       self.SavetoJson()
-                       self.listWidget.addItem(self.EntryName.toPlainText())
+                    self.SavetoJson()
+                    self.listWidget.addItem(self.EntryName.toPlainText())
         else:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
@@ -159,21 +159,18 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
             x = msgBox.exec_()
 
     def checkDuplicateEntry(self):
-        with open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
-                               self.EntryName.toPlainText() + ".json"),
-                  'r') as json_file:
-            data = json.load(json_file)
-            if self.Question.textChanged() or self.Option1.textChanged() or self.Option2.textChanged() or self.Option3.textChanged() or self.Option4.textChanged():
-                return True
-            else:
-                msgBox = QMessageBox()
-                msgBox.setIcon(QMessageBox.Information)
-                msgBox.setText("This content entry already exists, please change one or more fields to be "
-                               "able to save a duplicate entry under the same entry name")
-                msgBox.setWindowTitle("Error")
-                msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                x = msgBox.exec_()
-                return False
+        print('yes')
+        if self.Question.textChanged():
+            return True
+        else:
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setText("This content entry already exists, please change one or more fields to be "
+                           "able to save a duplicate entry under the same entry name")
+            msgBox.setWindowTitle("Error")
+            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            x = msgBox.exec_()
+            return False
 
     def SavetoJson(self):
         ShowCaseSystemRecord = {
@@ -204,17 +201,17 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
         else:
-
-            file = open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
-                                     self.EntryName.toPlainText() + ".json"), 'w')
-            with file as json_file:
-                json.dump(ShowCaseSystemRecord, json_file)
-            msgBox = QMessageBox()
-            msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText(self.EntryName.toPlainText() + " saved!")
-            msgBox.setWindowTitle("Error")
-            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            x = msgBox.exec_()
+            if self.checkDuplicateEntry:
+                file = open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
+                                         self.EntryName.toPlainText() + ".json"), 'w')
+                with file as json_file:
+                    json.dump(ShowCaseSystemRecord, json_file)
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setText(self.EntryName.toPlainText() + " saved!")
+                msgBox.setWindowTitle("Error")
+                msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                x = msgBox.exec_()
 
     def undoDoubleClick(self):
         ShowCaseScreen.doubleClicked = 0
@@ -226,6 +223,38 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.Delete.setEnabled(False)
         ShowCaseScreen.VideoFileName = ''
         ShowCaseScreen.ImageFileName = ''
+
+    def play(self):
+        self.mediaPlayer.setMedia(
+            QMediaContent(QUrl.fromLocalFile(UploadScreen.VideoFileName)))
+        if self.mediaPlayer.state() == QMediaPlayer.PlayingState:
+            self.mediaPlayer.pause()
+        else:
+            self.mediaPlayer.play()
+
+    def mediaStateChanged(self, state):
+        if self.mediaPlayer.state() == QMediaPlayer.PlayingState:
+            self.playButton.setIcon(
+                self.style().standardIcon(QStyle.SP_MediaPause))
+        else:
+            self.playButton.setIcon(
+                self.style().standardIcon(QStyle.SP_MediaPlay))
+
+    def positionChanged(self, position):
+        self.positionSlider.setValue(position)
+
+    def durationChanged(self, duration):
+        self.positionSlider.setRange(0, duration)
+
+    def setPosition(self, position):
+        self.mediaPlayer.setPosition(position)
+
+    def handleError(self):
+        self.playButton.setEnabled(False)
+        self.errorLabel.setText("Error: " + self.mediaPlayer.errorString())
+
+    def setPosition(self, position):
+        self.mediaPlayer.setPosition(position)
 
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
@@ -477,6 +506,9 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.commandLinkButton.setIcon(icon1)
         self.commandLinkButton.setIconSize(QtCore.QSize(25, 25))
         self.commandLinkButton.setObjectName("commandLinkButton")
+
+
+
         self.label_4.raise_()
         self.label_6.raise_()
         self.label_5.raise_()
@@ -496,6 +528,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.Question.raise_()
         self.label_7.raise_()
         self.label_2.raise_()
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -583,6 +616,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.listWidget.setSortingEnabled(True)
         self.label_2.setText(_translate("MainWindow", "Content List"))
         self.Delete.setEnabled(False)
+
 
 
 def showWindow(w1):
