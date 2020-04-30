@@ -3,13 +3,23 @@
 # Ruchi_Hendre@2020
 import os
 import sys
+
+from PyQt5 import QtWidgets, QtCore
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPainter, QBrush, QPen
+from PyQt5.QtWidgets import QMessageBox
+
+import json
+import os
+# class for pollingScreen UI
+import sys
 import PIL
 import tkinter
 from tkinter import filedialog
 import matplotlib
-
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QMessageBox
+import matplotlib.pyplot as plt
+from PyQt5 import QtCore, QtGui, QtWidgets
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 from Editor.ConversationScreen import ConversationScreen
 from Editor.DataCollectionScreen import DataCollectionScreen
@@ -22,6 +32,7 @@ from Editor.UploadScreen import UploadScreen
 
 def changeWindow(w1, w2):
     w1.close()
+    w2.update()
     w2.show()
 
 
@@ -37,10 +48,11 @@ def changeShowcaseWindow(w1, w2):
 
 def changeDataCollectionScreen(w1, w2, template):
     w2.canvas.axes.clear()
+    w2.canvas.draw()
     DataCollectionScreen.template = template
     DataCollectionScreen.count = 0
     w2.readFromJsonFile()
-    w1.hide()
+    w1.close()
     w2.show()
 
 
@@ -98,6 +110,16 @@ def labelText(self, MainWindow, value):
         self.show()
 
 
+def paintEvent(self, event):
+    painter = QPainter(self)
+
+    painter.setPen(QPen(Qt.green, 5, Qt.SolidLine))
+
+    painter.setBrush(QBrush(Qt.green, Qt.SolidPattern))
+
+    painter.drawEllipse(40, 40, 400, 200)
+
+
 def main():
     path = os.path.dirname(sys.argv[0])
     print(os.path.dirname(sys.argv[0]))
@@ -120,12 +142,12 @@ def main():
     screen1.pushButton.clicked.connect(lambda: changeWindow(screen1, screen2))
     screen1.pushButton_2.clicked.connect(lambda: changeWindow(screen1, screen2DataCollection))
 
-    screen2DataCollection.pushButton_2.clicked.connect(
+    screen2DataCollection.pushButton_4.clicked.connect(
         lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Polling"))
     screen2DataCollection.pushButton.clicked.connect(
-        lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Showcase"))
-    screen2DataCollection.pushButton_3.clicked.connect(
-        lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Text"))
+    lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Showcase"))
+    screen2DataCollection.pushButton_5.clicked.connect(
+     lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Text"))
     screen2.pushButton_4.clicked.connect(lambda: changeWindow(screen2, pollingScreen))
     screen2.pushButton.clicked.connect(lambda: changeWindow(screen2, showCaseScreen))
     screen2.commandLinkButton.clicked.connect(lambda: changeWindow(screen2, screen1))
