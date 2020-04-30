@@ -26,11 +26,15 @@ public class PlaytestController : MonoBehaviour
     [SerializeField] bool is2DTesting = true;
     [SerializeField] GameObject[] instruction2D;
     [SerializeField] ShowcaseMainBubble player;
+
+    [SerializeField] bool needPlaytest = false;
     void Start()
     {
-        StartVRInstruction();
-        // 2D instruction
-        Start2DInstruction();
+        if (needPlaytest) {
+            StartVRInstruction();
+            // 2D instruction
+            Start2DInstruction();
+        }   
     }
 
     void StartVRInstruction() {

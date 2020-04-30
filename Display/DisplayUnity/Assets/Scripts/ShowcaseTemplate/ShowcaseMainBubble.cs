@@ -30,14 +30,15 @@ public class ShowcaseMainBubble : MonoBehaviour
         // set video
         player = GetComponentInChildren<VideoPlayer>();
         player.loopPointReached += OnEndOfVideo;
-        if (pictureOnly || player.url == "")
+        string videoUrl = ShowcaseTemplateJsonLoader.Instance.GetVideoUrl();
+        if (pictureOnly || videoUrl == "")
         {
             SetPosterAlpha(1);
             StartCoroutine(PosterOnlyProcess());
             player.gameObject.SetActive(false);
         }
         else {
-            player.url = ShowcaseTemplateJsonLoader.Instance.GetVideoUrl();
+            player.url = videoUrl;
             player.Play();
         }
     }

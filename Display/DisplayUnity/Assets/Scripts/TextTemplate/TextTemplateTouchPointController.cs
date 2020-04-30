@@ -84,6 +84,10 @@ public class TextTemplateTouchPointController : MonoBehaviour
             ps.Clear();
             ps.Pause();
         }
+        for (int i = 0; i < touchPoints.Length; ++i)
+        {
+            touchPoints[i].SetPulseEffect(false);
+        }
     }
 
     public void EnableEffects()
@@ -91,6 +95,11 @@ public class TextTemplateTouchPointController : MonoBehaviour
         foreach (ParticleSystem ps in rippleEffects)
         {
             ps.Play();
+        }
+        // start pulse effect
+        for (int i = 0; i < touchPoints.Length; ++i)
+        {
+            touchPoints[i].SetPulseEffect(true);
         }
     }
 
