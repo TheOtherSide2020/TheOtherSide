@@ -30,6 +30,11 @@ public class TextTemplateTouchPoint : TouchPoint
         TextTemplateTouchPointController.Instance.OnEndTouch(id);
     }
 
+    public void SetPulseEffect(bool isActive) {
+        // TODO: simplify this
+        sizeUpdater.gameObject.GetComponent<OptionPulseEffect>().SetActive(isActive);
+    }
+
     public void ResetCheckMark()
     {
         textDisplay.gameObject.SetActive(true);
