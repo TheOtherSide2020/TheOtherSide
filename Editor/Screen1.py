@@ -49,7 +49,7 @@ class Screen1(QtWidgets.QMainWindow):
         self.pushButton.setAutoFillBackground(True)
         self.pushButton.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(resource_path("Images/Home page_button.png")), QtGui.QIcon.Normal,
+        icon1.addPixmap(QtGui.QPixmap(resource_path("Images/content editor bg.png")), QtGui.QIcon.Normal,
                         QtGui.QIcon.Off)
         self.pushButton.setIcon(icon1)
         self.pushButton.setIconSize(QtCore.QSize(400, 400))
@@ -66,7 +66,10 @@ class Screen1(QtWidgets.QMainWindow):
         font.setStrikeOut(False)
         self.pushButton_2.setFont(font)
         self.pushButton_2.setText("")
-        self.pushButton_2.setIcon(icon1)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(resource_path("Images/data collection bg.png")), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
+        self.pushButton_2.setIcon(icon2)
         self.pushButton_2.setIconSize(QtCore.QSize(400, 400))
         self.pushButton_2.setFlat(True)
         self.pushButton_2.setObjectName("pushButton_2")

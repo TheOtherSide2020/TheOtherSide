@@ -76,7 +76,7 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
         self.canvas = Canvas(self)
         self.setupUi(self)
         self.canvas.move(400, 100)
-        self.canvas.resize(800, 600)
+        self.canvas.resize(830, 600)
         self.canvas.raise_()
 
     def is_file_empty(self, file_path):
