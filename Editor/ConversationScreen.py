@@ -15,11 +15,11 @@ def resource_path(relative_path):
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = os.path.dirname(sys.argv[0])
     except Exception:
-        base_path = os.path.dirname(sys.argv[0])
+        return relative_path
 
     return os.path.join(base_path, relative_path)
 
-
+#class for conversation screen,
 class ConversationScreen(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
@@ -280,7 +280,7 @@ class ConversationScreen(QtWidgets.QMainWindow):
         font.setWeight(50)
         self.EntryName.setFont(font)
         self.EntryName.setAutoFillBackground(False)
-        self.EntryName.setStyleSheet("background-color:rgb(196, 196, 196)\n"
+        self.EntryName.setStyleSheet("background-color:white\n"
                                     "")
         self.EntryName.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.EntryName.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -299,7 +299,6 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.Question.raise_()
         self.Option1.raise_()
         self.Option2.raise_()
-        self.readFromJsonFile()
         self.Option3.raise_()
         self.Option4.raise_()
         self.listWidget.raise_()
@@ -312,17 +311,6 @@ class ConversationScreen(QtWidgets.QMainWindow):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.pushButton_6.clicked.connect(self.save)
-        self.pushButton_3.clicked.connect(self.Question.clear)
-        self.pushButton_3.clicked.connect(self.Option1.clear)
-        self.pushButton_3.clicked.connect(self.Option2.clear)
-        self.pushButton_3.clicked.connect(self.Option3.clear)
-        self.pushButton_3.clicked.connect(self.Option4.clear)
-        self.pushButton_3.clicked.connect(self.EntryName.clear)
-        self.pushButton_3.clicked.connect(self.disableDeleteButton)
-        self.pushButton_2.clicked.connect(self.deleteItem)
-        self.listWidget.itemClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
-        # self.commandLinkButton.clicked.connect()  #back functionality
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def disableDeleteButton(self):
@@ -379,5 +367,16 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.EntryName.setPlaceholderText(_translate("MainWindow", "Entry Name"))
         self.pushButton_2.setEnabled(False)
         self.label_2.setText(_translate("MainWindow", "Content List"))
+        self.pushButton_6.clicked.connect(self.save)
+        self.pushButton_3.clicked.connect(self.Question.clear)
+        self.pushButton_3.clicked.connect(self.Option1.clear)
+        self.pushButton_3.clicked.connect(self.Option2.clear)
+        self.pushButton_3.clicked.connect(self.Option3.clear)
+        self.pushButton_3.clicked.connect(self.Option4.clear)
+        self.pushButton_3.clicked.connect(self.EntryName.clear)
+        self.pushButton_3.clicked.connect(self.disableDeleteButton)
+        self.pushButton_2.clicked.connect(self.deleteItem)
+        self.listWidget.itemClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
+        self.readFromJsonFile()
 
 

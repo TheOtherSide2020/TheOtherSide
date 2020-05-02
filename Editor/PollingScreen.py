@@ -15,7 +15,7 @@ def resource_path(relative_path):
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = os.path.dirname(sys.argv[0])
     except Exception:
-        base_path = os.path.dirname(sys.argv[0])
+        return relative_path
 
     return os.path.join(base_path, relative_path)
 
@@ -24,84 +24,6 @@ class PollingScreen(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setupUi(self)
-
-    def is_file_empty(self, file_path):
-        """ Check if file is empty by confirming if its size is 0 bytes"""
-        # Check if file exist and it is empty
-        return os.path.exists(file_path) and os.stat(file_path).st_size == 0
-
-    def readFromJsonFile(self):
-        for filename in os.listdir(resource_path('TemplateJsonInstance/SimplePollingInstance/')):
-            with open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), filename), 'r') as json_file:
-                data = json.load(json_file)
-                self.listWidget.addItem(data['name'])
-
-    def save(self):
-        self.pushButton_2.setEnabled(False)
-        # check if string is empty
-        if self.Question.toPlainText() != "" and self.Option1.toPlainText() != "" and self.Option2.toPlainText() != "" and self.Option3.toPlainText() != "" and self.Option1.toPlainText() != "" and self.EntryName.toPlainText() != "":
-
-            if self.listWidget.count() == 0:
-                self.saveJson()
-                self.listWidget.addItem(self.EntryName.toPlainText())
-
-            # check if this list item has already been added:  remove duplicates
-            else:
-                items = self.listWidget.findItems(self.EntryName.toPlainText(), Qt.MatchFixedString)
-                if items.__len__() != 0:
-                    # add functionality to allow for the same content to be modified.
-                    msgBox = QMessageBox()
-                    msgBox.setIcon(QMessageBox.Information)
-                    msgBox.setText(
-                        "Do you want to edit the entry " + self.EntryName.toPlainText() + " previously saved")
-                    msgBox.setWindowTitle("Info")
-                    msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-                    x = msgBox.exec_()
-                    if x == QMessageBox.Ok:
-                        if items.__len__() != 0:
-                            self.saveJson()
-
-                else:
-                    self.saveJson()
-                    self.listWidget.addItem(self.EntryName.toPlainText())
-
-
-
-        else:
-            msgBox = QMessageBox()
-            msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText("Fields cannot be left blank")
-            msgBox.setWindowTitle("Error")
-            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            x = msgBox.exec_()
-
-    def saveJson(self):
-        PollingSystemRecord = {
-            "name": self.EntryName.toPlainText(),
-            "type": "simplePolling",
-            "question": self.Question.toPlainText(),
-            "createdOn": datetime.datetime.now().timestamp(),
-            "lastUpdated": datetime.datetime.now().timestamp(),
-            "options": [
-                self.Option1.toPlainText(),
-                self.Option2.toPlainText(),
-                self.Option3.toPlainText(),
-                self.Option4.toPlainText()
-            ]
-
-        }
-        file = open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'),
-                                 self.EntryName.toPlainText() + ".json"),
-                    'w')
-        with file as json_file:
-            json.dump(PollingSystemRecord, json_file)
-
-        msgBox = QMessageBox()
-        msgBox.setIcon(QMessageBox.Information)
-        msgBox.setText(self.EntryName.toPlainText()+" saved!")
-        msgBox.setWindowTitle("Error")
-        msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        x = msgBox.exec_()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -275,7 +197,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         font.setWeight(50)
         self.EntryName.setFont(font)
         self.EntryName.setAutoFillBackground(False)
-        self.EntryName.setStyleSheet("background-color:rgb(196, 196, 196)\n"
+        self.EntryName.setStyleSheet("background-color:white\n"
                                      "")
         self.EntryName.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.EntryName.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -297,7 +219,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.Option3.raise_()
         self.Option4.raise_()
         self.listWidget.raise_()
-        self.readFromJsonFile()
+
         self.label_2.raise_()
         self.pushButton_3.raise_()
         self.pushButton_2.raise_()
@@ -307,22 +229,89 @@ class PollingScreen(QtWidgets.QMainWindow):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.pushButton_6.clicked.connect(self.save)
-        self.pushButton_3.clicked.connect(self.Question.clear)
-        self.pushButton_3.clicked.connect(self.Option1.clear)
-        self.pushButton_3.clicked.connect(self.Option2.clear)
-        self.pushButton_3.clicked.connect(self.Option3.clear)
-        self.pushButton_3.clicked.connect(self.disableDeleteButton)
-        self.pushButton_3.clicked.connect(self.Option4.clear)
-        self.pushButton_3.clicked.connect(self.EntryName.clear)
-        self.pushButton_2.clicked.connect(self.deleteItem)
-        self.listWidget.itemClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
-        # self.commandLinkButton.clicked.connect()  #back functionality
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def is_file_empty(self, file_path):
+        """ Check if file is empty by confirming if its size is 0 bytes"""
+        # Check if file exist and it is empty
+        return os.path.exists(file_path) and os.stat(file_path).st_size == 0
+
+    def readFromJsonFile(self):
+        for filename in os.listdir(resource_path('TemplateJsonInstance/SimplePollingInstance/')):
+            with open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), filename),
+                      'r') as json_file:
+                data = json.load(json_file)
+                self.listWidget.addItem(data['name'])
+
+    def save(self):
+        self.pushButton_2.setEnabled(False)
+        # check if string is empty
+        if self.Question.toPlainText() != "" and self.Option1.toPlainText() != "" and self.Option2.toPlainText() != "" and self.Option3.toPlainText() != "" and self.Option1.toPlainText() != "" and self.EntryName.toPlainText() != "":
+
+            if self.listWidget.count() == 0:
+                self.saveJson()
+                self.listWidget.addItem(self.EntryName.toPlainText())
+
+            # check if this list item has already been added:  remove duplicates
+            else:
+                items = self.listWidget.findItems(self.EntryName.toPlainText(), Qt.MatchFixedString)
+                if items.__len__() != 0:
+                    # add functionality to allow for the same content to be modified.
+                    msgBox = QMessageBox()
+                    msgBox.setIcon(QMessageBox.Information)
+                    msgBox.setText(
+                        "Do you want to edit the entry " + self.EntryName.toPlainText() + " previously saved")
+                    msgBox.setWindowTitle("Info")
+                    msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                    x = msgBox.exec_()
+                    if x == QMessageBox.Ok:
+                        if items.__len__() != 0:
+                            self.saveJson()
+
+                else:
+                    self.saveJson()
+                    self.listWidget.addItem(self.EntryName.toPlainText())
+
+
+
+        else:
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setText("Fields cannot be left blank")
+            msgBox.setWindowTitle("Error")
+            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            x = msgBox.exec_()
+
+    def saveJson(self):
+        PollingSystemRecord = {
+            "name": self.EntryName.toPlainText(),
+            "type": "simplePolling",
+            "question": self.Question.toPlainText(),
+            "createdOn": datetime.datetime.now().timestamp(),
+            "lastUpdated": datetime.datetime.now().timestamp(),
+            "options": [
+                self.Option1.toPlainText(),
+                self.Option2.toPlainText(),
+                self.Option3.toPlainText(),
+                self.Option4.toPlainText()
+            ]
+
+        }
+        file = open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'),
+                                 self.EntryName.toPlainText() + ".json"),
+                    'w')
+        with file as json_file:
+            json.dump(PollingSystemRecord, json_file)
+
+        msgBox = QMessageBox()
+        msgBox.setIcon(QMessageBox.Information)
+        msgBox.setText(self.EntryName.toPlainText() + " saved!")
+        msgBox.setWindowTitle("Error")
+        msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        x = msgBox.exec_()
 
     def disableDeleteButton(self):
         self.pushButton_2.setEnabled(False)
-
 
     def deleteItem(self):
         self.Question.clear()
@@ -335,14 +324,14 @@ class PollingScreen(QtWidgets.QMainWindow):
             # delete the file
             for fileName in os.listdir(resource_path('TemplateJsonInstance/SimplePollingInstance/')):
                 if fileName == self.listWidget.currentItem().text() + ".json":
-                    os.remove( os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), fileName))
+                    os.remove(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), fileName))
 
             self.listWidget.takeItem(self.listWidget.row(item))
 
             # delete confirmation
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText( self.EntryName.toPlainText() +" Deleted")
+            msgBox.setText(self.EntryName.toPlainText() + " Deleted")
             msgBox.setWindowTitle("Success")
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
@@ -355,7 +344,8 @@ class PollingScreen(QtWidgets.QMainWindow):
         for fileName in os.listdir(resource_path('TemplateJsonInstance/SimplePollingInstance/')):
             # get the record from json for edit
             if fileName == text + ".json":
-                with open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), fileName), 'r') as json_file:
+                with open(os.path.join(resource_path('TemplateJsonInstance/SimplePollingInstance/'), fileName),
+                          'r') as json_file:
                     data = json.load(json_file)
                     self.Question.setPlainText(data['question'])
                     self.Option1.setPlainText(data['options'][0])
@@ -374,5 +364,14 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.EntryName.setPlaceholderText(_translate("MainWindow", "Entry Name"))
         self.pushButton_2.setEnabled(False)
         self.label_2.setText(_translate("MainWindow", "Content List"))
-
-
+        self.pushButton_6.clicked.connect(self.save)
+        self.pushButton_3.clicked.connect(self.Question.clear)
+        self.pushButton_3.clicked.connect(self.Option1.clear)
+        self.pushButton_3.clicked.connect(self.Option2.clear)
+        self.pushButton_3.clicked.connect(self.Option3.clear)
+        self.pushButton_3.clicked.connect(self.disableDeleteButton)
+        self.pushButton_3.clicked.connect(self.Option4.clear)
+        self.pushButton_3.clicked.connect(self.EntryName.clear)
+        self.pushButton_2.clicked.connect(self.deleteItem)
+        self.listWidget.itemClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
+        self.readFromJsonFile()

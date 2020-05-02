@@ -17,7 +17,7 @@ def resource_path(relative_path):
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = os.path.dirname(sys.argv[0])
     except Exception:
-        base_path = os.path.dirname(sys.argv[0])
+        return relative_path
     return os.path.join(base_path, relative_path)
 
 
@@ -215,7 +215,6 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
         self.label_4.raise_()
 
         MainWindow.setCentralWidget(self.centralwidget)
-        self.readFromJsonFile()
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -227,3 +226,4 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
         self.label_3.setText(_translate("MainWindow", "Time:"))
         self.label_4.setText(_translate("MainWindow", "Total Count:"))
         self.listWidget.itemClicked['QListWidgetItem*'].connect(self.updateGraphOnClick)
+        self.readFromJsonFile()

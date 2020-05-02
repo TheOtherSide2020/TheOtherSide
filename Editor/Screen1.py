@@ -10,7 +10,7 @@ def resource_path(relative_path):
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = os.path.dirname(sys.argv[0])
     except Exception:
-        base_path = os.path.dirname(sys.argv[0])
+        return relative_path
     return os.path.join(base_path, relative_path)
 
 
@@ -88,7 +88,7 @@ class Screen1(QtWidgets.QMainWindow):
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(0, 0, 1151, 791))
         self.label_3.setText("")
-        self.label_3.setPixmap(QtGui.QPixmap(resource_path("Images/Home page_background.png")))
+        self.label_3.setPixmap(QtGui.QPixmap(resource_path("Images/Homepage_Template_selection_background.png")))
         self.label_3.setObjectName("label_3")
         self.label_3.raise_()
         self.pushButton.raise_()

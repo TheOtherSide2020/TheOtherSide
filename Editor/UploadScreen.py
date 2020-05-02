@@ -18,7 +18,7 @@ def resource_path(relative_path):
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = os.path.dirname(sys.argv[0])
     except Exception:
-        base_path = os.path.dirname(sys.argv[0])
+        return relative_path
     return os.path.join(base_path, relative_path)
 
 
@@ -203,7 +203,7 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.pushButton_2.setFont(font)
         self.pushButton_2.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("Images/player.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("Images/Add.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_2.setIcon(icon1)
         self.pushButton_2.setIconSize(QtCore.QSize(25, 40))
         self.pushButton_2.setFlat(True)
@@ -354,8 +354,6 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "The Other Side"))
@@ -367,10 +365,8 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.label_2.setText(_translate("MainWindow", "Upload a video (optional)"))
 
         self.label_3.setText(_translate("MainWindow",
-                                        "You can upload either video or image, or both of them image will be the "
-                                        "cover for idle status."))
-
-
+                                        "You can upload a separate image or video. If you upload both, the image will "
+                                        "be the cover for idle status"))
 
         self.pushButton_4.hide()
         self.commandLinkButton.clicked.connect(self.closeUploadScreen)
