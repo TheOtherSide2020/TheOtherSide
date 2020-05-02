@@ -22,11 +22,13 @@ public class ShowcaseTemplateController : TemplateMainController
             case TemplateState.Idle:
                 // enable all touchpoints
                 ShowcaseTouchPointController.Instance.EnableAll();
+                ShowcaseTouchPointController.Instance.EnableArrowEffect();
                 ShowcaseTouchPointController.Instance.ResetAllProgress();
                 break;
             case TemplateState.Loading:
                 // disable other touchpoints
                 ShowcaseTouchPointController.Instance.DisableExcept(selectedId);
+                ShowcaseTouchPointController.Instance.DisableArrowEffect();
                 break;
             case TemplateState.Reacting:
                 // disable interaction
@@ -37,8 +39,6 @@ public class ShowcaseTemplateController : TemplateMainController
             case TemplateState.Display:
                 // number change
                 ResultLoader.Instance.IncreaseVote(selectedId);
-                // update text
-                ShowcaseTouchPointController.Instance.UpdateResultText();
                 // water increase
                 ShowcaseTouchPointController.Instance.IncreaseWater(selectedId);
                 break;
@@ -46,10 +46,15 @@ public class ShowcaseTemplateController : TemplateMainController
     }
 
     public void OnEndOfUpdateWater() {
+        // update text
+        ShowcaseTouchPointController.Instance.ShowResultText(selectedId);
+    }
+
+    public void OnEndDisplayResultText()
+    {
         selectedId = -1;
         SetTemplateState(TemplateState.Idle);
-
         // playtest: show end result
-        PlaytestController.Instance.OnShowResult();
+        // PlaytestController.Instance.OnShowResult();
     }
 }

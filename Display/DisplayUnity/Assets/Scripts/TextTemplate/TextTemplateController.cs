@@ -60,7 +60,7 @@ public class TextTemplateController : TemplateMainController
 
     IEnumerator ResultScrollUp()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         MessageScroller.Instance.UpdateText("Result", selectedId);
         MessageScroller.Instance.ScrollUp("Result");
         yield return new WaitForSeconds(3);

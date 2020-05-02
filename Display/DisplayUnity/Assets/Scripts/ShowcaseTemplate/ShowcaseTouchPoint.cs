@@ -5,17 +5,23 @@ using UnityEngine.UI;
 
 public class ShowcaseTouchPoint : TouchPoint
 {
-    //[SerializeField] ContainerSizeUpdater sizeUpdater;
     [SerializeField] Animator dropAnimation;
     [SerializeField] int voteToFillBubble = 8;
-    [SerializeField] TMPro.TMP_Text countText;
     [SerializeField] WaterUpdater waterUpdater;
+    [SerializeField] ArrowEffect arrowEffect;
 
     protected override void Start()
     {
         base.Start();
         dropAnimation.gameObject.SetActive(false);
     }
+
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.L)) {
+    //        SetResultText("18 people selected this option");
+    //    }
+    //}
 
     public void InitializeWater() {
         waterUpdater.UpdateIncreaseAmount(voteToFillBubble);
@@ -44,6 +50,10 @@ public class ShowcaseTouchPoint : TouchPoint
     override protected void OnEndVoting()
     {
         ShowcaseTouchPointController.Instance.OnEndTouch(id);
+    }
+
+    public void SetArrowEffect(bool isActive) {
+        arrowEffect.gameObject.SetActive(isActive);
     }
 
     public void PlayDropAnimation() {
@@ -76,6 +86,44 @@ public class ShowcaseTouchPoint : TouchPoint
     }
 
     public void SetResultText(string txt) {
-        countText.SetText(txt);
+        StartCoroutine(DisplayResultText(txt));
+    }
+
+    IEnumerator DisplayResultText(string txt) {
+        string optionText = textDisplay.text;
+        float changeAmount = 1 / ShowcaseTouchPointController.Instance.resultTextFadeTime;
+        Color c = textDisplay.color;
+        // option fade out
+        while (textDisplay.color.a > 0) {
+            yield return new WaitForEndOfFrame();
+            c.a -= changeAmount * Time.deltaTime; 
+            textDisplay.color = c;
+        }
+        SetText(txt);
+        // result fade in
+        while (textDisplay.color.a < 1)
+        {
+            yield return new WaitForEndOfFrame();
+            c.a += changeAmount * Time.deltaTime;
+            textDisplay.color = c;
+        }
+        // show result
+        yield return new WaitForSeconds(2);
+        // result fade out
+        while (textDisplay.color.a > 0)
+        {
+            yield return new WaitForEndOfFrame();
+            c.a -= changeAmount * Time.deltaTime;
+            textDisplay.color = c;
+        }
+        SetText(optionText);
+        // option fade in
+        while (textDisplay.color.a < 1)
+        {
+            yield return new WaitForEndOfFrame();
+            c.a += changeAmount * Time.deltaTime;
+            textDisplay.color = c;
+        }
+        ShowcaseTemplateController.Instance.OnEndDisplayResultText();
     }
 }
