@@ -299,39 +299,6 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.pushButton_3.setAutoDefault(False)
         self.pushButton_3.setFlat(True)
         self.pushButton_3.setObjectName("pushButton_3")
-        self.imageWidget = QLabel(self)
-        self.imageWidget.setScaledContents(True)
-        self.imageWidget.hide()
-        self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-        layout = QVBoxLayout()
-        layout.addWidget(self.imageWidget)
-
-        self.widget.setLayout(layout)
-
-        self.videoWidget = QVideoWidget()
-
-        self.playButton = QPushButton()
-        self.playButton.setStyleSheet("border:none")
-        self.playButton.setEnabled(False)
-        self.playButton.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay))
-        self.playButton.clicked.connect(self.play)
-
-        self.positionSlider = QSlider(Qt.Horizontal)
-        self.positionSlider.setStyleSheet("border:none")
-        self.positionSlider.setRange(0, 0)
-        self.positionSlider.sliderMoved.connect(self.setPosition)
-
-        controlLayout = QHBoxLayout()
-        controlLayout.setContentsMargins(0, 0, 0, 0)
-        controlLayout.addWidget(self.playButton)
-        controlLayout.addWidget(self.positionSlider)
-
-        layout = QVBoxLayout()
-        layout.addWidget(self.videoWidget)
-        layout.addLayout(controlLayout)
-
-        self.widget_2.setLayout(layout)
-
         self.pushButton_4.setStyleSheet("border: 2px solid none; border-radius:5px;")
         self.pushButton_5.setStyleSheet("border: 2px solid none; border-radius:5px;")
 
@@ -367,6 +334,38 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.label_3.setText(_translate("MainWindow",
                                         "You can upload a separate image or video. If you upload both, the image will "
                                         "be the cover for idle status"))
+        self.imageWidget = QLabel(self)
+        self.imageWidget.setScaledContents(True)
+        self.imageWidget.hide()
+        self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
+        layout = QVBoxLayout()
+        layout.addWidget(self.imageWidget)
+
+        self.widget.setLayout(layout)
+
+        self.videoWidget = QVideoWidget()
+
+        self.playButton = QPushButton()
+        self.playButton.setStyleSheet("border:none")
+        self.playButton.setEnabled(False)
+        self.playButton.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay))
+        self.playButton.clicked.connect(self.play)
+
+        self.positionSlider = QSlider(Qt.Horizontal)
+        self.positionSlider.setStyleSheet("border:none")
+        self.positionSlider.setRange(0, 0)
+        self.positionSlider.sliderMoved.connect(self.setPosition)
+
+        controlLayout = QHBoxLayout()
+        controlLayout.setContentsMargins(0, 0, 0, 0)
+        controlLayout.addWidget(self.playButton)
+        controlLayout.addWidget(self.positionSlider)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.videoWidget)
+        layout.addLayout(controlLayout)
+
+        self.widget_2.setLayout(layout)
 
         self.pushButton_4.hide()
         self.commandLinkButton.clicked.connect(self.closeUploadScreen)
@@ -378,3 +377,4 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.mediaPlayer.positionChanged.connect(self.positionChanged)
         self.mediaPlayer.durationChanged.connect(self.durationChanged)
         self.mediaPlayer.error.connect(self.handleError)
+
