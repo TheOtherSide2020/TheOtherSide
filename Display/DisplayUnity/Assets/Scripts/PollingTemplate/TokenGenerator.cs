@@ -15,6 +15,7 @@ public class TokenGenerator : MonoBehaviour
     [SerializeField] int[] tokenOrder = { 2, 0, 1};
     [SerializeField] int totalTokens = 0;
     [SerializeField] int maxTokens = 10;
+    [SerializeField] float resetFadingTime = 0.3f;
 
     void Start()
     {
@@ -69,5 +70,40 @@ public class TokenGenerator : MonoBehaviour
         newToken = token.GetComponent<Rigidbody2D>();
         token.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
         totalTokens++;
+        if (totalTokens >= maxTokens) {
+            StartCoroutine(ResetTokens());
+        }
+    }
+
+    IEnumerator ResetTokens()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Token[] allTokens =
+            generatedParent.GetComponentsInChildren<Token>();
+        foreach (Token t in allTokens)
+        {
+            ParticleSystem p = t.particle;
+            if (p) {
+                p.Play();
+            }
+        }
+        // fade out effect
+        float fadeAmount = 1 / resetFadingTime;
+        while (allTokens.Length > 0 && allTokens[0].filling.color.a > 0) {
+            yield return new WaitForEndOfFrame();
+            Color c = allTokens[0].filling.color;
+            c.a -= fadeAmount * Time.deltaTime;
+            foreach (Token t in allTokens)
+            {
+                t.filling.color = c;
+            }
+        }
+
+        foreach (Token t in allTokens)
+        {
+
+            Destroy(t.gameObject);
+        }
+        totalTokens = 0;
     }
 }

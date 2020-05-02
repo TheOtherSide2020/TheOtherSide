@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,15 +18,16 @@ public class ShowcaseTouchPointController : MonoBehaviour
     #endregion
 
     [SerializeField] ShowcaseTouchPoint[] touchPoints;
+    [SerializeField] string resultText = "{0} people selected this option";
     public float loadingTime = 1.5f;
     public float waterIncreaseTime = 1f;
-
+    public float resultTextFadeTime = 1f;
+    public float resultTextDisplayTime = 4f;
 
     private void Start()
     {
         touchPoints = GetComponentsInChildren<ShowcaseTouchPoint>();
         LoadOptionText();
-        UpdateResultText();
         SetWater();
     }
     private void SetWater()
@@ -47,12 +49,11 @@ public class ShowcaseTouchPointController : MonoBehaviour
         }
     }
 
-    public void UpdateResultText() {
-        for (int i = 0; i < touchPoints.Length; ++i)
-        {
-            string optionResultText = ResultLoader.Instance.GetOptionCount(touchPoints[i].id);
-            touchPoints[i].SetResultText(optionResultText);
-        }
+    public void ShowResultText(int idx) {
+        string optionResultText = String.Format(
+            resultText,
+            ResultLoader.Instance.GetOptionCount(touchPoints[idx].id));
+        touchPoints[idx].SetResultText(optionResultText);
     }
 
     public void IncreaseWater(int idx) {
@@ -98,6 +99,22 @@ public class ShowcaseTouchPointController : MonoBehaviour
         }
     }
 
+    public void EnableArrowEffect()
+    {
+        foreach (ShowcaseTouchPoint tp in touchPoints)
+        {
+            tp.SetArrowEffect(true);
+        }
+    }
+
+    public void DisableArrowEffect()
+    {
+        foreach (ShowcaseTouchPoint tp in touchPoints)
+        {
+            tp.SetArrowEffect(false);
+        }
+    }
+
     public void PlayDropAnimation(int idx) {
         touchPoints[idx].PlayDropAnimation();
     }
@@ -105,6 +122,7 @@ public class ShowcaseTouchPointController : MonoBehaviour
     public void OnEndDroppingAnimation() {
         ShowcaseTemplateController.Instance.SetTemplateState(TemplateMainController.TemplateState.Display);
     }
+
 
     public void OnStartTouch(int id)
     {

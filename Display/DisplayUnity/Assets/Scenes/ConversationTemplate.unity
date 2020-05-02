@@ -165,7 +165,7 @@ MonoBehaviour:
   scaleMin: 0.95
   scaleMax: 1.02
   activePulsing: 0
-  scaleUp: 0
+  scaleUp: 1
   pulseUnitTime: 1
   changeAmount: 0
 --- !u!1 &879530986 stripped
@@ -213,7 +213,7 @@ MonoBehaviour:
   scaleMin: 0.95
   scaleMax: 1.02
   activePulsing: 0
-  scaleUp: 0
+  scaleUp: 1
   pulseUnitTime: 1
   changeAmount: 0
 --- !u!114 &1875412561 stripped
@@ -417,7 +417,7 @@ PrefabInstance:
     - target: {fileID: 7831093951372714281, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15.98999
+      value: -15.1
       objectReference: {fileID: 0}
     - target: {fileID: 7831093951372714281, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
         type: 3}
@@ -427,12 +427,17 @@ PrefabInstance:
     - target: {fileID: 7831093951372714281, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -16.18
+      value: -16.2
       objectReference: {fileID: 0}
     - target: {fileID: 7831093951372714281, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
         type: 3}
       propertyPath: m_Pivot.x
       value: 0.49999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831093951650858676, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -36.3
       objectReference: {fileID: 0}
     - target: {fileID: 7831093950969009867, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
         type: 3}
@@ -523,6 +528,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 18.181
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831093952259913016, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831093952259913016, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831093952259913016, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7831093951825240452, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
         type: 3}
@@ -749,6 +769,12 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 4822d5a32cc16434d880bc0a3c6d40e8,
+        type: 3}
+    - target: {fileID: 7831093951371165666, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ab14a3c3f41820d46a6b5fec0198ee71,
         type: 3}
     m_RemovedComponents:
     - {fileID: 254942151479173760, guid: dc65cc08a7e9a954e960d4f2ed0b0fbb, type: 3}
