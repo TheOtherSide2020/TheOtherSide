@@ -62,19 +62,35 @@ def showWindow(w1, w2):
     w2.Delete.setEnabled(False)
     w2.Upload.setEnabled(False)
     w2.CreateNewContent.setEnabled(False)
-
     w1.setParent(w2)
-    if w2.doubleClicked == 1:
-        w1.loadImage(ShowCaseScreen.ImageFileName)
-    else:
-        w1.clearImage()
 
-    if w2.doubleClicked == 1 or ShowCaseScreen.VideoFileName != '':
-        w1.loadVideo(ShowCaseScreen.VideoFileName)
-    elif ShowCaseScreen.VideoFileName != w2.VideoFileName:
+    # handle the image logic for the showcase template
+    # if UploadScreen.ImageFileName != ' ':
+    # w1.loadImage(UploadScreen.ImageFileName)
+
+    # elif UploadScreen.ImageFileName == '' and w2.doubleClicked == 0:
+    # w1.clearImage()
+
+    if UploadScreen.ImageFileName == '' and ShowCaseScreen.ImageFileName == '':
+        w1.clearImage()
+    elif UploadScreen.ImageFileName == ' ' and ShowCaseScreen.ImageFileName != ' ':
+        w1.loadImage(UploadScreen.ImageFileName)
+    elif UploadScreen.ImageFileName != ' ' and ShowCaseScreen.ImageFileName != ' ':
+        w1.loadImage(UploadScreen.ImageFileName)
+
+    # handles the video logic for the showcase template
+    # if UploadScreen.VideoFileName != '':
+    #  w1.loadVideo(UploadScreen.VideoFileName)
+
+    # elif UploadScreen.VideoFileName == '' and w2.doubleClicked == 0:
+    # w1.clearVideo()
+
+    if UploadScreen.VideoFileName == ' ' and ShowCaseScreen.VideoFileName == '':
         w1.clearVideo()
-    elif ShowCaseScreen.VideoFileName == '' and w2.doubleClicked == 0:
-        w1.clearVideo()
+    elif UploadScreen.VideoFileName == ' ' and ShowCaseScreen.VideoFileName != ' ':
+        w1.loadVideo(UploadScreen.VideoFileName)
+    elif UploadScreen.VideoFileName != ' ' and ShowCaseScreen.VideoFileName != ' ':
+        w1.loadVideo(UploadScreen.VideoFileName)
 
     w1.move(260, 140)
 
@@ -83,7 +99,6 @@ def showWindow(w1, w2):
 
 
 def labelText(self, MainWindow, value):
-    print(UploadScreen.ImageFileName)
     if UploadScreen.ImageFileName == "":
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
@@ -91,17 +106,19 @@ def labelText(self, MainWindow, value):
         msgBox.setWindowTitle("Error")
         msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         x = msgBox.exec_()
-
     else:
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
-        msgBox.setText("Media Uploaded")
+        msgBox.setText("Media Uploaded, Do you want to save?")
+        # force save here
         msgBox.setWindowTitle("Success")
         msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         x = msgBox.exec_()
         self.label_3.setText(str(value))
+        if x == QMessageBox.Ok:
+            self.save()
+        # change upload button to view button
         MainWindow.close()
-
         self.listWidget.setEnabled(True)
         self.Save.setEnabled(True)
         self.Delete.setEnabled(True)
@@ -121,6 +138,7 @@ def paintEvent(self, event):
 
 
 def main():
+    # function logic
     path = os.path.dirname(sys.argv[0])
     print(os.path.dirname(sys.argv[0]))
     app = QtWidgets.QApplication(sys.argv)
@@ -145,9 +163,9 @@ def main():
     screen2DataCollection.pushButton_4.clicked.connect(
         lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Polling"))
     screen2DataCollection.pushButton.clicked.connect(
-    lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Showcase"))
+        lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Showcase"))
     screen2DataCollection.pushButton_5.clicked.connect(
-     lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Text"))
+        lambda: changeDataCollectionScreen(screen2DataCollection, dataCollectionScreen, "Text"))
     screen2.pushButton_4.clicked.connect(lambda: changeWindow(screen2, pollingScreen))
     screen2.pushButton.clicked.connect(lambda: changeWindow(screen2, showCaseScreen))
     screen2.commandLinkButton.clicked.connect(lambda: changeWindow(screen2, screen1))
