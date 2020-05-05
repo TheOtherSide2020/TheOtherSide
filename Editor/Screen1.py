@@ -74,7 +74,7 @@ class Screen1(QtWidgets.QMainWindow):
         self.pushButton_2.setFlat(True)
         self.pushButton_2.setObjectName("pushButton_2")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(280, 530, 161, 21))
+        self.label.setGeometry(QtCore.QRect(260, 530, 161, 21))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.label.setFont(font)

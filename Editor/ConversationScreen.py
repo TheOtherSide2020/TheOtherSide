@@ -137,7 +137,6 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.Question.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.Question.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
         self.Question.setTabChangesFocus(True)
-        self.Question.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
         self.Question.setLineWrapColumnOrWidth(3)
         self.Question.setTextInteractionFlags(
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)

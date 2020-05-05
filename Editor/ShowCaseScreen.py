@@ -39,8 +39,6 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         # Check if file exist and it is empty
         return os.path.exists(file_path) and os.stat(file_path).st_size == 0
 
-
-
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
         self.setupUi(self)
@@ -292,8 +290,6 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.commandLinkButton.setIconSize(QtCore.QSize(25, 25))
         self.commandLinkButton.setObjectName("commandLinkButton")
 
-
-
         self.label_4.raise_()
         self.label_6.raise_()
         self.label_5.raise_()
@@ -502,6 +498,8 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         # new content added
         self.listWidget.clearSelection
         self.Delete.setEnabled(False)
+        UploadScreen.ImageFileName = ''
+        UploadScreen.VideoFileName = ''
         ShowCaseScreen.VideoFileName = ''
         ShowCaseScreen.ImageFileName = ''
 
@@ -619,7 +617,6 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.CreateNewContent.clicked.connect(self.EntryName.clear)
         self.Delete.clicked.connect(self.deleteItem)
         self.listWidget.itemClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
-
 
 
 def showWindow(w1):
