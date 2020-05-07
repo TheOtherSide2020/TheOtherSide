@@ -243,7 +243,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.label_3.setOpenExternalLinks(False)
         self.label_3.setObjectName("label_3")
         self.Question = QtWidgets.QTextBrowser(self.centralwidget)
-        self.Question.setGeometry(QtCore.QRect(1100, 250, 341, 91))
+        self.Question.setGeometry(QtCore.QRect(1130, 250, 341, 91))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
