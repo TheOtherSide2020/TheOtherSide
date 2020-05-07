@@ -305,7 +305,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         msgBox = QMessageBox()
         msgBox.setIcon(QMessageBox.Information)
         msgBox.setText(self.EntryName.toPlainText() + " saved!")
-        msgBox.setWindowTitle("Error")
+        msgBox.setWindowTitle("Success")
         msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         x = msgBox.exec_()
 

@@ -60,7 +60,6 @@ def plotUpdate(self, fileName):
 
 class Canvas(FigureCanvas):
     def __init__(self, parent=None):
-        plt.style.use('fivethirtyeight')
         self.fig, self.axes = plt.subplots(figsize=(8, 7), dpi=90)
         FigureCanvas.__init__(self, self.fig)
         self.setParent(parent)
