@@ -6,7 +6,7 @@ import sys
 
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPainter, QBrush, QPen
+from PyQt5.QtGui import QPainter, QBrush, QPen, QFont
 from PyQt5.QtWidgets import QMessageBox
 
 import json
@@ -15,6 +15,7 @@ import os
 import sys
 import PIL
 import tkinter
+
 from tkinter import filedialog
 import matplotlib
 import matplotlib.pyplot as plt
@@ -144,7 +145,14 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
     app.setStyleSheet("QTextBrowser { background-color: white; border-radius: "
-                      "10px;}")
+                      "10px;} "
+                      "QWidget { font: futura;}"
+                      "QTextBrowser { font: futura;}"
+                      "QLabel { font: futura;}"
+                      "QTextEdit { font: futura;}"
+                      "QListWidget { font: futura;}"
+                      "QPushButton { background-color: none; font: futura; display:block;}"
+                      )
     screen1 = Screen1()
     screen1.show()
 
