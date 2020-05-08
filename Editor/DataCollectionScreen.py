@@ -126,7 +126,7 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
         self.centralwidget.setObjectName("centralwidget")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(0, 110, 401, 761))
+        self.listWidget.setGeometry(QtCore.QRect(10, 110, 401, 761))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setKerning(False)
@@ -135,6 +135,14 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
         self.listWidget.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.listWidget.setFrameShadow(QtWidgets.QFrame.Plain)
         self.listWidget.setLineWidth(0)
+        self.listWidget.setStyleSheet("QListWidget::item {"
+                                      "border-style: solid;"
+                                      "color: black;"
+                                      "filter: alpha(opacity=20);"
+                                      "}"
+                                      "QListWidget::item:selected {"
+                                      "background-color: rgba(173, 162, 231, 0.5);"
+                                      "}")
         self.listWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContentsOnFirstShow)
         self.listWidget.setProperty("showDropIndicator", False)
         self.listWidget.setDragEnabled(False)
@@ -165,7 +173,7 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
         self.commandLinkButton.setGeometry(QtCore.QRect(20, 4, 51, 41))
         self.commandLinkButton.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(resource_path('Images/directional-chevron-back-512.ico')), QtGui.QIcon.Normal,
+        icon.addPixmap(QtGui.QPixmap(resource_path('Images/back.png')), QtGui.QIcon.Normal,
                        QtGui.QIcon.Off)
         self.commandLinkButton.setIcon(icon)
         self.commandLinkButton.setIconSize(QtCore.QSize(25, 25))

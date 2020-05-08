@@ -129,7 +129,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
         self.Option4.setObjectName("textBrowser_5")
         self.Save = QtWidgets.QPushButton(self.centralwidget)
-        self.Save.setGeometry(QtCore.QRect(1390, 0, 91, 51))
+        self.Save.setGeometry(QtCore.QRect(1460, 0, 91, 51))
         self.Save.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(resource_path("Images/save.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -138,9 +138,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.Save.setFlat(True)
         self.Save.setObjectName("pushButton")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(0, 120, 421, 871))
-        self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(0, 120, 421, 871))
+        self.listWidget.setGeometry(QtCore.QRect(10, 130, 421, 871))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setKerning(False)
@@ -149,6 +147,14 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.listWidget.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.listWidget.setFrameShadow(QtWidgets.QFrame.Plain)
         self.listWidget.setLineWidth(0)
+        self.listWidget.setStyleSheet("QListWidget::item {"
+                                      "border-style: solid;"
+                                      "color: black;"
+                                      "filter: alpha(opacity=20);"
+                                      "}"
+                                      "QListWidget::item:selected {"
+                                      "background-color: rgba(173, 162, 231, 0.5);"                                      
+                                      "}")
         self.listWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContentsOnFirstShow)
         self.listWidget.setProperty("showDropIndicator", False)
         self.listWidget.setDragEnabled(False)
@@ -227,7 +233,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(resource_path("Images/Upload.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Upload.setIcon(icon4)
-        self.Upload.setIconSize(QtCore.QSize(120, 170))
+        self.Upload.setIconSize(QtCore.QSize(150, 35))
         self.Upload.setAutoDefault(False)
         self.Upload.setFlat(True)
         self.Upload.setObjectName("pushButton_4")
@@ -275,7 +281,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.label_7.setText("")
         self.label_7.setObjectName("label_7")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(0, 0, 1550, 991))
+        self.label_4.setGeometry(QtCore.QRect(0, 0, 1561, 991))
         self.label_4.setText("")
         self.label_4.setPixmap(QtGui.QPixmap(resource_path("Images/General background.png")))
         self.label_4.setScaledContents(True)
@@ -284,15 +290,15 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.commandLinkButton.setGeometry(QtCore.QRect(23, 8, 41, 41))
         self.commandLinkButton.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(resource_path(resource_path("Images/directional-chevron-back-512.ico"))),
+        icon1.addPixmap(QtGui.QPixmap(resource_path(resource_path("Images/back.png"))),
                         QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.commandLinkButton.setIcon(icon1)
         self.commandLinkButton.setIconSize(QtCore.QSize(25, 25))
         self.commandLinkButton.setObjectName("commandLinkButton")
 
-        self.label_4.raise_()
         self.label_6.raise_()
         self.label_5.raise_()
+        self.label_4.raise_()
         self.label.raise_()
         self.Option1.raise_()
         self.Option2.raise_()

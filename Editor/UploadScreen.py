@@ -332,8 +332,8 @@ class UploadScreen(QtWidgets.QMainWindow):
         self.label_2.setText(_translate("MainWindow", "Upload a video (optional)"))
 
         self.label_3.setText(_translate("MainWindow",
-                                        "You can upload a separate image or video. If you upload both, the image will "
-                                        "be the cover for idle status"))
+                                        "* Please use the mask to crop the image into the circular shape first and "
+                                        "then upload here."))
         self.imageWidget = QLabel(self)
         self.imageWidget.setScaledContents(True)
         self.imageWidget.hide()

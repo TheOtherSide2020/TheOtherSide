@@ -111,7 +111,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         font.setFamily("Futura")
         font.setKerning(False)
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(0, 120, 421, 871))
+        self.listWidget.setGeometry(QtCore.QRect(10, 130, 421, 871))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setKerning(False)
@@ -126,6 +126,14 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.listWidget.setAlternatingRowColors(False)
         self.listWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.listWidget.setTextElideMode(QtCore.Qt.ElideMiddle)
+        self.listWidget.setStyleSheet("QListWidget::item {"
+                                      "border-style: solid;"
+                                      "color: black;"
+                                      "filter: alpha(opacity=20);"
+                                      "}"
+                                      "QListWidget::item:selected {"
+                                      "background-color: rgba(173, 162, 231, 0.5);"
+                                      "}")
         self.listWidget.setMovement(QtWidgets.QListView.Static)
         self.listWidget.setFlow(QtWidgets.QListView.TopToBottom)
         self.listWidget.setGridSize(QtCore.QSize(300, 50))
@@ -142,7 +150,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.commandLinkButton.setGeometry(QtCore.QRect(23, 8, 41, 41))
         self.commandLinkButton.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(resource_path(resource_path("Images/directional-chevron-back-512.ico"))),
+        icon1.addPixmap(QtGui.QPixmap(resource_path(resource_path("Images/back.png"))),
                         QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.commandLinkButton.setIcon(icon1)
         self.commandLinkButton.setIconSize(QtCore.QSize(25, 25))
@@ -180,7 +188,7 @@ class PollingScreen(QtWidgets.QMainWindow):
         self.pushButton_2.setFlat(True)
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_6.setGeometry(QtCore.QRect(1390, 0, 91, 51))
+        self.pushButton_6.setGeometry(QtCore.QRect(1460, 0, 91, 51))
         self.pushButton_6.setText("")
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(resource_path("Images/save.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)

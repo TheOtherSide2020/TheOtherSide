@@ -19,7 +19,8 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
-#class for conversation screen,
+
+# class for conversation screen,
 class ConversationScreen(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         QtWidgets.QMainWindow.__init__(self, parent)
@@ -171,7 +172,7 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.Option4.setFrameShadow(QtWidgets.QFrame.Raised)
         font = QtGui.QFont()
         font.setPointSize(12)
-        font.setFamily("Futura")
+        font.setFamily("futura")
         self.Option4.setFont(font)
         self.Option4.setTabChangesFocus(True)
         self.Option4.setTextInteractionFlags(
@@ -192,9 +193,7 @@ class ConversationScreen(QtWidgets.QMainWindow):
             QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
         self.Option1.setObjectName("textBrowser_5")
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(0, 120, 421, 871))
-        self.listWidget = QtWidgets.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(0, 120, 421, 871))
+        self.listWidget.setGeometry(QtCore.QRect(10, 130, 421, 871))
         font = QtGui.QFont()
         font.setPointSize(16)
         font.setKerning(False)
@@ -212,6 +211,14 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.listWidget.setMovement(QtWidgets.QListView.Static)
         self.listWidget.setFlow(QtWidgets.QListView.TopToBottom)
         self.listWidget.setGridSize(QtCore.QSize(300, 50))
+        self.listWidget.setStyleSheet("QListWidget::item {"
+                                      "border-style: solid;"
+                                      "color: black;"
+                                      "filter: alpha(opacity=20);"
+                                      "}"
+                                      "QListWidget::item:selected {"
+                                      "background-color: rgba(173, 162, 231, 0.5);"
+                                      "}")
         self.listWidget.setSelectionRectVisible(True)
         self.listWidget.setItemAlignment(QtCore.Qt.AlignVCenter)
         self.listWidget.setObjectName("listWidget")
@@ -223,7 +230,7 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.commandLinkButton.setGeometry(QtCore.QRect(23, 8, 41, 41))
         self.commandLinkButton.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(resource_path(resource_path("Images/directional-chevron-back-512.ico"))),
+        icon1.addPixmap(QtGui.QPixmap(resource_path(resource_path("Images/back.png"))),
                         QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.commandLinkButton.setIcon(icon1)
         self.commandLinkButton.setIconSize(QtCore.QSize(25, 25))
@@ -262,7 +269,7 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.pushButton_2.setFlat(True)
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_6.setGeometry(QtCore.QRect(1390, 0, 91, 51))
+        self.pushButton_6.setGeometry(QtCore.QRect(1460, 0, 91, 51))
         self.pushButton_6.setText("")
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(resource_path("Images/save.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -280,7 +287,7 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.EntryName.setFont(font)
         self.EntryName.setAutoFillBackground(False)
         self.EntryName.setStyleSheet("background-color:white\n"
-                                    "")
+                                     "")
         self.EntryName.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.EntryName.setFrameShadow(QtWidgets.QFrame.Raised)
         self.EntryName.setLineWidth(2)
@@ -333,7 +340,7 @@ class ConversationScreen(QtWidgets.QMainWindow):
             # delete confirmation
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText(self.EntryName.toPlainText()+" Deleted")
+            msgBox.setText(self.EntryName.toPlainText() + " Deleted")
             msgBox.setWindowTitle("Success")
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
@@ -377,5 +384,3 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.pushButton_2.clicked.connect(self.deleteItem)
         self.listWidget.itemClicked['QListWidgetItem*'].connect(self.populateTextForEdit)
         self.readFromJsonFile()
-
-

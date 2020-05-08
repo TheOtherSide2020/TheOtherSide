@@ -123,7 +123,7 @@ class Screen2(QtWidgets.QMainWindow):
         self.commandLinkButton.setGeometry(QtCore.QRect(20, 3, 41, 41))
         self.commandLinkButton.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(resource_path('Images/directional-chevron-back-512.ico')), QtGui.QIcon.Normal,
+        icon1.addPixmap(QtGui.QPixmap(resource_path('Images/back.png')), QtGui.QIcon.Normal,
                         QtGui.QIcon.Off)
         self.commandLinkButton.setIcon(icon1)
         self.commandLinkButton.setIconSize(QtCore.QSize(25, 25))
