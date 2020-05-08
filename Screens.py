@@ -39,7 +39,7 @@ def changeShowcaseWindow(w1, w2):
 
 def changeDataCollectionScreen(w1, w2, template):
     w2.canvas.axes.clear()
-    w2.canvas.draw()
+    w2.canvas.flush_events()
     DataCollectionScreen.template = template
     DataCollectionScreen.count = 0
     w2.readFromJsonFile()
