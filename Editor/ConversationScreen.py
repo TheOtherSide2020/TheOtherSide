@@ -66,13 +66,53 @@ class ConversationScreen(QtWidgets.QMainWindow):
                 else:
                     self.saveJson()
                     self.listWidget.addItem(self.EntryName.toPlainText())
-
+            self.Question.setStyleSheet("border: none")
+            self.Option1.setStyleSheet("border:  none")
+            self.Option2.setStyleSheet("border: none")
+            self.Option3.setStyleSheet("border: none")
+            self.Option4.setStyleSheet("border:none")
+            self.EntryName.setStyleSheet("border: none")
 
 
         else:
+            text = "Please fill in the following fields :"
+            if self.Question.toPlainText() == "" and self.Option1.toPlainText() == "" and self.Option2.toPlainText() == "" and self.Option3.toPlainText() == "" and self.Option4.toPlainText() == "" and self.EntryName.toPlainText() == "":
+                text = "Please fill in all the fields"
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setText(text)
+                msgBox.setWindowTitle("Error")
+                msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                self.Question.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                self.Option1.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                self.Option2.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                self.Option3.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                self.Option4.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                self.EntryName.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                x = msgBox.exec_()
+                return
+            if self.Question.toPlainText() == "":
+                text = text + " Question"
+                self.Question.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.Option1.toPlainText() == "":
+                text = text + " Option1"
+                self.Option1.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.Option2.toPlainText() == "":
+                text = text + " Option2"
+                self.Option2.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.Option3.toPlainText() == "":
+                text = text + " Option3"
+                self.Option3.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.Option4.toPlainText() == "":
+                text = text + " Option4"
+                self.Option4.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.EntryName.toPlainText() == "":
+                text = text + "Entry Name"
+                self.EntryName.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText("Fields cannot be left blank")
+            msgBox.setText(text)
             msgBox.setWindowTitle("Error")
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
@@ -348,6 +388,13 @@ class ConversationScreen(QtWidgets.QMainWindow):
 
     def populateTextForEdit(self):
         self.pushButton_2.setEnabled(True)
+        self.Question.setStyleSheet("border: none")
+        self.Option1.setStyleSheet("border:  none")
+        self.Option2.setStyleSheet("border: none")
+        self.Option3.setStyleSheet("border: none")
+        self.Option4.setStyleSheet("border:none")
+        self.EntryName.setStyleSheet("border: none")
+
         text = self.listWidget.currentItem().text()
         self.EntryName.setPlainText(text)
         # find the file corresponding to the entry name

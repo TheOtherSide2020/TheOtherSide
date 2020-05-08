@@ -19,24 +19,23 @@ def resource_path(relative_path):
 
 
 def plot(self, fileName):
-    try:
-        if DataCollectionScreen.count > 0:
-            with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), fileName),
-                      'r') as json_file:
-                data = json.load(json_file)
-                voteCountA = data['voteCounts'][0]
-                voteCountB = data['voteCounts'][1]
-                voteCountC = data['voteCounts'][2]
-                voteCountD = data['voteCounts'][3]
+    if DataCollectionScreen.count > 0:
+        with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), fileName),
+                  'r') as json_file:
+            data = json.load(json_file)
+            voteCountA = data['voteCounts'][0]
+            voteCountB = data['voteCounts'][1]
+            voteCountC = data['voteCounts'][2]
+            voteCountD = data['voteCounts'][3]
 
-            self.axes.bar(voteCountA['option'], voteCountA['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-            self.axes.bar(voteCountB['option'], voteCountB['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-            self.axes.bar(voteCountC['option'], voteCountC['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-            self.axes.bar(voteCountD['option'], voteCountD['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-            self.draw()
+        self.axes.bar(voteCountA['option'], voteCountA['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+        self.axes.bar(voteCountB['option'], voteCountB['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+        self.axes.bar(voteCountC['option'], voteCountC['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+        self.axes.bar(voteCountD['option'], voteCountD['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+        self.draw()
 
-        else:
-            self.axes.clear
+    else:
+        try:
             for filename in os.listdir(resource_path('ResultData/' + DataCollectionScreen.template)):
                 with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), filename),
                           'r') as json_file:
@@ -51,8 +50,9 @@ def plot(self, fileName):
                 self.axes.bar(voteCountC['option'], voteCountC['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
                 self.axes.bar(voteCountD['option'], voteCountD['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
                 self.draw()
-    except StopIteration:
-        pass
+
+        except StopIteration:
+            pass
 
 
 def plotUpdate(self, fileName):

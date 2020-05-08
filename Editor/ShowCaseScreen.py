@@ -153,8 +153,12 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                                       "filter: alpha(opacity=20);"
                                       "}"
                                       "QListWidget::item:selected {"
-                                      "background-color: rgba(173, 162, 231, 0.5);"                                      
-                                      "}")
+                                      "background-color: rgba(173, 162, 231, 0.5);"
+                                      "}"
+                                      "QListWidget::disabled {"
+                                      "background-color: white;"
+                                      "}"
+                                      )
         self.listWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContentsOnFirstShow)
         self.listWidget.setProperty("showDropIndicator", False)
         self.listWidget.setDragEnabled(False)
@@ -194,8 +198,6 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.CreateNewContent.sizePolicy().hasHeightForWidth())
         self.CreateNewContent.setSizePolicy(sizePolicy)
-        self.CreateNewContent.setStyleSheet("border: 2px solid none\n"
-                                            "; border-radius:15px;")
         self.CreateNewContent.setText("")
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(resource_path("Images/Create.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -321,46 +323,52 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def readFromJsonFile(self):
-        for filename in os.listdir(resource_path('TemplateJsonInstance/ShowcaseInstance/')):
-            with open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'), filename),
-                      'r') as json_file:
-                data = json.load(json_file)
-                self.listWidget.addItem(data['name'])
-
-        # checks if this media file exists or not
-
     def checkIfMediaFilesExist(self, data):
 
-        try:
-            f = open(data['picturePath'])
-            # Do something with the file
-        except IOError:
-            msgBox = QMessageBox()
-            msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText(
-                "Path for the image file is invalid, Please upload an image file for using the Showcase template")
-            msgBox.setWindowTitle("Error")
-            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            x = msgBox.exec_()
-            icon4 = QtGui.QIcon()
-            icon4.addPixmap(QtGui.QPixmap(resource_path("Images/Upload.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-            self.Upload.setIcon(icon4)
-            return False
-
-        if data['videoPath'] != '':
             try:
-                f = open(data['videoPath'])
+                f = open(data['picturePath'])
                 # Do something with the file
             except IOError:
                 msgBox = QMessageBox()
                 msgBox.setIcon(QMessageBox.Information)
                 msgBox.setText(
-                    "The path given for video file is invalid. Please check is present in the current location.")
+                    "Path for the image file is invalid for entry :" + data[
+                        'name'] + ".json" + "Please upload an image file for "
+                                            "using the Showcase template")
                 msgBox.setWindowTitle("Error")
                 msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                 x = msgBox.exec_()
-        return True
+                icon4 = QtGui.QIcon()
+                icon4.addPixmap(QtGui.QPixmap(resource_path("Images/Upload.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+                self.Upload.setIcon(icon4)
+                return False
+
+            if data['videoPath'] != '':
+                try:
+                    f = open(data['videoPath'])
+                    # Do something with the file
+                except IOError:
+                    msgBox = QMessageBox()
+                    msgBox.setIcon(QMessageBox.Information)
+                    msgBox.setText(
+                        "The path given for video file is invalid in json file :" + data[
+                            'name'] + ".json" + " Please check is present in the current location.")
+                    msgBox.setWindowTitle("Error")
+                    msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                    x = msgBox.exec_()
+                    return False
+
+            return True
+
+    def readFromJsonFile(self):
+        for filename in os.listdir(resource_path('TemplateJsonInstance/ShowcaseInstance/')):
+            with open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'), filename),
+                      'r') as json_file:
+                data = json.load(json_file)
+                if self.checkIfMediaFilesExist(data):
+                    self.listWidget.addItem(data['name'])
+
+        # checks if this media file exists or not
 
         # append the field to the json file
         # append this entry to content list
@@ -371,7 +379,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         if self.label_3.text() != "" and self.Question.toPlainText() != "" and self.Option1.toPlainText() != "" and self.Option2.toPlainText() != "" and self.Option3.toPlainText() != "" and self.Option4.toPlainText() != "" and self.EntryName.toPlainText() != "":
 
             if self.listWidget.count() == 0:
-                ts= time.time()
+                ts = time.time()
                 ShowCaseSystemRecord = {
 
                     "name": self.EntryName.toPlainText(),
@@ -401,15 +409,24 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                     msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                     x = msgBox.exec_()
                 else:
-                    file = open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
-                                             self.EntryName.toPlainText() + ".json"),
-                                'w')
-                    with file as json_file:
-                        json.dump(ShowCaseSystemRecord, json_file)
-                        self.listWidget.addItem(self.EntryName.toPlainText())
+                    try:
+                        file = open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
+                                                 self.EntryName.toPlainText() + ".json"),
+                                    'w')
+                        with file as json_file:
+                            json.dump(ShowCaseSystemRecord, json_file)
+                            self.listWidget.addItem(self.EntryName.toPlainText())
+                            msgBox = QMessageBox()
+                            msgBox.setIcon(QMessageBox.Information)
+                            msgBox.setText(self.EntryName.toPlainText() + "saved!")
+                            msgBox.setWindowTitle("Error")
+                            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                            x = msgBox.exec_()
+
+                    except FileNotFoundError:
                         msgBox = QMessageBox()
                         msgBox.setIcon(QMessageBox.Information)
-                        msgBox.setText(self.EntryName.toPlainText() + "saved!")
+                        msgBox.setText("Invalid Image Path")
                         msgBox.setWindowTitle("Error")
                         msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
                         x = msgBox.exec_()
@@ -434,16 +451,60 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                 else:
                     self.SavetoJson()
                     self.listWidget.addItem(self.EntryName.toPlainText())
+            self.Question.setStyleSheet("border: none")
+            self.Option1.setStyleSheet("border:  none")
+            self.Option2.setStyleSheet("border: none")
+            self.Option3.setStyleSheet("border: none")
+            self.Option4.setStyleSheet("border:none")
+            self.EntryName.setStyleSheet("border: none")
         else:
+            text = "Please fill in the following fields :"
+            if self.Question.toPlainText() == "" and self.Option1.toPlainText() == "" and self.Option2.toPlainText() == "" and self.Option3.toPlainText() == "" and self.Option4.toPlainText() == "" and self.EntryName.toPlainText() == "":
+                text = "Please fill in all the fields"
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setText(text)
+                msgBox.setWindowTitle("Error")
+                msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+                self.Question.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                self.Option1.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                self.Option2.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                self.Option3.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                self.Option4.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                self.EntryName.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+                x = msgBox.exec_()
+                return
+            if self.Question.toPlainText() == "":
+                text = text + " Question"
+                self.Question.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.Option1.toPlainText() == "":
+                text = text + " Option1"
+                self.Option1.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.Option2.toPlainText() == "":
+                text = text + " Option2"
+                self.Option2.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.Option3.toPlainText() == "":
+                text = text + " Option3"
+                self.Option3.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.Option4.toPlainText() == "":
+                text = text + " Option4"
+                self.Option4.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.EntryName.toPlainText() == "":
+                text = text + "Entry Name"
+                self.EntryName.setStyleSheet("border: 1px solid rgb(173, 162, 231)")
+            if self.ImageFileName == "":
+                text = text + "Image"
+                self.Upload.setStyleSheet("border: 1px solid green")
+
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Information)
-            msgBox.setText("Fields cannot be left blank")
+            msgBox.setText(text)
             msgBox.setWindowTitle("Error")
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
+            return
 
     def checkDuplicateEntry(self):
-        print('yes')
         if self.Question.textChanged():
             return True
         else:
@@ -485,6 +546,7 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
             msgBox.setWindowTitle("Error")
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             x = msgBox.exec_()
+            return
         else:
             if self.checkDuplicateEntry:
                 file = open(os.path.join(resource_path('TemplateJsonInstance/ShowcaseInstance/'),
@@ -571,6 +633,12 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(resource_path("Images/View.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Upload.setIcon(icon4)
+        self.Question.setStyleSheet("border: none")
+        self.Option1.setStyleSheet("border:  none")
+        self.Option2.setStyleSheet("border: none")
+        self.Option3.setStyleSheet("border: none")
+        self.Option4.setStyleSheet("border:none")
+        self.EntryName.setStyleSheet("border: none")
         text = self.listWidget.currentItem().text()
         self.Question.setPlainText(text)
         self.Delete.setEnabled(True)
@@ -595,8 +663,10 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
                         ShowCaseScreen.doubleClicked = 1
                         uploadScreen = UploadScreen()
                         uploadScreen.loadImage(ShowCaseScreen.ImageFileName)
-                        if ShowCaseScreen.VideoFileName != '':
+                        if ShowCaseScreen.VideoFileName != "":
                             uploadScreen.loadVideo(ShowCaseScreen.VideoFileName)
+                        else:
+                            uploadScreen.clearVideo()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
