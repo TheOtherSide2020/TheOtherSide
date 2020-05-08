@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import sys
+import time
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
@@ -77,12 +78,13 @@ class ConversationScreen(QtWidgets.QMainWindow):
             x = msgBox.exec_()
 
     def saveJson(self):
+        ts = time.time()
         PollingSystemRecord = {
             "name": self.EntryName.toPlainText(),
             "type": "text",
             "question": self.Question.toPlainText(),
-            "createdOn": datetime.datetime.now().timestamp(),
-            "lastUpdated": datetime.datetime.now().timestamp(),
+            "createdOn": datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
+            "lastUpdated": datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
             "options": [
                 self.Option1.toPlainText(),
                 self.Option2.toPlainText(),
@@ -212,7 +214,6 @@ class ConversationScreen(QtWidgets.QMainWindow):
         self.listWidget.setFlow(QtWidgets.QListView.TopToBottom)
         self.listWidget.setGridSize(QtCore.QSize(300, 50))
         self.listWidget.setStyleSheet("QListWidget::item {"
-                                      "border-style: solid;"
                                       "color: black;"
                                       "filter: alpha(opacity=20);"
                                       "}"

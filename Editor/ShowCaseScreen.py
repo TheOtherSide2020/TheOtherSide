@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import sys
+import time
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt, QUrl
@@ -148,7 +149,6 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         self.listWidget.setFrameShadow(QtWidgets.QFrame.Plain)
         self.listWidget.setLineWidth(0)
         self.listWidget.setStyleSheet("QListWidget::item {"
-                                      "border-style: solid;"
                                       "color: black;"
                                       "filter: alpha(opacity=20);"
                                       "}"
@@ -371,12 +371,13 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
         if self.label_3.text() != "" and self.Question.toPlainText() != "" and self.Option1.toPlainText() != "" and self.Option2.toPlainText() != "" and self.Option3.toPlainText() != "" and self.Option4.toPlainText() != "" and self.EntryName.toPlainText() != "":
 
             if self.listWidget.count() == 0:
+                ts= time.time()
                 ShowCaseSystemRecord = {
 
                     "name": self.EntryName.toPlainText(),
                     "type": "showCase",
-                    "createdOn": datetime.datetime.now().timestamp(),
-                    "lastUpdated": datetime.datetime.now().timestamp(),
+                    "createdOn": datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
+                    "lastUpdated": datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
                     "question": self.Question.toPlainText(),
                     "videoPath": UploadScreen.VideoFileName,
                     "picturePath": UploadScreen.ImageFileName,
@@ -456,13 +457,14 @@ class ShowCaseScreen(QtWidgets.QMainWindow):
             return False
 
     def SavetoJson(self):
+        ts = time.time()
         ShowCaseSystemRecord = {
 
             "name": self.EntryName.toPlainText(),
             "type": "showCase",
             "question": self.Question.toPlainText(),
-            "createdOn": datetime.datetime.now().timestamp(),
-            "lastUpdated": datetime.datetime.now().timestamp(),
+            "createdOn": datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
+            "lastUpdated": datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
             "videoPath": UploadScreen.VideoFileName,
             "picturePath": UploadScreen.ImageFileName,
             "displayText": self.label_3.text(),

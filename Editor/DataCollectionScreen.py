@@ -2,12 +2,9 @@ import json
 import os
 # class for pollingScreen UI
 import sys
-import PIL
-import tkinter
-from tkinter import filedialog
-import matplotlib
 import matplotlib.pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 
@@ -22,23 +19,9 @@ def resource_path(relative_path):
 
 
 def plot(self, fileName):
-    if DataCollectionScreen.count > 0:
-        with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), fileName),
-                  'r') as json_file:
-            data = json.load(json_file)
-            voteCountA = data['voteCounts'][0]
-            voteCountB = data['voteCounts'][1]
-            voteCountC = data['voteCounts'][2]
-            voteCountD = data['voteCounts'][3]
-
-        self.axes.bar(voteCountA['option'], voteCountA['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-        self.axes.bar(voteCountB['option'], voteCountB['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-        self.axes.bar(voteCountC['option'], voteCountC['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-        self.axes.bar(voteCountD['option'], voteCountD['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
-        self.draw()
-    else:
-        for filename in os.listdir(resource_path('ResultData/' + DataCollectionScreen.template)):
-            with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), filename),
+    try:
+        if DataCollectionScreen.count > 0:
+            with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), fileName),
                       'r') as json_file:
                 data = json.load(json_file)
                 voteCountA = data['voteCounts'][0]
@@ -51,6 +34,25 @@ def plot(self, fileName):
             self.axes.bar(voteCountC['option'], voteCountC['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
             self.axes.bar(voteCountD['option'], voteCountD['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
             self.draw()
+
+        else:
+            self.axes.clear
+            for filename in os.listdir(resource_path('ResultData/' + DataCollectionScreen.template)):
+                with open(os.path.join(resource_path('ResultData/' + DataCollectionScreen.template), filename),
+                          'r') as json_file:
+                    data = json.load(json_file)
+                    voteCountA = data['voteCounts'][0]
+                    voteCountB = data['voteCounts'][1]
+                    voteCountC = data['voteCounts'][2]
+                    voteCountD = data['voteCounts'][3]
+
+                self.axes.bar(voteCountA['option'], voteCountA['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+                self.axes.bar(voteCountB['option'], voteCountB['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+                self.axes.bar(voteCountC['option'], voteCountC['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+                self.axes.bar(voteCountD['option'], voteCountD['voteCount'], color=(0.2, 0.4, 0.6, 0.6))
+                self.draw()
+    except StopIteration:
+        pass
 
 
 def plotUpdate(self, fileName):
@@ -136,7 +138,6 @@ class DataCollectionScreen(QtWidgets.QMainWindow):
         self.listWidget.setFrameShadow(QtWidgets.QFrame.Plain)
         self.listWidget.setLineWidth(0)
         self.listWidget.setStyleSheet("QListWidget::item {"
-                                      "border-style: solid;"
                                       "color: black;"
                                       "filter: alpha(opacity=20);"
                                       "}"
