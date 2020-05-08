@@ -1,26 +1,15 @@
 # Main Class for Backend Editor
 # Has Instances of PollingScreen, Data Collection Screen, ShowCase Screen and Text Screen
 # Ruchi_Hendre@2020
-import os
-import sys
 
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPainter, QBrush, QPen, QFont
-from PyQt5.QtWidgets import QMessageBox
-
-import json
 import os
 # class for pollingScreen UI
 import sys
-import PIL
-import tkinter
 
-from tkinter import filedialog
-import matplotlib
-import matplotlib.pyplot as plt
-from PyQt5 import QtCore, QtGui, QtWidgets
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPainter, QBrush, QPen
+from PyQt5.QtWidgets import QMessageBox
 
 from Editor.ConversationScreen import ConversationScreen
 from Editor.DataCollectionScreen import DataCollectionScreen
@@ -43,6 +32,7 @@ def changeShowcaseWindow(w1, w2):
     w2.Save.setEnabled(True)
     w2.Delete.setEnabled(True)
     w2.Upload.setEnabled(True)
+    w2.label_3.setText(str( str(UploadScreen.Video) + "  " + str(UploadScreen.Image) + "  uploaded"))
     w2.CreateNewContent.setEnabled(True)
     w2.show()
 
@@ -59,38 +49,34 @@ def changeDataCollectionScreen(w1, w2, template):
 
 def showWindow(w1, w2):
     w2.listWidget.setEnabled(False)
-    w2.Save.setEnabled(False)
-    w2.Delete.setEnabled(False)
-    w2.Upload.setEnabled(False)
-    w2.CreateNewContent.setEnabled(False)
+    w2.Save.setDisabled(True)
+    w2.Delete.setDisabled(True)
+    w2.Upload.setDisabled(True)
+    w2.CreateNewContent.setDisabled(True)
     w1.setParent(w2)
 
     # handle the image logic for the showcase template
-    # if UploadScreen.ImageFileName != ' ':
-    # w1.loadImage(UploadScreen.ImageFileName)
-
-    # elif UploadScreen.ImageFileName == '' and w2.doubleClicked == 0:
-    # w1.clearImage()
-
     if UploadScreen.ImageFileName == '' and ShowCaseScreen.ImageFileName == '':
         w1.clearImage()
     elif UploadScreen.ImageFileName == ' ' and ShowCaseScreen.ImageFileName != ' ':
+        w1.loadImage(ShowCaseScreen.ImageFileName)
+    elif UploadScreen.ImageFileName != ' ' and ShowCaseScreen.ImageFileName != ' ' and UploadScreen.ImageFileName != ShowCaseScreen.ImageFileName:
         w1.loadImage(UploadScreen.ImageFileName)
-    elif UploadScreen.ImageFileName != ' ' and ShowCaseScreen.ImageFileName != ' ':
+    elif UploadScreen.ImageFileName != ' ' and ShowCaseScreen.ImageFileName != ' ' and UploadScreen.ImageFileName == ShowCaseScreen.ImageFileName:
+        w1.loadImage(ShowCaseScreen.ImageFileName)
+    elif UploadScreen.ImageFileName != ' ' and ShowCaseScreen.ImageFileName == ' ':
         w1.loadImage(UploadScreen.ImageFileName)
 
     # handles the video logic for the showcase template
-    # if UploadScreen.VideoFileName != '':
-    #  w1.loadVideo(UploadScreen.VideoFileName)
-
-    # elif UploadScreen.VideoFileName == '' and w2.doubleClicked == 0:
-    # w1.clearVideo()
-
-    if UploadScreen.VideoFileName == ' ' and ShowCaseScreen.VideoFileName == '':
+    if UploadScreen.VideoFileName == '' and ShowCaseScreen.VideoFileName == '':
         w1.clearVideo()
-    elif UploadScreen.VideoFileName == ' ' and ShowCaseScreen.VideoFileName != ' ':
+    elif UploadScreen.VideoFileName != '' and ShowCaseScreen.VideoFileName != '':
+        w1.loadVideo(ShowCaseScreen.VideoFileName)
+    elif UploadScreen.VideoFileName != ' ' and ShowCaseScreen.VideoFileName != ' ' and UploadScreen.VideoFileName != ShowCaseScreen.VideoFileName:
         w1.loadVideo(UploadScreen.VideoFileName)
-    elif UploadScreen.VideoFileName != ' ' and ShowCaseScreen.VideoFileName != ' ':
+    elif UploadScreen.VideoFileName != ' ' and ShowCaseScreen.VideoFileName != ' ' and UploadScreen.VideoFileName == ShowCaseScreen.VideoFileName:
+        w1.loadVideo(ShowCaseScreen.VideoFileName)
+    elif UploadScreen.VideoFileName != ' ' and ShowCaseScreen.VideoFileName == ' ':
         w1.loadVideo(UploadScreen.VideoFileName)
 
     w1.move(260, 140)
@@ -128,16 +114,6 @@ def labelText(self, MainWindow, value):
         self.show()
 
 
-def paintEvent(self, event):
-    painter = QPainter(self)
-
-    painter.setPen(QPen(Qt.green, 5, Qt.SolidLine))
-
-    painter.setBrush(QBrush(Qt.green, Qt.SolidPattern))
-
-    painter.drawEllipse(40, 40, 400, 200)
-
-
 def main():
     # function logic
     path = os.path.dirname(sys.argv[0])
@@ -152,6 +128,10 @@ def main():
                       "QTextEdit { font: futura;}"
                       "QListWidget { font: futura;}"
                       "QPushButton { background-color: none; font: futura; display:block;}"
+                      "QPushButton:disabled {"
+                      "opacity: 0.5;"
+                      
+                      "}"
                       )
     screen1 = Screen1()
     screen1.show()
