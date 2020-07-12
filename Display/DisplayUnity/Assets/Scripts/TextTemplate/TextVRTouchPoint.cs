@@ -14,6 +14,7 @@ public class TextVRTouchPoint : VRTouchPoint
     // Update is called once per frame
     protected override void Update()
     {
+        // update touch point progress per frame if touching
         if (isTouching)
         {
             tp.IncreaseProgress(Time.deltaTime / TextTemplateTouchPointController.Instance.loadingTime);

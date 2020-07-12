@@ -20,6 +20,7 @@ public class VRTouchPoint : MonoBehaviour
         //}
     }
 
+    // Called by 2D Mouse Click
     public void OnPointerDown() {
         if (!isTouching) {
             isTouching = true;
@@ -31,6 +32,7 @@ public class VRTouchPoint : MonoBehaviour
         isTouching = false;
     }
 
+    // Called by VR hand touch
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Hand")) {
