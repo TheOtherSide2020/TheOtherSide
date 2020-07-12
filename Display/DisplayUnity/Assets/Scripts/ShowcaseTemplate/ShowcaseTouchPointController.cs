@@ -29,6 +29,7 @@ public class ShowcaseTouchPointController : MonoBehaviour
         touchPoints = GetComponentsInChildren<ShowcaseTouchPoint>();
         LoadOptionText();
         SetWater();
+        InitializePhidgetsInputCallback();
     }
     private void SetWater()
     {
@@ -149,6 +150,26 @@ public class ShowcaseTouchPointController : MonoBehaviour
         // touch finished on touch point, scroll main bubble with answer
         // change state
         ShowcaseTemplateController.Instance.SetTemplateState(TemplateMainController.TemplateState.Reacting);
+    }
+
+    // Phidgets sensor input
+    void InitializePhidgetsInputCallback() {
+        if (PhidgetsInputManager.Instance) {
+            PhidgetsInputManager.Instance.OnIncreseProgressCallback =
+                new PhidgetsInputManager.OnIncreaseProgress(IncreaseTouchpointProgrss);
+            PhidgetsInputManager.Instance.OnStopProgressCallback =
+                new PhidgetsInputManager.OnStopProgress(StopTouchpointProgrss);
+
+        }
+    }
+
+    public void IncreaseTouchpointProgrss(int idx) {
+        touchPoints[idx].IncreaseProgress(Time.deltaTime / loadingTime);
+    }
+
+    public void StopTouchpointProgrss(int idx)
+    {
+        touchPoints[idx].StopProgress();
     }
 }
 

@@ -20,15 +20,15 @@ public class Settings : MonoBehaviour
     [SerializeField] SavedSettings loadedSettings, currentSettings;
 
     Dictionary<string, Vector3> offsetMap = new Dictionary<string, Vector3>() {
-        { "x", new Vector3(1, 0, 0)},
-        { "y", new Vector3(0, 1, 0)},
-        { "z", new Vector3(0, 0, 1)}
+        { "x", new Vector3(1f, 0, 0)},
+        { "y", new Vector3(0, 1f, 0)},
+        { "z", new Vector3(0, 0, 1f)}
     };
 
     [Serializable]
     class Offset {
         public float X;
-        public float Y;
+        public float Y;               
         public float Z;
     }
 
@@ -84,6 +84,7 @@ public class Settings : MonoBehaviour
     private void Start()
     {
         LoadSettings();
+        SetPortSettings();
         SetPanelStatus(false);
     }
 
@@ -103,7 +104,18 @@ public class Settings : MonoBehaviour
         settingsPanel.SetActive(isActive);
     }
 
+    void SetPortSettings() {
+        if (PhidgetsInputManager.Instance)
+        {
+            PhidgetsInputManager.Instance.SetSensorPorts(
+                currentSettings.numberOfSensors,
+                currentSettings.ports);
+        }
+    }
+
     public void SaveSettings() {
+        // set sensor ports
+        SetPortSettings();
         // copy current settings to loaded
         string json = JsonUtility.ToJson(currentSettings);
         loadedSettings = JsonUtility.FromJson<SavedSettings>(json);
@@ -115,10 +127,11 @@ public class Settings : MonoBehaviour
         File.WriteAllText(path, json);
     }
 
+    // Called when the cancel button is clicked
     public void CancelSettings() {
-        // reset back to loaded settings
-        //projectorCamera.position -= offsetChange;
+        // reset back to previous saved settings
         LoadSettings();
+        // reset camera position to the saved one
         projectorCamera.position = originalCameraPos + new Vector3(
             loadedSettings.projectorOffset.X,
             loadedSettings.projectorOffset.Y,
@@ -128,6 +141,7 @@ public class Settings : MonoBehaviour
     public void LoadSettings() {
         // set threshold
         lightThreshold.SetTextWithoutNotify(loadedSettings.sensibilityThreshold.ToString()) ;
+        OnChangeLightThreshold();
 
         // set sensor ports
         numberSensorsDropdown.value = loadedSettings.numberOfSensors - 1;
@@ -148,12 +162,27 @@ public class Settings : MonoBehaviour
 
     public void OnChangeLightThreshold() {
         currentSettings.sensibilityThreshold = float.Parse(lightThreshold.text);
-        // change in input manager
+        // change in phidgets input manager
+        if (PhidgetsInputManager.Instance) {
+            PhidgetsInputManager.Instance.SetSensorThreshold(currentSettings.sensibilityThreshold);
+        }
     }
 
     public void OnChangeNumberOfSensors()
     {
         int newNum = numberSensorsDropdown.value + 1;
+        // set new ports
+        int[] newPorts = new int[newNum];
+        for (int i = 0; i < newNum; ++i) {
+            if (i < currentSettings.ports.Length)
+            {
+                newPorts[i] = currentSettings.ports[i];
+            }
+            else {
+                newPorts[i] = i;
+            }
+        }
+        currentSettings.ports = newPorts;
         currentSettings.numberOfSensors = newNum;
         for (int i = 1; i <= loadedSettings.maxNumberOfSensors; ++i)
         {
@@ -164,9 +193,7 @@ public class Settings : MonoBehaviour
 
     public void OnChangePort(int id) {
         // port switch
-        /// FIXME: resize
         currentSettings.ports[id] = portDropdowns[id].value;
-        // change in input manager
     }
 
     public void InitilizeProjectorOffsetDisplay()

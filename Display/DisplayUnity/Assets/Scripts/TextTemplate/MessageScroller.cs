@@ -45,6 +45,7 @@ public class MessageScroller : MonoBehaviour
     private void Update()
     {
         if (testScroll) {
+            UpdateText(testScrollStep, 0);
             ScrollUp(testScrollStep);
         }
     }
@@ -61,17 +62,20 @@ public class MessageScroller : MonoBehaviour
         {
             case "Question":
                 newText = TextTemplateJsonLoader.Instance.GetQuestion();
+                question.SetActive(true);
                 question.GetComponent<MainBubbleSingleMessage>().SetText(newText);
                 question.GetComponent<ContainerSizeUpdater>().UpdateSize();
                 break;
             case "Answer":
                 // update answer text
                 newText = TextTemplateJsonLoader.Instance.GetOption(idx);
+                answer.SetActive(true);
                 answer.GetComponent<MainBubbleSingleMessage>().SetText(newText);
                 answer.GetComponent<ContainerSizeUpdater>().UpdateSize();
                 break;
             case "Result":
                 newText = String.Format(resultText, ResultLoader.Instance.GetOptionCount(idx));
+                result.SetActive(true);
                 result.GetComponent<MainBubbleSingleMessage>().SetText(newText);
                 result.GetComponent<ContainerSizeUpdater>().UpdateSize();
                 break;
@@ -137,6 +141,8 @@ public class MessageScroller : MonoBehaviour
         DisplayMsg[0] = DisplayMsg[1];
         DisplayMsg[1] = DisplayMsg[2];
         DisplayMsg[2] = null;
+
+        yield return new WaitForEndOfFrame();
     }
 
     public void StartTyping() {

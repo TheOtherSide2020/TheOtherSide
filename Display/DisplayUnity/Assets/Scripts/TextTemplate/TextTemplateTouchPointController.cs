@@ -26,6 +26,7 @@ public class TextTemplateTouchPointController : MonoBehaviour
         touchPoints = GetComponentsInChildren<TextTemplateTouchPoint>();
         rippleEffects = GetComponentsInChildren<ParticleSystem>();
         LoadOptionText();
+        InitializePhidgetsInputCallback();
     }
 
     public void LoadOptionText()
@@ -139,5 +140,27 @@ public class TextTemplateTouchPointController : MonoBehaviour
     public void ResetCheckMark(int id)
     {
         touchPoints[id].ResetCheckMark();
+    }
+
+    // Phidgets sensor input
+    void InitializePhidgetsInputCallback()
+    {
+        if (PhidgetsInputManager.Instance)
+        {
+            PhidgetsInputManager.Instance.OnIncreseProgressCallback =
+                new PhidgetsInputManager.OnIncreaseProgress(IncreaseTouchpointProgrss);
+            PhidgetsInputManager.Instance.OnStopProgressCallback =
+                new PhidgetsInputManager.OnStopProgress(StopTouchpointProgrss);
+        }
+    }
+
+    public void IncreaseTouchpointProgrss(int idx)
+    {
+        touchPoints[idx].IncreaseProgress(Time.deltaTime / loadingTime);
+    }
+
+    public void StopTouchpointProgrss(int idx)
+    {
+        touchPoints[idx].StopProgress();
     }
 }
